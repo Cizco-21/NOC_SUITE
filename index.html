@@ -74,8 +74,8 @@
 .editable-item{display:flex;align-items:center;gap:4px;}
 .editable-item input{flex:1;border:1px solid #e0e0e0;border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;}
 .editable-item input:focus{border-color:#3f51b5;}
-.editable-item .del-item{background:transparent;border:none;cursor:pointer;color:#ccc;font-size:13px;padding:2px;}
-.editable-item .del-item:hover{color:#c62828;}
+.editable-item .del-item{ border:none; background:#d32f2f; color:#fff; width:28px; height:28px; border-radius:4px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.editable-item .del-item:hover{ background:#b71c1c; }
 .add-item-row{display:flex;gap:4px;margin-top:3px;}
 .add-item-row input{flex:1;border:1px solid #ddd;border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:#fafafa;}
 .add-item-row input:focus{border-color:#3f51b5;background:#fff;}
@@ -89,6 +89,7 @@
 .tpl-chip{padding:3px 9px;border-radius:2px;border:1px solid #c5cae9;font-size:11px;cursor:pointer;background:#e8eaf6;color:#3f51b5;font-family:Arial,sans-serif;transition:background 0.1s;}
 .tpl-chip:hover{background:#c5cae9;}
 .comment-wrap{position:relative;}
+#autocomplete-box{ position:absolute; left:0; right:0; bottom:-4px; transform:translateY(100%); background:#fff; border:1px solid #d0d0d0; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,.12); max-height:180px; overflow:auto; z-index:9999; display:none; } .autocomplete-item{ padding:8px 10px; font-size:12px; cursor:pointer; border-bottom:1px solid #eee; } .autocomplete-item:last-child{ border-bottom:none; } .autocomplete-item:hover{ background:#f5f5f5; }
 .comment-wrap textarea{width:100%;border:1px solid #bbb;border-radius:3px;padding:6px 34px 6px 8px;font-size:13px;font-family:Arial,sans-serif;background:#fff;outline:none;resize:vertical;min-height:60px;}
 .comment-wrap textarea:focus{border-color:#3f51b5;}
 .btn-send{position:absolute;right:6px;bottom:6px;background:#e65100;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;}
@@ -139,6 +140,7 @@
 .cb{accent-color:#3f51b5;margin-right:3px;cursor:pointer;}
 .section-toggle{background:transparent;border:none;cursor:pointer;color:#3f51b5;font-size:11px;font-family:Arial,sans-serif;padding:0;display:flex;align-items:center;gap:3px;}
 .section-toggle:hover{text-decoration:underline;}
+#autocomplete-box{ position:absolute; background:#fff; border:1px solid #ccc; border-radius:6px; width:320px; max-height:180px; overflow:auto; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,.12); display:none; } .autocomplete-item{ padding:8px 10px; cursor:pointer; font-size:13px; } .autocomplete-item:hover{ background:#f5f5f5; }
 </style>
 
 <div class="app">
@@ -269,6 +271,7 @@
       <span class="field-label">Comentario</span>
       <div class="comment-wrap">
         <textarea id="tk-comment" placeholder="Descripción de la acción o actualización..."></textarea>
+		<div id="autocomplete-box"></div>
         <button class="btn-send" onclick="addEntry()" title="Ctrl+Enter" aria-label="Enviar">
           <i class="ti ti-arrow-up" aria-hidden="true"></i>
         </button>
@@ -294,6 +297,7 @@
     </div>
 
     <div class="hist-title">Histórico <span class="hist-count" id="hist-count"></span></div>
+	<div style="margin-bottom:8px;"> <input type="text" id="hist-search" placeholder="Buscar dentro del histórico..." style=" width:100%; border:1px solid #bbb; border-radius:3px; padding:6px 8px; font-size:12px; font-family:Arial,sans-serif; outline:none; background:#fff; " oninput="renderTimeline()" > </div>
     <div class="timeline" id="tk-timeline"></div>
   </div>
 </div>
@@ -433,6 +437,8 @@ function exportSelected(){
 }
 
 function dl(text,name){const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+
+function useTemplate(text){ const vars=[...text.matchAll(/\{(.*?)\}/g)]; if(vars.length){ vars.forEach(v=>{ const key=v[1]; const val=prompt('Ingrese '+key+':'); text=text.replace(v[0],val||''); }); } const ta=document.getElementById('tk-comment'); ta.value=ta.value ? ta.value+'\n'+text : text; ta.focus(); hideAutocomplete(); }
 
 function addEntry(){
   if(!activeId)return;
@@ -819,37 +825,9 @@ function cerrarTurno(){
   closeTurnoModal();
 }
 
-function renderTimeline(){
-  if(!activeId||!data.tickets[activeId])return;
-  const entries=[...data.tickets[activeId].entries].sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time));
-  document.getElementById('hist-count').textContent=entries.length?'('+entries.length+' '+(entries.length===1?'registro':'registros')+')':'';
-  const el=document.getElementById('tk-timeline');
-  if(!entries.length){el.innerHTML='<div class="empty-state">Sin comentarios aún para este ticket.</div>';return;}
-  const stMap={};data.statuses.forEach(s=>stMap[s.label]=s);
-  el.innerHTML=entries.map((e,i)=>{
-    const st=stMap[e.status]||{};
-    const leftColor=st.sel_bg||STATUS_LEFT[e.status]||'#9fa8da';
-    const pillStyle=st.bg?`background:${st.bg};color:${st.color};border:1px solid ${st.color+'44'};`:'';
-    return`<div class="tl-entry">
-      <div class="tl-dot"></div>
-      <div class="tl-card" style="border-left-color:${leftColor};">
-        <div class="tl-inner">
-          <div class="tl-meta">
-            <i class="ti ti-calendar" style="font-size:11px;" aria-hidden="true"></i><b>${fmtDate(e.date)}</b>
-            <span class="tl-sep">|</span>
-            <i class="ti ti-clock" style="font-size:11px;" aria-hidden="true"></i><b>${e.time}</b>
-            ${e.status?`<span class="tl-spill" style="${pillStyle}">${e.status}</span>`:''}
-            ${i===0?'<span class="tl-new">RECIENTE</span>':''}
-            <button class="tl-del" onclick="deleteEntry(${e.id})" aria-label="Eliminar"><i class="ti ti-trash" aria-hidden="true"></i></button>
-          </div>
-          <div class="tl-comment">${e.comment.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
+function renderTimeline(){ if(!activeId||!data.tickets[activeId])return; const q=(document.getElementById('hist-search')?.value||'') .trim() .toLowerCase(); let entries=[...data.tickets[activeId].entries] .sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time)); if(q){ entries=entries.filter(e=> (e.comment||'').toLowerCase().includes(q) || (e.status||'').toLowerCase().includes(q) || (e.date||'').includes(q) || (e.time||'').includes(q) ); } document.getElementById('hist-count').textContent= entries.length ? '('+entries.length+' '+(entries.length===1?'registro':'registros')+')' : ''; const el=document.getElementById('tk-timeline'); if(!entries.length){ el.innerHTML='<div class="empty-state">Sin resultados en el histórico.</div>'; return; } const stMap={}; data.statuses.forEach(s=>stMap[s.label]=s); el.innerHTML=entries.map((e,i)=>{ const st=stMap[e.status]||{}; const leftColor=st.sel_bg||STATUS_LEFT[e.status]||'#9fa8da'; const pillStyle=st.bg ? `background:${st.bg};color:${st.color};border:1px solid ${st.color+'44'};` : ''; return` <div class="tl-entry"> <div class="tl-dot"></div> <div class="tl-card" style="border-left-color:${leftColor};"> <div class="tl-inner"> <div class="tl-meta"> <i class="ti ti-calendar" style="font-size:11px;"></i> <b>${fmtDate(e.date)}</b> <span class="tl-sep">|</span> <i class="ti ti-clock" style="font-size:11px;"></i> <b>${e.time}</b> ${e.status ? `<span class="tl-spill" style="${pillStyle}">${e.status}</span>` : '' } ${i===0 ? '<span class="tl-new">RECIENTE</span>' : '' } <button class="tl-del" onclick="deleteEntry(${e.id})" aria-label="Eliminar" > <i class="ti ti-trash"></i> </button> </div> <div class="tl-comment"> ${e.comment .replace(/</g,'&lt;') .replace(/>/g,'&gt;') .replace(/\n/g,'<br>') } </div> </div> </div> </div> `; }).join(''); }
 
-document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter'&&document.activeElement.id==='tk-comment')addEntry();});
+document.addEventListener('keydown',e=>{ /* CTRL + ENTER */ if( e.ctrlKey && e.key==='Enter' && document.activeElement.id==='tk-comment' ){ e.preventDefault(); addEntry(); } /* CTRL + N */ if(e.ctrlKey && e.key.toLowerCase()==='n'){ e.preventDefault(); document.getElementById('sb-new-id').focus(); } /* CTRL + F */ if(e.ctrlKey && e.key.toLowerCase()==='f'){ e.preventDefault(); if(document.getElementById('hist-search')){ document.getElementById('hist-search').focus(); } } /* CTRL + SHIFT + C */ if( e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='c' ){ e.preventDefault(); copyHistorico(); } /* CTRL + E */ if(e.ctrlKey && e.key.toLowerCase()==='e'){ e.preventDefault(); generateBitacora(); } /* CTRL + , */ if(e.ctrlKey && e.key===','){ e.preventDefault(); toggleSettings(); } });
 
 load();
 if(data.turno&&data.turno.active){
@@ -865,4 +843,65 @@ const ids=Object.keys(data.tickets);
 if(ids.length){activeId=ids[0];renderPanel();}
 else document.getElementById('panel-empty').style.display='block';
 setNow();startClock();
+```js
+const commentBox=document.getElementById('tk-comment');
+const autocompleteBox=document.getElementById('autocomplete-box');
+
+
+
+function hideAutocomplete(){
+  autocompleteBox.style.display='none';
+}
+
+function showAutocomplete(items){
+
+  if(!items.length){
+    hideAutocomplete();
+    return;
+  }
+
+  autocompleteBox.innerHTML=items.map(t=>`
+    <div
+      class="autocomplete-item"
+      onclick="useTemplate(\`${t.replace(/`/g,'')}\`)"
+    >
+      ${t}
+    </div>
+  `).join('');
+
+  autocompleteBox.style.display='block';
+}
+
+commentBox.addEventListener('input',()=>{
+
+  const lines=commentBox.value.split('\n');
+
+  const current=lines[lines.length-1]
+    .trim()
+    .toLowerCase();
+
+  if(!current){
+    hideAutocomplete();
+    return;
+  }
+
+  const matches=data.templates.filter(t=>
+    t.toLowerCase().includes(current)
+  );
+
+  showAutocomplete(matches.slice(0,6));
+});
+
+document.addEventListener('click',e=>{
+
+  if(
+    !autocompleteBox.contains(e.target) &&
+    e.target!==commentBox
+  ){
+    hideAutocomplete();
+  }
+
+});
+```
+
 </script>
