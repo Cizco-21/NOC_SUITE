@@ -1,28 +1,39 @@
-
-<h2 class="sr-only">NOC Ticket Tracker V5 completo con modo turno, resolución, carpetas editables</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOC Ticket Tracker V3.2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-.app{font-family:Arial,sans-serif;font-size:13px;background:#f0f0f0;color:#222;display:flex;flex-direction:column;}
+html,body{height:100%;background:#f0f0f0;}
+.app{font-family:Arial,sans-serif;font-size:13px;background:#f0f0f0;color:#222;display:flex;flex-direction:column;min-height:100vh;}
 .topbar{background:#1a1a2e;color:#fff;padding:8px 14px;font-size:14px;font-weight:bold;display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.topbar i{font-size:17px;color:#7c83d6;}
-.topbar-right{margin-left:auto;display:flex;gap:6px;align-items:center;}
-.tb-btn{background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:3px;padding:4px 10px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:Arial,sans-serif;}
-.tb-btn:hover{background:rgba(255,255,255,0.2);}
-.tb-btn.green{background:#00796b;border-color:#00796b;}
-.tb-btn.green:hover{background:#00695c;}
-.tb-btn.amber{background:#f57f17;border-color:#f57f17;}
-.tb-btn.amber:hover{background:#e65100;}
+.topbar>i{font-size:17px;color:#7c83d6;}
+.topbar-right{margin-left:auto;display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.tb-btn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:4px 9px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:Arial,sans-serif;transition:background .15s;}
+.tb-btn:hover{background:rgba(255,255,255,.22);}
+.tb-btn.green{background:#00796b;border-color:#00796b;}.tb-btn.green:hover{background:#00695c;}
+.tb-btn.amber{background:#f57f17;border-color:#f57f17;}.tb-btn.amber:hover{background:#e65100;}
+.tb-btn.purple{background:#4527a0;border-color:#4527a0;}.tb-btn.purple:hover{background:#311b92;}
+.tb-btn.ai{background:#6a1b9a;border-color:#6a1b9a;}.tb-btn.ai:hover{background:#4a148c;}
 .turno-badge{font-size:11px;background:#1b5e20;color:#a5d6a7;padding:3px 9px;border-radius:10px;display:flex;align-items:center;gap:4px;}
-.body{display:flex;min-height:560px;}
-.sidebar{width:228px;min-width:200px;background:#fff;border-right:1px solid #d0d0d0;display:flex;flex-direction:column;overflow:hidden;}
+.body{display:flex;flex:1;min-height:0;}
+.sel-bar{background:#e8eaf6;border-bottom:1px solid #c5cae9;padding:4px 9px;font-size:11px;color:#3f51b5;display:none;align-items:center;gap:5px;flex-shrink:0;}
+.sel-bar.show{display:flex;}
+.sel-bar button{background:#3f51b5;color:#fff;border:none;border-radius:2px;padding:3px 7px;font-size:11px;cursor:pointer;font-weight:bold;}
+.sel-bar .clr-btn{background:transparent;color:#9e9e9e;border:none;cursor:pointer;font-size:11px;margin-left:auto;}
+/* SIDEBAR */
+.sidebar{width:232px;min-width:200px;background:#fff;border-right:1px solid #d0d0d0;display:flex;flex-direction:column;overflow:hidden;}
 .sb-top{padding:8px 9px 6px;border-bottom:1px solid #e8e8e8;flex-shrink:0;}
 .sb-top input.sb-search{width:100%;border:1px solid #bbb;border-radius:3px;padding:5px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;margin-bottom:5px;}
 .sb-top input.sb-search:focus{border-color:#3f51b5;}
 .sb-new-row{display:flex;gap:4px;}
 .sb-new-row input{flex:1;border:1px solid #bbb;border-radius:3px;padding:4px 6px;font-size:12px;font-family:Arial,sans-serif;outline:none;min-width:0;}
 .sb-new-row input:focus{border-color:#3f51b5;}
-.sb-new-row .btn-crear{background:#3f51b5;color:#fff;border:none;border-radius:3px;padding:4px 8px;font-size:11px;font-weight:bold;cursor:pointer;white-space:nowrap;}
-.sb-new-row .btn-crear:hover{background:#303f9f;}
+.btn-crear{background:#3f51b5;color:#fff;border:none;border-radius:3px;padding:4px 8px;font-size:11px;font-weight:bold;cursor:pointer;white-space:nowrap;}
+.btn-crear:hover{background:#303f9f;}
 .sb-folder-row{display:flex;gap:4px;margin-top:5px;}
 .sb-folder-row input{flex:1;border:1px solid #bbb;border-radius:3px;padding:4px 6px;font-size:11px;font-family:Arial,sans-serif;outline:none;min-width:0;}
 .sb-folder-row input:focus{border-color:#f9a825;}
@@ -32,35 +43,29 @@
 .day-folder{border-bottom:1px solid #f0f0f0;}
 .day-header{display:flex;align-items:center;gap:4px;padding:5px 8px;cursor:pointer;user-select:none;background:#fafafa;font-size:11px;font-weight:bold;color:#333;}
 .day-header:hover{background:#f0f0f0;}
-.day-header i.fold-icon{font-size:12px;color:#607d8b;transition:transform 0.15s;flex-shrink:0;}
+.day-header i.fold-icon{font-size:12px;color:#607d8b;transition:transform .15s;flex-shrink:0;}
 .day-header.open i.fold-icon{transform:rotate(90deg);}
-.day-header .day-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.day-header .day-count{font-size:10px;color:#9e9e9e;font-weight:normal;background:#eee;padding:1px 4px;border-radius:8px;flex-shrink:0;}
-.day-header .fold-del{background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;padding:1px 2px;opacity:0;}
-.day-header:hover .fold-del{opacity:1;}
-.fold-del:hover{color:#c62828;}
+.day-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.day-count{font-size:10px;color:#9e9e9e;font-weight:normal;background:#eee;padding:1px 4px;border-radius:8px;flex-shrink:0;}
+.fold-del{background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;padding:1px 2px;opacity:0;}
+.day-header:hover .fold-del{opacity:1;}.fold-del:hover{color:#c62828;}
 .day-tickets{padding:0 5px 3px 20px;display:none;}
 .day-tickets.open{display:block;}
 .day-tickets.drag-over{background:#e8eaf6;border-radius:3px;outline:2px dashed #9fa8da;}
-.tk-item{padding:4px 7px;border-radius:3px;border:1px solid #e0e0e0;cursor:pointer;font-size:12px;color:#333;background:#fff;margin-bottom:3px;user-select:none;display:flex;flex-direction:column;gap:1px;}
+.tk-item{padding:4px 7px;border-radius:3px;border:1px solid #e0e0e0;cursor:pointer;font-size:12px;color:#333;background:#fff;margin-bottom:3px;user-select:none;display:flex;flex-direction:column;gap:1px;transition:background .1s,border-color .1s;}
 .tk-item:hover{background:#e8f5e9;border-color:#a5d6a7;}
 .tk-item.active{background:#e8eaf6;border-color:#3f51b5;font-weight:bold;color:#1a237e;}
 .tk-item.archived{color:#9e9e9e;font-style:italic;}
-.tk-item.dragging{opacity:0.4;border-style:dashed;}
+.tk-item.dragging{opacity:.4;border-style:dashed;}
 .tk-id-row{display:flex;align-items:center;gap:4px;}
-.tk-prio{font-size:9px;font-weight:bold;padding:1px 4px;border-radius:2px;}
-.p1{background:#ffcdd2;color:#b71c1c;}.p2{background:#ffe0b2;color:#bf360c;}.p3{background:#fff9c4;color:#f57f17;}.p4{background:#e8f5e9;color:#2e7d32;}
 .tk-cnt{font-size:10px;color:#9e9e9e;}
 .arch-folder .day-header{background:#f5f5f5;color:#757575;}
-.arch-folder .day-header i.ti-folder{color:#bdbdbd;}
-.sb-sel-bar{background:#e8eaf6;border-bottom:1px solid #c5cae9;padding:4px 9px;font-size:11px;color:#3f51b5;display:none;align-items:center;gap:5px;flex-shrink:0;}
-.sb-sel-bar.show{display:flex;}
-.sb-sel-bar button{background:#3f51b5;color:#fff;border:none;border-radius:2px;padding:3px 7px;font-size:11px;cursor:pointer;font-weight:bold;}
-.sb-sel-bar .clr-btn{background:transparent;color:#9e9e9e;border:none;cursor:pointer;font-size:11px;margin-left:auto;}
+.sb-empty{font-size:11px;color:#bbb;text-align:center;padding:14px 10px;}
+/* MAIN */
 .main{flex:1;padding:14px 18px;background:#f5f5f5;display:flex;flex-direction:column;gap:10px;overflow-y:auto;}
-.main-title{font-size:16px;font-weight:bold;color:#222;display:flex;align-items:center;gap:8px;}
+.main-title{font-size:16px;font-weight:bold;color:#222;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .main-title span.tid{color:#3f51b5;}
-.field-label{font-size:11px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:3px;display:block;}
+.field-label{font-size:11px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;display:block;}
 .field-row{display:flex;flex-direction:column;gap:3px;}
 .field-row input,.field-row select,.field-row textarea{border:1px solid #bbb;border-radius:3px;padding:5px 7px;font-size:13px;font-family:Arial,sans-serif;background:#fff;outline:none;}
 .field-row input:focus,.field-row select:focus,.field-row textarea:focus{border-color:#3f51b5;}
@@ -69,51 +74,62 @@
 .dt-row input:focus{border-color:#3f51b5;}
 .dt-lock{background:transparent;border:1px solid #bbb;border-radius:3px;padding:4px 7px;cursor:pointer;font-size:12px;color:#757575;white-space:nowrap;font-family:Arial,sans-serif;}
 .dt-lock.locked{background:#fff3e0;color:#e65100;border-color:#ffcc80;}
-.dt-lock:hover{background:#f5f5f5;}
-.editable-list{display:flex;flex-direction:column;gap:4px;}
-.editable-item{display:flex;align-items:center;gap:4px;}
-.editable-item input{flex:1;border:1px solid #e0e0e0;border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;}
-.editable-item input:focus{border-color:#3f51b5;}
-.editable-item .del-item{ border:none; background:#d32f2f; color:#fff; width:28px; height:28px; border-radius:4px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.editable-item .del-item:hover{ background:#b71c1c; }
-.add-item-row{display:flex;gap:4px;margin-top:3px;}
-.add-item-row input{flex:1;border:1px solid #ddd;border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:#fafafa;}
-.add-item-row input:focus{border-color:#3f51b5;background:#fff;}
-.add-item-row button{background:#3f51b5;color:#fff;border:none;border-radius:3px;padding:3px 8px;font-size:11px;cursor:pointer;font-family:Arial,sans-serif;}
-.add-item-row button:hover{background:#303f9f;}
-.status-chips{display:flex;gap:5px;flex-wrap:wrap;}
-.s-chip{padding:4px 10px;border-radius:12px;border:1px solid #ddd;font-size:11px;font-weight:bold;cursor:pointer;background:#f5f5f5;color:#555;transition:all 0.1s;}
-.s-chip:hover{filter:brightness(0.95);}
+/* STATUS D&D */
+.status-chips{display:flex;gap:5px;flex-wrap:wrap;min-height:32px;padding:2px;border-radius:4px;transition:background .15s;}
+.s-chip{padding:4px 10px;border-radius:12px;border:1px solid #ddd;font-size:11px;font-weight:bold;cursor:grab;background:#f5f5f5;color:#555;transition:all .1s;user-select:none;}
+.s-chip:active{cursor:grabbing;}
 .s-chip.sel{color:#fff;border-color:transparent;}
+.s-chip.chip-dragging{opacity:.35;border-style:dashed;}
+.s-chip.chip-over{outline:2px solid #3f51b5;outline-offset:2px;}
+/* TEMPLATES */
 .tpl-chips{display:flex;gap:4px;flex-wrap:wrap;}
-.tpl-chip{padding:3px 9px;border-radius:2px;border:1px solid #c5cae9;font-size:11px;cursor:pointer;background:#e8eaf6;color:#3f51b5;font-family:Arial,sans-serif;transition:background 0.1s;}
+.tpl-chip{padding:3px 9px;border-radius:2px;border:1px solid #c5cae9;font-size:11px;cursor:pointer;background:#e8eaf6;color:#3f51b5;font-family:Arial,sans-serif;transition:background .1s;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .tpl-chip:hover{background:#c5cae9;}
+/* COMMENT WRAP */
 .comment-wrap{position:relative;}
-#autocomplete-box{ position:absolute; left:0; right:0; bottom:-4px; transform:translateY(100%); background:#fff; border:1px solid #d0d0d0; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,.12); max-height:180px; overflow:auto; z-index:9999; display:none; } .autocomplete-item{ padding:8px 10px; font-size:12px; cursor:pointer; border-bottom:1px solid #eee; } .autocomplete-item:last-child{ border-bottom:none; } .autocomplete-item:hover{ background:#f5f5f5; }
-.comment-wrap textarea{width:100%;border:1px solid #bbb;border-radius:3px;padding:6px 34px 6px 8px;font-size:13px;font-family:Arial,sans-serif;background:#fff;outline:none;resize:vertical;min-height:60px;}
+.comment-wrap textarea{width:100%;border:1px solid #bbb;border-radius:3px;padding:6px 34px 6px 8px;font-size:13px;font-family:Arial,sans-serif;background:#fff;outline:none;resize:vertical;min-height:62px;}
 .comment-wrap textarea:focus{border-color:#3f51b5;}
 .btn-send{position:absolute;right:6px;bottom:6px;background:#e65100;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;}
 .btn-send:hover{background:#bf360c;}
+#autocomplete-box{position:absolute;left:0;right:0;top:calc(100% + 2px);background:#fff;border:1px solid #ccc;border-radius:4px;max-height:160px;overflow-y:auto;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;}
+.ac-item{padding:7px 10px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;color:#333;}
+.ac-item:hover,.ac-item.ac-sel{background:#e8eaf6;color:#3f51b5;}
+.ac-item .ac-tag{font-size:10px;background:#e8eaf6;color:#3f51b5;padding:1px 5px;border-radius:8px;white-space:nowrap;}
+/* PRIVATE NOTE */
+.private-note-wrap textarea{width:100%;border:1px solid #ce93d8;border-radius:3px;padding:6px 8px;font-size:13px;font-family:Arial,sans-serif;background:#fce4ec;outline:none;resize:vertical;min-height:52px;}
+.private-note-wrap textarea:focus{border-color:#8e24aa;}
+.private-badge{display:inline-flex;align-items:center;gap:3px;background:#f3e5f5;color:#6a1b9a;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:8px;border:1px solid #ce93d8;}
+/* RESOLUTION */
 .resolution-wrap textarea{width:100%;border:1px solid #a5d6a7;border-radius:3px;padding:6px 8px;font-size:13px;font-family:Arial,sans-serif;background:#f9fbe7;outline:none;resize:vertical;min-height:58px;}
 .resolution-wrap textarea:focus{border-color:#2e7d32;}
+.section-toggle{background:transparent;border:none;cursor:pointer;color:#3f51b5;font-size:11px;font-family:Arial,sans-serif;padding:0;display:flex;align-items:center;gap:3px;}
+.section-toggle:hover{text-decoration:underline;}
+/* BUTTONS */
 .action-row{display:flex;gap:5px;flex-wrap:wrap;}
-.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:3px;border:none;font-size:12px;font-family:Arial,sans-serif;font-weight:bold;cursor:pointer;transition:filter 0.12s;}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:3px;border:none;font-size:12px;font-family:Arial,sans-serif;font-weight:bold;cursor:pointer;transition:filter .12s;}
 .btn:hover{filter:brightness(1.1);}
-.btn-blue{background:#3f51b5;color:#fff;}
-.btn-gray{background:#607d8b;color:#fff;}
-.btn-teal{background:#00796b;color:#fff;}
-.btn-slate{background:#546e7a;color:#fff;}
-.btn-red{background:#c62828;color:#fff;}
-.btn-green{background:#2e7d32;color:#fff;}
+.btn-blue{background:#3f51b5;color:#fff;}.btn-gray{background:#607d8b;color:#fff;}
+.btn-teal{background:#00796b;color:#fff;}.btn-slate{background:#546e7a;color:#fff;}
+.btn-red{background:#c62828;color:#fff;}.btn-green{background:#2e7d32;color:#fff;}
+.btn-purple{background:#4527a0;color:#fff;}.btn-orange{background:#e65100;color:#fff;}
+.btn-ai{background:#6a1b9a;color:#fff;}
+/* HIST SEARCH */
+.hist-search-wrap{position:relative;}
+.hist-search-wrap input{width:100%;border:1px solid #bbb;border-radius:3px;padding:5px 28px 5px 8px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:#fff;}
+.hist-search-wrap input:focus{border-color:#3f51b5;}
+.hist-search-wrap .hs-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;color:#9e9e9e;font-size:14px;display:none;}
+.hist-search-wrap .hs-clear.show{display:block;}
 .hist-title{font-size:13px;font-weight:bold;color:#222;display:flex;align-items:center;gap:5px;}
 .hist-count{font-size:11px;color:#9e9e9e;font-weight:normal;}
+.hist-match{background:#fff9c4;}
+/* TIMELINE */
 .timeline{position:relative;padding-left:18px;}
 .timeline::before{content:'';position:absolute;left:5px;top:5px;bottom:5px;width:2px;background:#c5cae9;border-radius:2px;}
 .tl-entry{position:relative;margin-bottom:7px;}
 .tl-dot{position:absolute;left:-14px;top:5px;width:8px;height:8px;border-radius:50%;background:#fff;border:2px solid #9fa8da;}
 .tl-entry:first-child .tl-dot{background:#3f51b5;border-color:#3f51b5;}
 .tl-card{background:#fff;border:1px solid #e0e0e0;border-left-width:3px;border-left-color:#9fa8da;border-radius:0 3px 3px 0;}
-.tl-card:hover{border-top-color:#9fa8da;border-right-color:#9fa8da;border-bottom-color:#9fa8da;}
+.tl-card.is-private{background:#fdf2ff;border-left-color:#8e24aa;}
 .tl-inner{padding:5px 8px;}
 .tl-meta{display:flex;align-items:center;gap:4px;font-size:11px;color:#757575;margin-bottom:3px;flex-wrap:wrap;}
 .tl-meta b{color:#333;}
@@ -121,58 +137,176 @@
 .tl-new{font-size:10px;font-weight:bold;padding:1px 5px;border-radius:2px;background:#e8eaf6;color:#3f51b5;margin-left:auto;}
 .tl-spill{font-size:10px;font-weight:bold;padding:1px 6px;border-radius:8px;}
 .tl-comment{font-size:13px;color:#222;line-height:1.5;}
-.tl-del{background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;padding:1px 2px;margin-left:2px;opacity:0;}
-.tl-card:hover .tl-del{opacity:1;}
-.tl-del:hover{color:#c62828;}
+.tl-del{background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;padding:1px 2px;margin-left:2px;opacity:0;transition:opacity .12s;}
+.tl-card:hover .tl-del{opacity:1;}.tl-del:hover{color:#c62828;}
 .empty-state{font-size:13px;color:#9e9e9e;padding:14px 0;}
 .no-ticket{font-size:14px;color:#aaa;padding:28px 0;text-align:center;}
-.divider{border:none;border-top:1px solid #e8e8e8;margin:0;}
-.settings-panel{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:12px 14px;display:none;flex-direction:column;gap:10px;}
-.settings-panel.open{display:flex;}
+/* INLINE DATE/TIME EDIT */
+.tl-dt-edit{background:transparent;border:none;border-bottom:1px dashed #9fa8da;font-size:11px;font-weight:bold;color:#333;font-family:Arial,sans-serif;padding:0 2px;cursor:pointer;outline:none;min-width:70px;}
+.tl-dt-edit:focus{background:#e8eaf6;border-bottom-color:#3f51b5;border-radius:2px 2px 0 0;}
+.tl-dt-edit:hover{border-bottom-color:#3f51b5;}
+.tl-edit-btn{background:transparent;border:none;cursor:pointer;color:#9fa8da;font-size:11px;padding:1px 3px;opacity:0;transition:opacity .12s;}
+.tl-card:hover .tl-edit-btn{opacity:1;}
+.tl-edit-btn:hover{color:#3f51b5;}
+/* COLLAPSIBLE ATTACHMENT */
+.tl-attach{margin-top:6px;border-top:1px solid #f0f0f0;}
+.tl-attach-toggle{display:flex;align-items:center;gap:4px;font-size:11px;color:#9e9e9e;cursor:pointer;padding:4px 0 2px;user-select:none;background:transparent;border:none;width:100%;text-align:left;}
+.tl-attach-toggle:hover{color:#555;}
+.tl-attach-toggle i{transition:transform .15s;}
+.tl-attach-toggle.open i.chevron{transform:rotate(180deg);}
+.tl-attach-body{display:none;background:#f9f9f9;border:1px solid #e8e8e8;border-radius:0 0 3px 3px;padding:8px 10px;font-size:12px;font-family:monospace;white-space:pre-wrap;word-break:break-word;color:#555;max-height:200px;overflow-y:auto;line-height:1.5;}
+.tl-attach-body.open{display:block;}
+.tl-attach-edit-btn{font-size:10px;color:#3f51b5;background:transparent;border:none;cursor:pointer;margin-left:auto;padding:0;}
+.tl-attach-edit-btn:hover{text-decoration:underline;}
+.attach-textarea{width:100%;min-height:80px;border:1px solid #bbb;border-radius:3px;padding:6px 8px;font-size:12px;font-family:monospace;resize:vertical;outline:none;background:#fafafa;}
+.attach-textarea:focus{border-color:#3f51b5;}
+.snow-copy-btn{background:#00796b;color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;}
+.snow-copy-btn:hover{background:#00695c;}
+.snow-copy-btn.copied{background:#2e7d32;}
+/* PANELS */
+.panel-card{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:12px 14px;display:none;flex-direction:column;gap:10px;}
+.panel-card.open{display:flex;}
 .settings-section{display:flex;flex-direction:column;gap:6px;}
-.settings-section h4{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:0.04em;}
-.turno-modal{background:#fff;border:1px solid #c5cae9;border-radius:4px;padding:14px 16px;display:none;flex-direction:column;gap:10px;}
-.turno-modal.open{display:flex;}
-.turno-modal h3{font-size:14px;font-weight:bold;color:#1a237e;}
-.turno-info{background:#e8eaf6;border-radius:3px;padding:8px 10px;font-size:12px;color:#3f51b5;line-height:1.6;}
-.footer{text-align:center;font-size:10px;color:#aaa;padding:5px 0;border-top:1px solid #e0e0e0;background:#fff;flex-shrink:0;}
+.settings-section h4{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;}
+.editable-list{display:flex;flex-direction:column;gap:4px;}
+.editable-item{display:flex;align-items:center;gap:4px;}
+.editable-item input{flex:1;border:1px solid #e0e0e0;border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;}
+.editable-item input:focus{border-color:#3f51b5;}
+.editable-item .del-item{border:none;background:#d32f2f;color:#fff;width:26px;height:26px;border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.editable-item .del-item:hover{background:#b71c1c;}
+.add-item-row{display:flex;gap:4px;margin-top:3px;}
+.add-item-row input{flex:1;border:1px solid #ddd;border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:#fafafa;}
+.add-item-row input:focus{border-color:#3f51b5;background:#fff;}
+.add-item-row button{background:#3f51b5;color:#fff;border:none;border-radius:3px;padding:3px 8px;font-size:11px;cursor:pointer;font-family:Arial,sans-serif;}
+.add-item-row button:hover{background:#303f9f;}
+.turno-info{background:#e8eaf6;border-radius:3px;padding:8px 10px;font-size:12px;color:#3f51b5;line-height:1.7;}
 .arch-badge{font-size:10px;background:#eceff1;color:#546e7a;padding:2px 6px;border-radius:2px;font-weight:normal;vertical-align:middle;margin-left:6px;}
+.divider{border:none;border-top:1px solid #e8e8e8;margin:2px 0;}
 .cb{accent-color:#3f51b5;margin-right:3px;cursor:pointer;}
-.section-toggle{background:transparent;border:none;cursor:pointer;color:#3f51b5;font-size:11px;font-family:Arial,sans-serif;padding:0;display:flex;align-items:center;gap:3px;}
-.section-toggle:hover{text-decoration:underline;}
-#autocomplete-box{ position:absolute; background:#fff; border:1px solid #ccc; border-radius:6px; width:320px; max-height:180px; overflow:auto; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,.12); display:none; } .autocomplete-item{ padding:8px 10px; cursor:pointer; font-size:13px; } .autocomplete-item:hover{ background:#f5f5f5; }
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:none;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:6px;padding:20px 22px;min-width:340px;max-width:95vw;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+.modal-box h3{font-size:15px;font-weight:bold;color:#1a1a2e;}
+.modal-close{background:transparent;border:none;cursor:pointer;color:#9e9e9e;font-size:18px;position:absolute;top:14px;right:16px;}
+.export-opts{display:flex;flex-direction:column;gap:8px;}
+.export-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e0e0e0;border-radius:4px;cursor:pointer;transition:background .12s;}
+.export-opt:hover{background:#f5f5f5;border-color:#9fa8da;}
+.export-opt i{font-size:22px;}
+.export-opt-info{flex:1;}
+.export-opt-title{font-weight:bold;font-size:13px;color:#222;}
+.export-opt-desc{font-size:11px;color:#9e9e9e;margin-top:1px;}
+/* DASHBOARD */
+.dashboard{display:none;flex:1;flex-direction:column;gap:12px;padding:14px 18px;background:#f5f5f5;overflow-y:auto;}
+.dashboard.open{display:flex;}
+.dash-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.dash-title{font-size:16px;font-weight:bold;color:#1a1a2e;display:flex;align-items:center;gap:8px;}
+.dash-stats{display:flex;gap:10px;flex-wrap:wrap;}
+.stat-pill{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:6px 12px;text-align:center;min-width:80px;}
+.stat-pill .sv{font-size:20px;font-weight:bold;color:#3f51b5;}
+.stat-pill .sl{font-size:10px;color:#9e9e9e;text-transform:uppercase;margin-top:1px;}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.dash-card{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:12px 14px;cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.dash-card:hover{box-shadow:0 2px 10px rgba(63,81,181,.12);border-color:#9fa8da;}
+.dash-card-head{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+.dash-card-id{font-size:14px;font-weight:bold;color:#1a1a2e;}
+.dash-status-pill{font-size:10px;font-weight:bold;padding:2px 8px;border-radius:8px;margin-left:auto;}
+.dash-last-comment{font-size:12px;color:#555;line-height:1.45;margin-bottom:6px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.dash-meta{font-size:10px;color:#9e9e9e;display:flex;gap:8px;flex-wrap:wrap;}
+.dash-meta span{display:flex;align-items:center;gap:3px;}
+.dash-empty{text-align:center;padding:40px 20px;color:#9e9e9e;font-size:14px;}
+/* IMPORT MODAL */
+.import-tabs{display:flex;gap:0;border-bottom:2px solid #e0e0e0;margin-bottom:12px;}
+.import-tab{padding:6px 14px;font-size:12px;font-weight:bold;cursor:pointer;color:#9e9e9e;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.import-tab.active{color:#3f51b5;border-bottom-color:#3f51b5;}
+.import-zone{border:2px dashed #c5cae9;border-radius:4px;padding:20px;text-align:center;color:#9e9e9e;cursor:pointer;transition:background .15s;}
+.import-zone:hover,.import-zone.dragover{background:#e8eaf6;border-color:#3f51b5;}
+.import-zone i{font-size:28px;display:block;margin-bottom:8px;opacity:.5;}
+.import-preview{background:#f5f5f5;border-radius:3px;padding:8px;font-size:11px;font-family:monospace;max-height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;}
+.import-mapping{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;}
+.map-row{display:grid;grid-template-columns:1fr 20px 1fr;gap:6px;align-items:center;font-size:12px;}
+.map-row select{border:1px solid #bbb;border-radius:3px;padding:3px 5px;font-size:11px;font-family:Arial,sans-serif;outline:none;background:#fff;}
+.map-row select:focus{border-color:#3f51b5;}
+/* AI PANEL */
+.ai-panel{border:1px solid #ce93d8;border-radius:4px;background:#fce4ec;padding:12px 14px;display:none;flex-direction:column;gap:10px;}
+.ai-panel.open{display:flex;}
+.ai-header{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:bold;color:#6a1b9a;}
+.ai-response{background:#fff;border:1px solid #ce93d8;border-radius:4px;padding:10px;font-size:13px;line-height:1.6;white-space:pre-wrap;min-height:60px;max-height:300px;overflow-y:auto;}
+.ai-spinner{display:none;align-items:center;gap:8px;font-size:12px;color:#8e24aa;}
+.ai-spinner.show{display:flex;}
+.ai-provider-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ai-provider-card{border:2px solid #e0e0e0;border-radius:6px;padding:8px 10px;cursor:pointer;transition:all .12s;background:#fff;display:flex;flex-direction:column;gap:3px;}
+.ai-provider-card:hover{border-color:#8e24aa;background:#f9f0ff;}
+.ai-provider-card.selected{border-color:#6a1b9a;background:#f3e5f5;}
+.ai-provider-card .pv-name{font-size:12px;font-weight:bold;color:#333;display:flex;align-items:center;gap:5px;}
+.ai-provider-card .pv-desc{font-size:10px;color:#9e9e9e;}
+.ai-config-row{display:flex;flex-direction:column;gap:6px;}
+.ai-config-row label{font-size:11px;font-weight:bold;color:#6a1b9a;text-transform:uppercase;letter-spacing:.03em;}
+.ai-config-row input,.ai-config-row select{border:1px solid #ce93d8;border-radius:3px;padding:5px 7px;font-size:12px;font-family:Arial,sans-serif;background:#fff;outline:none;width:100%;}
+.ai-config-row input:focus,.ai-config-row select:focus{border-color:#8e24aa;}
+.ai-cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ai-key-row{display:flex;gap:6px;align-items:flex-end;}
+.ai-key-row>div{flex:1;}
+.ai-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.ai-action-btn{padding:5px 11px;border-radius:3px;border:1px solid #ce93d8;font-size:11px;font-weight:bold;cursor:pointer;background:#fff;color:#6a1b9a;font-family:Arial,sans-serif;display:flex;align-items:center;gap:4px;transition:background .12s;}
+.ai-action-btn:hover{background:#f3e5f5;}
+.ai-action-btn.primary{background:#6a1b9a;color:#fff;border-color:#6a1b9a;}
+.ai-action-btn.primary:hover{background:#4a148c;}
+.ai-provider-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:8px;background:#f3e5f5;color:#6a1b9a;border:1px solid #ce93d8;}
+/* FOOTER */
+.footer{text-align:center;font-size:10px;color:#aaa;padding:5px 0;border-top:1px solid #e0e0e0;background:#fff;flex-shrink:0;}
+.kbd{background:#eee;border:1px solid #ccc;border-radius:2px;padding:1px 4px;font-size:10px;font-family:monospace;color:#555;}
 </style>
-
+</head>
+<body>
 <div class="app">
+
+<!-- TOPBAR -->
 <div class="topbar">
-  <i class="ti ti-activity" aria-hidden="true"></i>
-  NOC Ticket Tracker
+  <i class="ti ti-activity"></i> NOC Ticket Tracker
   <div class="topbar-right">
     <div class="turno-badge" id="turno-badge" style="display:none;">
-      <i class="ti ti-clock" aria-hidden="true"></i>
+      <i class="ti ti-clock"></i>
       <span id="turno-nombre-badge"></span> — <span id="turno-time-badge"></span>
     </div>
+    <button class="tb-btn" id="btn-dashboard" onclick="toggleDashboard()" title="Vista de turno">
+      <i class="ti ti-layout-dashboard"></i> Dashboard
+    </button>
     <button class="tb-btn green" id="btn-turno" onclick="toggleTurnoModal()">
-      <i class="ti ti-player-play" aria-hidden="true"></i> Iniciar turno
+      <i class="ti ti-player-play"></i> Iniciar turno
+    </button>
+    <button class="tb-btn ai" onclick="toggleAI()" title="Asistente IA">
+      <i class="ti ti-sparkles"></i> IA
+    </button>
+    <button class="tb-btn purple" onclick="openExportModal()">
+      <i class="ti ti-file-export"></i> Exportar
+    </button>
+    <button class="tb-btn" onclick="openImportModal()">
+      <i class="ti ti-file-import"></i> Importar
     </button>
     <button class="tb-btn" onclick="toggleSettings()">
-      <i class="ti ti-settings" aria-hidden="true"></i> Config
+      <i class="ti ti-settings"></i> Config
     </button>
-    <button class="tb-btn" onclick="openMultiExport()">
-      <i class="ti ti-file-export" aria-hidden="true"></i> Exportar
+    <button class="tb-btn" onclick="openBackupModal()" title="Backup/Restore datos">
+      <i class="ti ti-database"></i>
+    </button>
+    <button class="tb-btn" onclick="toggleHelp()" title="Atajos">
+      <i class="ti ti-keyboard"></i>
     </button>
   </div>
 </div>
 
-<div class="sb-sel-bar" id="sb-sel-bar">
-  <i class="ti ti-check" aria-hidden="true"></i>
-  <span id="sel-count-lbl">0 seleccionados</span>
-  <button onclick="exportSelected()"><i class="ti ti-download" style="font-size:11px;" aria-hidden="true"></i> Exportar combinado</button>
+<!-- SEL BAR -->
+<div class="sel-bar" id="sb-sel-bar">
+  <i class="ti ti-check"></i><span id="sel-count-lbl">0 seleccionados</span>
+  <button onclick="exportSelected('txt')">TXT combinado</button>
+  <button onclick="exportSelected('html')" style="background:#4527a0;">HTML combinado</button>
   <button class="clr-btn" onclick="clearSelection()">Cancelar</button>
 </div>
 
 <div class="body">
-<div class="sidebar">
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
   <div class="sb-top">
     <input type="text" class="sb-search" id="sb-search" placeholder="Buscar ticket..." oninput="renderSidebar()">
     <div class="sb-new-row">
@@ -181,14 +315,32 @@
     </div>
     <div class="sb-folder-row">
       <input type="text" id="sb-new-folder" placeholder="Nueva carpeta...">
-      <button onclick="createCustomFolder()"><i class="ti ti-folder-plus" aria-hidden="true"></i> +</button>
+      <button onclick="createCustomFolder()"><i class="ti ti-folder-plus"></i> +</button>
     </div>
   </div>
   <div class="sb-scroll" id="sb-scroll"></div>
 </div>
 
+<!-- DASHBOARD VIEW -->
+<div class="dashboard" id="dashboard-view">
+  <div class="dash-header">
+    <div class="dash-title"><i class="ti ti-layout-dashboard" style="color:#3f51b5;"></i> Vista de Turno</div>
+    <div class="dash-stats" id="dash-stats"></div>
+    <button class="btn btn-gray" onclick="toggleDashboard()"><i class="ti ti-x"></i> Cerrar</button>
+  </div>
+  <div id="dash-filter-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <span style="font-size:11px;color:#9e9e9e;">Filtrar por estado:</span>
+    <div id="dash-filter-chips" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+    <button class="btn btn-gray" style="font-size:11px;padding:3px 8px;" onclick="clearDashFilter()">Ver todos</button>
+  </div>
+  <div class="dash-grid" id="dash-grid"></div>
+</div>
+
+<!-- MAIN PANEL -->
 <div class="main" id="main-panel">
-  <div id="panel-turno-modal" class="turno-modal">
+
+  <!-- TURNO -->
+  <div id="panel-turno-modal" class="panel-card" style="border-color:#c5cae9;">
     <h3 id="turno-modal-title">Iniciar turno</h3>
     <div id="turno-modal-body" style="display:flex;flex-direction:column;gap:8px;">
       <div class="field-row">
@@ -196,117 +348,350 @@
         <input type="text" id="turno-nombre-input" placeholder="Ej: Guillermo Melendez">
       </div>
       <div style="display:flex;gap:6px;">
-        <button class="btn btn-green" onclick="iniciarTurno()"><i class="ti ti-player-play" aria-hidden="true"></i> Confirmar inicio</button>
+        <button class="btn btn-green" onclick="iniciarTurno()"><i class="ti ti-player-play"></i> Confirmar inicio</button>
         <button class="btn btn-gray" onclick="closeTurnoModal()">Cancelar</button>
       </div>
     </div>
     <div id="turno-cierre-body" style="display:none;flex-direction:column;gap:8px;">
       <div class="turno-info" id="turno-cierre-info"></div>
       <div class="field-row">
-        <span class="field-label">Notas de handoff (opcional)</span>
-        <textarea id="turno-handoff" style="min-height:50px;border:1px solid #bbb;border-radius:3px;padding:5px 7px;font-size:13px;font-family:Arial,sans-serif;outline:none;resize:vertical;" placeholder="Pendientes, observaciones para el siguiente turno..."></textarea>
+        <span class="field-label">Notas de handoff</span>
+        <textarea id="turno-handoff" style="min-height:48px;border:1px solid #bbb;border-radius:3px;padding:5px 7px;font-size:13px;font-family:Arial,sans-serif;outline:none;resize:vertical;" placeholder="Pendientes, observaciones para el siguiente turno..."></textarea>
+      </div>
+      <div style="font-size:11px;color:#555;background:#fff9c4;border-radius:3px;padding:5px 8px;">
+        <i class="ti ti-bulb" style="color:#f57f17;"></i> <strong>Handoff automático:</strong> incluirá todos los tickets trabajados con último estado y resolución.
       </div>
       <div style="display:flex;gap:6px;">
-        <button class="btn btn-amber" style="background:#f57f17;" onclick="cerrarTurno()"><i class="ti ti-player-stop" aria-hidden="true"></i> Cerrar turno y exportar</button>
+        <button class="btn btn-orange" onclick="cerrarTurno()"><i class="ti ti-player-stop"></i> Cerrar turno y exportar</button>
         <button class="btn btn-gray" onclick="closeTurnoModal()">Cancelar</button>
       </div>
     </div>
   </div>
 
-  <div id="panel-settings" class="settings-panel">
-    <div class="settings-section">
-      <h4>Estados de comentario</h4>
-      <div class="editable-list" id="status-edit-list"></div>
-      <div class="add-item-row">
-        <input type="text" id="new-status-input" placeholder="Nuevo estado...">
-        <button onclick="addStatus()">+ Agregar</button>
-      </div>
+  <!-- SETTINGS -->
+  <div id="panel-settings" class="panel-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:13px;font-weight:bold;color:#1a237e;"><i class="ti ti-settings"></i> Configuración</span>
+      <button class="btn btn-gray" onclick="toggleSettings()" style="padding:3px 8px;font-size:11px;"><i class="ti ti-x"></i> Cerrar</button>
     </div>
     <hr class="divider">
     <div class="settings-section">
-      <h4>Plantillas rápidas</h4>
-      <div class="editable-list" id="tpl-edit-list"></div>
-      <div class="add-item-row">
-        <input type="text" id="new-tpl-input" placeholder="Nueva plantilla...">
-        <button onclick="addTemplate()">+ Agregar</button>
-      </div>
+      <h4><i class="ti ti-drag-drop"></i> Estados — arrastra para reordenar</h4>
+      <div id="status-edit-list" class="editable-list"></div>
+      <div class="add-item-row"><input type="text" id="new-status-input" placeholder="Nuevo estado..."><button onclick="addStatus()">+ Agregar</button></div>
     </div>
-    <div style="margin-top:4px;">
-      <button class="btn btn-gray" onclick="toggleSettings()"><i class="ti ti-x" aria-hidden="true"></i> Cerrar configuración</button>
+    <hr class="divider">
+    <div class="settings-section">
+      <h4><i class="ti ti-template"></i> Plantillas rápidas</h4>
+      <div id="tpl-edit-list" class="editable-list"></div>
+      <div class="add-item-row"><input type="text" id="new-tpl-input" placeholder="Nueva plantilla..."><button onclick="addTemplate()">+ Agregar</button></div>
+    </div>
+    <hr class="divider">
+    <div class="settings-section">
+      <h4><i class="ti ti-robot"></i> Frases de autocompletado</h4>
+      <div id="ac-edit-list" class="editable-list"></div>
+      <div class="add-item-row"><input type="text" id="new-ac-input" placeholder="Nueva frase..."><button onclick="addAcPhrase()">+ Agregar</button></div>
     </div>
   </div>
 
-  <div id="panel-empty" class="no-ticket">
-    <i class="ti ti-ticket" style="font-size:30px;display:block;margin-bottom:8px;opacity:0.2;" aria-hidden="true"></i>
-    Selecciona o crea un ticket para comenzar.
+  <!-- HELP -->
+  <div id="panel-help" class="panel-card" style="border-color:#c5cae9;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:13px;font-weight:bold;color:#1a237e;"><i class="ti ti-keyboard"></i> Atajos de teclado</span>
+      <button class="btn btn-gray" onclick="toggleHelp()" style="padding:3px 8px;font-size:11px;"><i class="ti ti-x"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:12px;">
+      <div><span class="kbd">Ctrl+Enter</span> Agregar comentario</div>
+      <div><span class="kbd">Ctrl+N</span> Nuevo ticket</div>
+      <div><span class="kbd">Ctrl+F</span> Buscar en histórico</div>
+      <div><span class="kbd">Ctrl+Shift+C</span> Copiar histórico</div>
+      <div><span class="kbd">Ctrl+E</span> Exportar bitácora</div>
+      <div><span class="kbd">Ctrl+,</span> Configuración</div>
+      <div><span class="kbd">Ctrl+D</span> Dashboard turno</div>
+      <div><span class="kbd">Ctrl+I</span> Importar</div>
+    </div>
   </div>
 
-  <div id="panel-main" style="display:none;flex-direction:column;gap:10px;">
-    <div class="main-title" id="panel-title">Ticket</div>
+  <!-- AI PANEL -->
+  <div id="ai-panel" class="ai-panel">
+    <div class="ai-header">
+      <i class="ti ti-sparkles"></i> Asistente IA
+      <span class="ai-provider-badge" id="ai-active-badge"><i class="ti ti-robot"></i> Sin configurar</span>
+      <button class="btn btn-gray" onclick="toggleAI()" style="margin-left:auto;padding:2px 7px;font-size:11px;"><i class="ti ti-x"></i></button>
+    </div>
 
-    <div style="display:flex;gap:8px;align-items:flex-end;">
-      <div class="field-row" style="flex:1;">
-        <span class="field-label"><i class="ti ti-calendar" style="font-size:11px;" aria-hidden="true"></i> Fecha y hora</span>
-        <div class="dt-row">
-          <input type="date" id="tk-date">
-          <input type="time" id="tk-time" id="tk-time">
-          <button class="dt-lock" id="dt-lock-btn" onclick="toggleTimeLock()" title="Fijar/desfijar hora">
-            <i class="ti ti-lock-open" id="dt-lock-icon" aria-hidden="true"></i> Auto
-          </button>
+    <div style="font-size:11px;color:#6a1b9a;background:#f3e5f5;border-radius:3px;padding:6px 8px;">
+      <i class="ti ti-lock"></i> Tu API key se guarda solo en este navegador (localStorage). Nunca sale del dispositivo.
+    </div>
+
+    <!-- PROVIDER SELECTOR -->
+    <div>
+      <div style="font-size:11px;font-weight:bold;color:#6a1b9a;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Proveedor de IA</div>
+      <div class="ai-provider-grid" id="ai-provider-grid">
+        <div class="ai-provider-card selected" onclick="selectProvider('claude')" id="pv-claude">
+          <div class="pv-name"><i class="ti ti-brand-anthropic" style="font-size:14px;color:#d97706;"></i> Claude (Anthropic)</div>
+          <div class="pv-desc">claude-sonnet-4 · Recomendado</div>
+        </div>
+        <div class="ai-provider-card" onclick="selectProvider('openai')" id="pv-openai">
+          <div class="pv-name"><i class="ti ti-brand-openai" style="font-size:14px;color:#10a37f;"></i> ChatGPT (OpenAI)</div>
+          <div class="pv-desc">gpt-4o · gpt-4-turbo</div>
+        </div>
+        <div class="ai-provider-card" onclick="selectProvider('copilot')" id="pv-copilot">
+          <div class="pv-name"><i class="ti ti-brand-github" style="font-size:14px;color:#2563eb;"></i> GitHub Copilot API</div>
+          <div class="pv-desc">Compatible OpenAI</div>
+        </div>
+        <div class="ai-provider-card" onclick="selectProvider('custom')" id="pv-custom">
+          <div class="pv-name"><i class="ti ti-plug" style="font-size:14px;color:#7c3aed;"></i> Custom / Ollama</div>
+          <div class="pv-desc">Cualquier API compatible</div>
         </div>
       </div>
     </div>
 
-    <div>
-      <span class="field-label">Estado del comentario</span>
-      <div class="status-chips" id="status-chips-row"></div>
+    <!-- CONFIG FIELDS -->
+    <div class="ai-cfg-grid">
+      <div class="ai-config-row">
+        <label>API Key</label>
+        <div style="display:flex;gap:4px;">
+          <input type="password" id="ai-key-input" placeholder="sk-..." oninput="saveAiConfig()" style="flex:1;">
+          <button class="btn btn-ai" onclick="testApiKey()" style="white-space:nowrap;font-size:11px;padding:4px 8px;">Probar</button>
+        </div>
+      </div>
+      <div class="ai-config-row">
+        <label>Modelo</label>
+        <select id="ai-model-select" onchange="saveAiConfig()">
+          <option value="claude-sonnet-4-20250514">claude-sonnet-4 (recomendado)</option>
+          <option value="claude-opus-4-5">claude-opus-4</option>
+          <option value="claude-haiku-4-5-20251001">claude-haiku-4 (rápido)</option>
+        </select>
+      </div>
     </div>
 
-    <div>
-      <span class="field-label">Plantillas rápidas</span>
-      <div class="tpl-chips" id="tpl-chips-row"></div>
+    <!-- CUSTOM ENDPOINT (solo visible en modo custom) -->
+    <div id="ai-custom-endpoint-row" style="display:none;" class="ai-config-row">
+      <label><i class="ti ti-link"></i> URL del endpoint</label>
+      <input type="text" id="ai-endpoint-input" placeholder="http://localhost:11434/v1/chat/completions" oninput="saveAiConfig()">
     </div>
 
-    <div>
-      <span class="field-label">Comentario</span>
-      <div class="comment-wrap">
-        <textarea id="tk-comment" placeholder="Descripción de la acción o actualización..."></textarea>
-		<div id="autocomplete-box"></div>
-        <button class="btn-send" onclick="addEntry()" title="Ctrl+Enter" aria-label="Enviar">
-          <i class="ti ti-arrow-up" aria-hidden="true"></i>
+    <!-- ACTIONS -->
+    <div class="ai-actions" id="ai-actions">
+      <button class="ai-action-btn primary" onclick="aiAction('summary')"><i class="ti ti-file-description"></i> Resumen para ServiceNow</button>
+      <button class="ai-action-btn" onclick="aiAction('resolution')"><i class="ti ti-bulb"></i> Sugerir resolución</button>
+      <button class="ai-action-btn" onclick="aiAction('handoff')"><i class="ti ti-arrow-right"></i> Redactar handoff</button>
+      <button class="ai-action-btn" onclick="aiAction('timeline')"><i class="ti ti-timeline"></i> Narrativa de línea de tiempo</button>
+      <button class="ai-action-btn" onclick="aiAction('custom')"><i class="ti ti-message"></i> Pregunta personalizada</button>
+    </div>
+
+    <div id="ai-custom-row" style="display:none;">
+      <input type="text" id="ai-custom-input" placeholder="¿Qué quieres preguntarle a la IA sobre este ticket?" style="width:100%;border:1px solid #ce93d8;border-radius:3px;padding:5px 8px;font-size:13px;font-family:Arial,sans-serif;background:#fff;outline:none;">
+    </div>
+
+    <div class="ai-spinner" id="ai-spinner">
+      <i class="ti ti-loader" style="animation:spin 1s linear infinite;"></i>
+      <span id="ai-spinner-label">Procesando...</span>
+    </div>
+    <div id="ai-response" class="ai-response" style="display:none;"></div>
+    <div id="ai-response-actions" style="display:none;gap:6px;flex-wrap:wrap;">
+      <button class="ai-action-btn" onclick="copyAiResponse()"><i class="ti ti-copy"></i> Copiar respuesta</button>
+      <button class="ai-action-btn" onclick="applyAiToResolution()"><i class="ti ti-check"></i> Aplicar a Resolución</button>
+    </div>
+  </div>
+
+  <!-- EMPTY -->
+  <div id="panel-empty" class="no-ticket">
+    <i class="ti ti-ticket" style="font-size:30px;display:block;margin-bottom:8px;opacity:.2;"></i>
+    Selecciona o crea un ticket para comenzar.
+  </div>
+
+  <!-- TICKET PANEL -->
+  <div id="panel-main" style="display:none;flex-direction:column;gap:10px;">
+    <div class="main-title" id="panel-title">Ticket</div>
+
+    <div class="field-row">
+      <span class="field-label"><i class="ti ti-calendar" style="font-size:11px;"></i> Fecha y hora</span>
+      <div class="dt-row">
+        <input type="date" id="tk-date">
+        <input type="time" id="tk-time">
+        <button class="dt-lock" id="dt-lock-btn" onclick="toggleTimeLock()">
+          <i class="ti ti-lock-open" id="dt-lock-icon"></i> Auto
         </button>
       </div>
     </div>
 
     <div>
+      <span class="field-label" style="display:flex;align-items:center;gap:4px;">
+        <i class="ti ti-drag-drop" style="font-size:11px;color:#9e9e9e;"></i>
+        Estado del comentario
+        <span style="font-size:10px;color:#9e9e9e;font-weight:normal;">(arrastra para reordenar)</span>
+      </span>
+      <div class="status-chips" id="status-chips-row"></div>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+        <span class="field-label" style="margin:0;">Plantillas rápidas</span>
+        <span id="smart-tpl-hint" style="font-size:10px;color:#00796b;display:none;"><i class="ti ti-sparkles"></i> sugerencias activas</span>
+      </div>
+      <div class="tpl-chips" id="tpl-chips-row"></div>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+        <span class="field-label" style="margin:0;">Comentario</span>
+        <label style="font-size:11px;color:#6a1b9a;cursor:pointer;display:flex;align-items:center;gap:4px;">
+          <input type="checkbox" id="is-private-cb" style="accent-color:#8e24aa;"> <span class="private-badge"><i class="ti ti-eye-off" style="font-size:11px;"></i> Nota privada</span>
+        </label>
+      </div>
+      <div class="comment-wrap" style="position:relative;">
+        <textarea id="tk-comment" placeholder="Escribe o espera sugerencias..."></textarea>
+        <div id="autocomplete-box"></div>
+        <button class="btn-send" onclick="addEntry()" title="Ctrl+Enter" aria-label="Enviar">
+          <i class="ti ti-arrow-up"></i>
+        </button>
+      </div>
+      <div id="private-note-hint" style="display:none;font-size:10px;color:#8e24aa;margin-top:3px;"><i class="ti ti-eye-off"></i> Esta nota solo aparecerá en tu bitácora personal, no en exportaciones para ServiceNow.</div>
+    </div>
+
+    <div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
         <span class="field-label" style="margin:0;">Resolución / Causa raíz</span>
-        <button class="section-toggle" onclick="toggleResolucion()"><i class="ti ti-chevron-down" id="res-toggle-icon" aria-hidden="true"></i> <span id="res-toggle-lbl">Mostrar</span></button>
+        <button class="section-toggle" onclick="toggleResolucion()">
+          <i class="ti ti-chevron-down" id="res-toggle-icon"></i> <span id="res-toggle-lbl">Mostrar</span>
+        </button>
       </div>
       <div id="res-wrap" class="resolution-wrap" style="display:none;">
-        <textarea id="tk-resolution" placeholder="Causa raíz, solución aplicada, pasos de resolución... (listo para copiar a ServiceNow)" oninput="saveResolution()"></textarea>
+        <textarea id="tk-resolution" placeholder="Causa raíz, solución aplicada... (listo para copiar a ServiceNow)" oninput="saveResolution()"></textarea>
       </div>
     </div>
 
     <div class="action-row">
-      <button class="btn btn-blue" onclick="addEntry()"><i class="ti ti-pencil" aria-hidden="true"></i> Agregar (Ctrl+Enter)</button>
-      <button class="btn btn-gray" onclick="copyHistorico()"><i class="ti ti-copy" aria-hidden="true"></i> Copiar histórico</button>
-      <button class="btn btn-teal" onclick="generateBitacora()"><i class="ti ti-file-text" aria-hidden="true"></i> Bitácora</button>
-      <button class="btn btn-slate" onclick="toggleArchive()"><i class="ti ti-archive" aria-hidden="true"></i> <span id="lbl-archive">Archivar</span></button>
-      <button class="btn btn-red" onclick="deleteTicket()"><i class="ti ti-trash" aria-hidden="true"></i> Eliminar</button>
+      <button class="btn btn-blue" onclick="addEntry()"><i class="ti ti-pencil"></i> Agregar</button>
+      <button class="btn btn-gray" onclick="copyHistorico()"><i class="ti ti-copy"></i> Copiar</button>
+      <button class="btn btn-teal" onclick="openExportModal()"><i class="ti ti-file-export"></i> Exportar</button>
+      <button class="btn btn-ai" onclick="toggleAI()"><i class="ti ti-sparkles"></i> IA</button>
+      <button class="btn btn-slate" onclick="toggleArchive()"><i class="ti ti-archive"></i> <span id="lbl-archive">Archivar</span></button>
+      <button class="btn btn-red" onclick="deleteTicket()"><i class="ti ti-trash"></i> Eliminar</button>
     </div>
 
-    <div class="hist-title">Histórico <span class="hist-count" id="hist-count"></span></div>
-	<div style="margin-bottom:8px;"> <input type="text" id="hist-search" placeholder="Buscar dentro del histórico..." style=" width:100%; border:1px solid #bbb; border-radius:3px; padding:6px 8px; font-size:12px; font-family:Arial,sans-serif; outline:none; background:#fff; " oninput="renderTimeline()" > </div>
+    <div class="hist-title">
+      Histórico <span class="hist-count" id="hist-count"></span>
+      <label style="margin-left:auto;font-size:11px;display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:normal;">
+        <input type="checkbox" id="show-private-cb" checked style="accent-color:#8e24aa;" onchange="renderTimeline()"> Mostrar notas privadas
+      </label>
+    </div>
+    <div class="hist-search-wrap">
+      <input type="text" id="hist-search" placeholder="Buscar en el histórico... (Ctrl+F)" oninput="onHistSearch()">
+      <button class="hs-clear" id="hs-clear-btn" onclick="clearHistSearch()"><i class="ti ti-x"></i></button>
+    </div>
     <div class="timeline" id="tk-timeline"></div>
   </div>
-</div>
-</div>
-<div class="footer">GMELENDEZ — NOC Ticket Tracker V.5.0</div>
+
+</div><!-- /main -->
+</div><!-- /body -->
+
+<!-- EXPORT MODAL -->
+<div class="modal-overlay" id="export-modal">
+  <div class="modal-box" style="position:relative;">
+    <button class="modal-close" onclick="closeExportModal()"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-file-export" style="color:#3f51b5;"></i> Exportar</h3>
+    <div id="export-scope-label" style="font-size:12px;color:#555;background:#f5f5f5;padding:5px 8px;border-radius:3px;"></div>
+    <label style="font-size:12px;display:flex;align-items:center;gap:5px;cursor:pointer;">
+      <input type="checkbox" id="export-include-private"> Incluir notas privadas en la exportación
+    </label>
+    <div class="export-opts">
+      <div class="export-opt" onclick="doExport('txt')"><i class="ti ti-file-text" style="color:#607d8b;"></i><div class="export-opt-info"><div class="export-opt-title">Texto plano (.txt)</div><div class="export-opt-desc">Listo para pegar en ServiceNow</div></div></div>
+      <div class="export-opt" onclick="doExport('html')"><i class="ti ti-brand-html5" style="color:#e65100;"></i><div class="export-opt-info"><div class="export-opt-title">HTML visual (.html)</div><div class="export-opt-desc">Bitácora con colores y línea de tiempo</div></div></div>
+      <div class="export-opt" onclick="doExport('pdf')"><i class="ti ti-file-type-pdf" style="color:#c62828;"></i><div class="export-opt-info"><div class="export-opt-title">PDF (imprimir)</div><div class="export-opt-desc">Abre diálogo de impresión</div></div></div>
+      <div class="export-opt" onclick="doExport('clip')"><i class="ti ti-clipboard" style="color:#00796b;"></i><div class="export-opt-info"><div class="export-opt-title">Copiar al portapapeles</div><div class="export-opt-desc">Para pegar en cualquier campo</div></div></div>
+      <div class="export-opt" onclick="doExport('snow')" style="border-color:#00796b;"><i class="ti ti-brand-snowflake" style="color:#00796b;"></i><div class="export-opt-info"><div class="export-opt-title" style="color:#00796b;">ServiceNow — Work Notes</div><div class="export-opt-desc">Formato exacto SNOW: fecha, estado, notas separadas · Ctrl+V directo en el campo</div></div></div>
+    </div>
+    <label style="font-size:12px;display:flex;align-items:center;gap:5px;cursor:pointer;">
+      <input type="checkbox" id="export-multi-cb" onchange="renderSidebar()"> Seleccionar múltiples tickets
+    </label>
+  </div>
 </div>
 
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal-box" style="position:relative;min-width:460px;">
+    <button class="modal-close" onclick="closeImportModal()"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-file-import" style="color:#00796b;"></i> Importar desde ServiceNow</h3>
+    <div class="import-tabs">
+      <div class="import-tab active" id="imp-tab-file" onclick="switchImportTab('file')"><i class="ti ti-upload"></i> Archivo CSV/JSON</div>
+      <div class="import-tab" id="imp-tab-paste" onclick="switchImportTab('paste')"><i class="ti ti-clipboard"></i> Pegar texto/JSON</div>
+    </div>
+    <!-- FILE TAB -->
+    <div id="imp-file-tab">
+      <div class="import-zone" id="imp-drop-zone" onclick="document.getElementById('imp-file-input').click()" ondragover="impDragOver(event)" ondragleave="impDragLeave(event)" ondrop="impDrop(event)">
+        <i class="ti ti-cloud-upload"></i>
+        <div style="font-size:13px;font-weight:bold;color:#555;margin-bottom:4px;">Arrastra tu archivo aquí o haz clic</div>
+        <div style="font-size:11px;">CSV o JSON exportado de ServiceNow</div>
+      </div>
+      <input type="file" id="imp-file-input" accept=".csv,.json" style="display:none;" onchange="handleImportFile(this.files[0])">
+    </div>
+    <!-- PASTE TAB -->
+    <div id="imp-paste-tab" style="display:none;">
+      <textarea id="imp-paste-area" placeholder='Pega aquí el contenido CSV o JSON de ServiceNow...
+Ejemplos CSV: number,opened_at,state,short_description
+Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress","short_description":"Falla en red"}]' style="width:100%;min-height:100px;border:1px solid #bbb;border-radius:3px;padding:7px;font-size:12px;font-family:monospace;resize:vertical;outline:none;"></textarea>
+      <button class="btn btn-teal" onclick="parseImportPaste()" style="margin-top:6px;"><i class="ti ti-search"></i> Analizar contenido</button>
+    </div>
+    <!-- PREVIEW -->
+    <div id="imp-preview-section" style="display:none;flex-direction:column;gap:8px;">
+      <div style="font-size:12px;font-weight:bold;color:#555;">Vista previa de datos detectados:</div>
+      <div class="import-preview" id="imp-preview-text"></div>
+      <div style="font-size:12px;font-weight:bold;color:#555;">Mapeo de columnas → campos del tracker:</div>
+      <div class="import-mapping" id="imp-mapping"></div>
+      <div class="field-row">
+        <span class="field-label">Ticket destino (ID en el tracker)</span>
+        <input type="text" id="imp-target-id" placeholder="Ej: INC-2025 — déjalo vacío para usar el número del archivo">
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-green" onclick="executeImport()"><i class="ti ti-download"></i> Importar al tracker</button>
+        <button class="btn btn-gray" onclick="resetImport()">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP / RESTORE MODAL -->
+<div class="modal-overlay" id="backup-modal">
+  <div class="modal-box" style="position:relative;min-width:420px;">
+    <button class="modal-close" onclick="closeBackupModal()"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-database" style="color:#3f51b5;"></i> Backup / Restore</h3>
+    <div style="font-size:12px;color:#555;background:#e8eaf6;border-radius:3px;padding:8px 10px;line-height:1.6;">
+      <b>Backup:</b> Descarga un JSON con todos tus tickets, carpetas, configuración y estados.<br>
+      <b>Restore:</b> Carga ese JSON para restaurar en otra computadora o recuperar datos.
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-blue" onclick="doBackup()"><i class="ti ti-download"></i> Descargar backup (.json)</button>
+      <button class="btn btn-teal" onclick="document.getElementById('restore-file-input').click()"><i class="ti ti-upload"></i> Cargar backup</button>
+      <input type="file" id="restore-file-input" accept=".json" style="display:none;" onchange="doRestore(this.files[0])">
+    </div>
+    <div id="backup-status" style="font-size:12px;color:#2e7d32;display:none;background:#e8f5e9;border-radius:3px;padding:6px 10px;"></div>
+    <div style="margin-top:4px;">
+      <div style="font-size:11px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;">Estadísticas actuales</div>
+      <div id="backup-stats" style="font-size:12px;color:#555;line-height:1.8;"></div>
+    </div>
+    <hr style="border:none;border-top:1px solid #eee;">
+    <div>
+      <div style="font-size:11px;font-weight:bold;color:#c62828;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;">Zona de peligro</div>
+      <button class="btn btn-red" onclick="clearAllData()" style="font-size:11px;"><i class="ti ti-trash"></i> Borrar todos los datos</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">GMELENDEZ — NOC Ticket Tracker V.3.2 &nbsp;|&nbsp; <span style="color:#9e9e9e;">Ctrl+, Config &nbsp;·&nbsp; Ctrl+F Buscar &nbsp;·&nbsp; Ctrl+D Dashboard &nbsp;·&nbsp; Ctrl+I Importar</span></div>
+<iframe id="print-frame" style="display:none;"></iframe>
+</div><!-- /app -->
+
+<style>
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
 <script>
-const SK='noc_v5';
+/* ══════════════════════════════════════════════
+   CONSTANTS & STATE
+══════════════════════════════════════════════ */
+const SK='noc_v7';
 const DEF_STATUS=[
   {label:'Investigando',bg:'#fff3e0',color:'#e65100',sel_bg:'#ff6d00'},
   {label:'En progreso',bg:'#e8f5e9',color:'#2e7d32',sel_bg:'#2e7d32'},
@@ -314,290 +699,861 @@ const DEF_STATUS=[
   {label:'Esperando respuesta',bg:'#e3f2fd',color:'#1565c0',sel_bg:'#1565c0'},
   {label:'Resuelto',bg:'#ede7f6',color:'#4527a0',sel_bg:'#4527a0'}
 ];
-const DEF_TPLS=[
-  'Se inicia análisis del ticket',
-  'Se escala a Nivel 2',
-  'Se escala a Nivel 3',
-  'Se contacta al cliente',
-  'Sin respuesta del cliente',
-  'Se contacta al proveedor',
-  'Se aplica solución temporal',
-  'Se confirma resolución con el cliente',
-  'Ticket documentado y cerrado'
-];
+const DEF_TPLS=['Se inicia análisis del ticket','Se escala a Nivel 2','Se escala a Nivel 3','Se contacta al cliente','Sin respuesta del cliente','Se contacta al proveedor','Sin respuesta del proveedor','Se aplica solución temporal','Se confirma resolución con el cliente','Ticket documentado y cerrado'];
+const DEF_AC=['Se verifica el servicio afectado','Se identifica la causa raíz','Se abre bridge de emergencia','Se notifica al equipo de infraestructura','Se realiza rollback de los cambios','Se confirma restablecimiento del servicio','Se cierra el ticket en ServiceNow','Se actualiza el CMDB','Se coordina con el proveedor de telecomunicaciones','Se revisa el monitoreo sin alertas activas'];
+const SMART_MAP={'Escalado':['Se escala a Nivel 2','Se escala a Nivel 3','Se abre bridge de emergencia'],'Esperando respuesta':['Sin respuesta del cliente','Sin respuesta del proveedor','Se contacta al cliente'],'Resuelto':['Se confirma resolución con el cliente','Ticket documentado y cerrado'],'En progreso':['Se aplica solución temporal','Se verifica el servicio afectado'],'Investigando':['Se inicia análisis del ticket','Se identifica la causa raíz']};
 const STATUS_LEFT={'Investigando':'#ff6d00','En progreso':'#2e7d32','Escalado':'#c62828','Esperando respuesta':'#1565c0','Resuelto':'#4527a0'};
 
-let data={tickets:{},folders:{},custom_folders:{},statuses:[...DEF_STATUS],templates:[...DEF_TPLS],turno:null};
-let activeId=null,dragId=null,selectedIds=new Set(),multiMode=false,timeLocked=false,currentStatus='Investigando',clockInterval=null,settingsOpen=false,turnoModalOpen=false;
+let data={tickets:{},folders:{},custom_folders:{},statuses:[...DEF_STATUS],templates:[...DEF_TPLS],ac_phrases:[...DEF_AC],turno:null};
+let activeId=null,dragId=null,selectedIds=new Set(),multiMode=false;
+let timeLocked=false,currentStatus='Investigando',clockInterval=null;
+let settingsOpen=false,turnoModalOpen=false,helpOpen=false,aiOpen=false,dashOpen=false;
+let chipDragIdx=null,acIdx=-1,exportModalOpen=false;
+let importedRows=[],importHeaders=[];
+let dashFilterStatus=null;
 
+/* ══════════════════════════════════════════════
+   PERSISTENCE
+══════════════════════════════════════════════ */
 function load(){
-  try{const raw=localStorage.getItem(SK);if(raw){const d=JSON.parse(raw);data={...data,...d};if(!d.statuses)data.statuses=[...DEF_STATUS];if(!d.templates)data.templates=[...DEF_TPLS];if(!d.custom_folders)data.custom_folders={};}}catch(e){}
+  try{const raw=localStorage.getItem(SK);if(raw){const d=JSON.parse(raw);data={...data,...d};if(!d.statuses||!d.statuses.length)data.statuses=[...DEF_STATUS];if(!d.templates)data.templates=[...DEF_TPLS];if(!d.custom_folders)data.custom_folders={};if(!d.ac_phrases)data.ac_phrases=[...DEF_AC];}}catch(e){}
 }
 function save(){try{localStorage.setItem(SK,JSON.stringify(data));}catch(e){}}
 function pad(v){return String(v).padStart(2,'0');}
 function nowDate(){const n=new Date();return n.getFullYear()+'-'+pad(n.getMonth()+1)+'-'+pad(n.getDate());}
 function nowTime(){const n=new Date();return pad(n.getHours())+':'+pad(n.getMinutes());}
-function fmtDate(d){const[y,m,day]=d.split('-');return day+'/'+m+'/'+y;}
+function fmtDate(d){if(!d)return'';const[y,m,day]=d.split('-');return day+'/'+m+'/'+y;}
 function todayKey(){return nowDate();}
 function ensureFolder(dk){if(!data.folders[dk])data.folders[dk]={open:true,custom:false};}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function dl(content,name,mime){const blob=new Blob([content],{type:mime||'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
 
 function folderLabel(dk){
   if(data.custom_folders&&data.custom_folders[dk])return data.custom_folders[dk];
-  const today=nowDate();
-  const y=new Date();y.setDate(y.getDate()-1);
+  const today=nowDate(),y=new Date();y.setDate(y.getDate()-1);
   const yk=y.getFullYear()+'-'+pad(y.getMonth()+1)+'-'+pad(y.getDate());
-  if(dk===today)return 'Hoy — '+fmtDate(dk);
+  if(dk===today)return '📅 Hoy — '+fmtDate(dk);
   if(dk===yk)return 'Ayer — '+fmtDate(dk);
   return fmtDate(dk);
 }
 
+/* ══════════════════════════════════════════════
+   CLOCK
+══════════════════════════════════════════════ */
 function startClock(){
   if(clockInterval)clearInterval(clockInterval);
-  clockInterval=setInterval(()=>{if(!timeLocked){document.getElementById('tk-time').value=nowTime();}updateTurnoBadge();},15000);
+  clockInterval=setInterval(()=>{if(!timeLocked){const el=document.getElementById('tk-time');if(el)el.value=nowTime();}updateTurnoBadge();},15000);
 }
-
+function setNow(){document.getElementById('tk-date').value=nowDate();if(!timeLocked)document.getElementById('tk-time').value=nowTime();}
 function toggleTimeLock(){
   timeLocked=!timeLocked;
-  const btn=document.getElementById('dt-lock-btn');
-  const icon=document.getElementById('dt-lock-icon');
-  if(timeLocked){btn.className='dt-lock locked';icon.className='ti ti-lock';btn.lastChild.textContent=' Fijado';}
-  else{btn.className='dt-lock';icon.className='ti ti-lock-open';btn.lastChild.textContent=' Auto';document.getElementById('tk-time').value=nowTime();}
+  const btn=document.getElementById('dt-lock-btn'),icon=document.getElementById('dt-lock-icon');
+  if(timeLocked){btn.className='dt-lock locked';icon.className='ti ti-lock';btn.childNodes[1].textContent=' Fijado';}
+  else{btn.className='dt-lock';icon.className='ti ti-lock-open';btn.childNodes[1].textContent=' Auto';document.getElementById('tk-time').value=nowTime();}
 }
 
-function setNow(){
-  document.getElementById('tk-date').value=nowDate();
-  if(!timeLocked)document.getElementById('tk-time').value=nowTime();
-}
-
+/* ══════════════════════════════════════════════
+   TICKETS CRUD
+══════════════════════════════════════════════ */
 function createTicket(){
-  const id=document.getElementById('sb-new-id').value.trim();
-  if(!id)return;
-  const dk=todayKey();
-  ensureFolder(dk);
+  const id=document.getElementById('sb-new-id').value.trim();if(!id)return;
+  const dk=todayKey();ensureFolder(dk);
   if(!data.tickets[id])data.tickets[id]={entries:[],archived:false,folder:dk,created:Date.now(),resolution:''};
-  save();activeId=id;
-  document.getElementById('sb-new-id').value='INC-';
+  save();activeId=id;document.getElementById('sb-new-id').value='INC-';
   renderSidebar();renderPanel();
 }
-
-function createCustomFolder(){
-  const name=document.getElementById('sb-new-folder').value.trim();
-  if(!name)return;
-  const key='custom_'+Date.now();
-  if(!data.custom_folders)data.custom_folders={};
-  data.custom_folders[key]=name;
-  data.folders[key]={open:true,custom:true};
-  save();
-  document.getElementById('sb-new-folder').value='';
-  renderSidebar();
-}
-
-function deleteFolder(key){
-  const tks=Object.values(data.tickets).filter(t=>t.folder===key);
-  if(tks.length&&!confirm('Esta carpeta tiene tickets. ¿Eliminarla y mover tickets a Hoy?'))return;
-  const today=todayKey();
-  tks.forEach(t=>{t.folder=today;ensureFolder(today);});
-  delete data.folders[key];
-  if(data.custom_folders)delete data.custom_folders[key];
-  save();renderSidebar();
-}
-
 function selectTicket(id){
   if(multiMode){toggleSelect(id);return;}
-  activeId=id;renderSidebar();renderPanel();setNow();
-  setTimeout(()=>document.getElementById('tk-comment').focus(),30);
+  activeId=id;
+  if(dashOpen)toggleDashboard();
+  renderSidebar();renderPanel();setNow();
+  setTimeout(()=>document.getElementById('tk-comment')?.focus(),30);
 }
-
-function toggleSelect(id){
-  if(selectedIds.has(id))selectedIds.delete(id);else selectedIds.add(id);
-  renderSidebar();updateSelBar();
-}
-function updateSelBar(){
-  const bar=document.getElementById('sb-sel-bar');
-  const n=selectedIds.size;
-  document.getElementById('sel-count-lbl').textContent=n+' seleccionado'+(n===1?'':'s');
-  bar.className='sb-sel-bar'+(n>0?' show':'');
-}
-function clearSelection(){selectedIds.clear();multiMode=false;renderSidebar();updateSelBar();}
-function openMultiExport(){multiMode=!multiMode;if(!multiMode){clearSelection();}else{selectedIds.clear();renderSidebar();updateSelBar();}}
-
-function exportSelected(){
-  if(!selectedIds.size)return;
-  const lines=['BITÁCORA COMBINADA — NOC','='.repeat(40),'Exportado: '+new Date().toLocaleString('es-SV'),''];
-  [...selectedIds].forEach(id=>{
-    if(!data.tickets[id])return;
-    const tk=data.tickets[id];
-    lines.push('','TICKET: '+id);lines.push('-'.repeat(36));
-    const sorted=[...tk.entries].sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
-    sorted.forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+' — '+e.comment));
-    if(tk.resolution)lines.push('','RESOLUCIÓN:',tk.resolution);
-  });
-  dl(lines.join('\n'),'NOC_bitacora_combinada.txt');
-  clearSelection();
-}
-
-function dl(text,name){const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
-
-function useTemplate(text){ const vars=[...text.matchAll(/\{(.*?)\}/g)]; if(vars.length){ vars.forEach(v=>{ const key=v[1]; const val=prompt('Ingrese '+key+':'); text=text.replace(v[0],val||''); }); } const ta=document.getElementById('tk-comment'); ta.value=ta.value ? ta.value+'\n'+text : text; ta.focus(); hideAutocomplete(); }
-
 function addEntry(){
   if(!activeId)return;
   const date=document.getElementById('tk-date').value;
   const time=document.getElementById('tk-time').value;
   const comment=document.getElementById('tk-comment').value.trim();
+  const isPrivate=document.getElementById('is-private-cb').checked;
   const ta=document.getElementById('tk-comment');
   if(!date||!time||!comment){ta.style.borderColor='#c62828';setTimeout(()=>ta.style.borderColor='',1500);ta.focus();return;}
-  data.tickets[activeId].entries.unshift({id:Date.now(),date,time,comment,status:currentStatus});
-  save();ta.value='';setNow();renderTimeline();renderSidebar();
+  data.tickets[activeId].entries.unshift({id:Date.now(),date,time,comment,status:currentStatus,private:isPrivate});
+  save();ta.value='';document.getElementById('is-private-cb').checked=false;togglePrivateHint(false);
+  closeAC();setNow();renderTimeline();renderSidebar();
+  suggestSmartTemplates(currentStatus);
 }
-
 function deleteEntry(eid){
   if(!activeId||!data.tickets[activeId])return;
   data.tickets[activeId].entries=data.tickets[activeId].entries.filter(e=>e.id!==eid);
   save();renderTimeline();renderSidebar();
 }
-
 function toggleArchive(){
   if(!activeId||!data.tickets[activeId])return;
-  const tk=data.tickets[activeId];
-  tk.archived=!tk.archived;
+  const tk=data.tickets[activeId];tk.archived=!tk.archived;
   if(tk.archived)tk.folder='__archived__';
   else{tk.folder=todayKey();ensureFolder(tk.folder);}
   if(!data.folders['__archived__'])data.folders['__archived__']={open:true,special:'archived'};
   save();renderSidebar();renderPanel();
 }
-
 function deleteTicket(){
-  if(!activeId)return;
-  if(!confirm('¿Eliminar ticket '+activeId+'?'))return;
+  if(!activeId)return;if(!confirm('¿Eliminar ticket '+activeId+'?'))return;
   delete data.tickets[activeId];activeId=null;save();renderSidebar();renderPanel();
 }
-
-function saveResolution(){
-  if(!activeId||!data.tickets[activeId])return;
-  data.tickets[activeId].resolution=document.getElementById('tk-resolution').value;
-  save();
-}
-
+function saveResolution(){if(!activeId||!data.tickets[activeId])return;data.tickets[activeId].resolution=document.getElementById('tk-resolution').value;save();}
 function toggleResolucion(){
-  const wrap=document.getElementById('res-wrap');
-  const lbl=document.getElementById('res-toggle-lbl');
-  const icon=document.getElementById('res-toggle-icon');
+  const wrap=document.getElementById('res-wrap'),lbl=document.getElementById('res-toggle-lbl'),icon=document.getElementById('res-toggle-icon');
   const open=wrap.style.display==='block';
-  wrap.style.display=open?'none':'block';
-  lbl.textContent=open?'Mostrar':'Ocultar';
+  wrap.style.display=open?'none':'block';lbl.textContent=open?'Mostrar':'Ocultar';
   icon.className=open?'ti ti-chevron-down':'ti ti-chevron-up';
 }
+function togglePrivateHint(show){
+  document.getElementById('private-note-hint').style.display=show?'block':'none';
+  const ta=document.getElementById('tk-comment');
+  ta.placeholder=show?'Nota privada — solo visible en tu bitácora personal...':'Escribe o espera sugerencias...';
+  ta.style.background=show?'#fce4ec':'#fff';
+}
 
-function buildBitacora(id){
-  id=id||activeId;
-  const tk=data.tickets[id];
+/* ══════════════════════════════════════════════
+   STATUS DRAG & DROP (reorder)
+══════════════════════════════════════════════ */
+function renderStatusChips(){
+  const row=document.getElementById('status-chips-row');
+  row.innerHTML=data.statuses.map((s,i)=>{
+    const isSel=s.label===currentStatus;
+    return`<button class="s-chip${isSel?' sel':''}" data-idx="${i}" data-s="${esc(s.label)}"
+      style="background:${isSel?s.sel_bg:s.bg};color:${isSel?'#fff':s.color};border-color:${isSel?s.sel_bg:s.color+'44'};"
+      draggable="true" ondragstart="chipDragStart(event,${i})" ondragover="chipDragOver(event,${i})"
+      ondrop="chipDrop(event,${i})" ondragend="chipDragEnd()" onclick="selectStatus('${esc(s.label)}')">${esc(s.label)}</button>`;
+  }).join('');
+}
+function chipDragStart(e,i){chipDragIdx=i;setTimeout(()=>document.querySelectorAll('.s-chip')[i]?.classList.add('chip-dragging'),0);}
+function chipDragOver(e,i){e.preventDefault();document.querySelectorAll('.s-chip').forEach((c,ci)=>c.classList.toggle('chip-over',ci===i&&ci!==chipDragIdx));}
+function chipDrop(e,i){e.preventDefault();if(chipDragIdx===null||chipDragIdx===i)return;const m=data.statuses.splice(chipDragIdx,1)[0];data.statuses.splice(i,0,m);save();chipDragIdx=null;renderStatusChips();renderStatusEditList();}
+function chipDragEnd(){chipDragIdx=null;document.querySelectorAll('.s-chip').forEach(c=>c.classList.remove('chip-dragging','chip-over'));}
+function selectStatus(label){currentStatus=label;renderStatusChips();suggestSmartTemplates(label);}
 
-  const sorted=[...tk.entries].sort(
-    (a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time)
-  );
+/* SMART TEMPLATES */
+function suggestSmartTemplates(statusLabel){
+  const hints=SMART_MAP[statusLabel]||[];
+  const hint=document.getElementById('smart-tpl-hint');
+  const row=document.getElementById('tpl-chips-row');
+  if(hints.length){
+    hint.style.display='flex';
+    const sorted=[...data.templates].sort((a,b)=>(hints.includes(a)?-1:0)-(hints.includes(b)?-1:0));
+    row.innerHTML=sorted.map(t=>`<button class="tpl-chip" style="${hints.includes(t)?'background:#e8f5e9;border-color:#a5d6a7;color:#2e7d32;':''}" title="${esc(t)}" onclick="insertTemplateByText('${esc(t)}')">${hints.includes(t)?'✦ ':'+ '}${esc(t)}</button>`).join('');
+  } else {hint.style.display='none';renderTplChips();}
+}
+function renderTplChips(){const row=document.getElementById('tpl-chips-row');row.innerHTML=data.templates.map(t=>`<button class="tpl-chip" title="${esc(t)}" onclick="insertTemplateByText('${esc(t)}')">+ ${esc(t)}</button>`).join('');}
+function insertTemplateByText(t){const ta=document.getElementById('tk-comment');const v=ta.value.trim();ta.value=v+(v?'. ':'')+t;ta.focus();closeAC();}
 
-  const lines=[
-    'BITÁCORA DE SEGUIMIENTO',
-    '='.repeat(40),
-    'Ticket: '+id,
-    'Exportado: '+new Date().toLocaleString('es-SV'),
-    ''
-  ];
+/* ══════════════════════════════════════════════
+   AUTOCOMPLETE
+══════════════════════════════════════════════ */
+function buildACCandidates(){
+  const all=new Set([...data.ac_phrases,...data.templates]);
+  if(activeId&&data.tickets[activeId])data.tickets[activeId].entries.forEach(e=>{if(e.comment&&e.comment.length>6)all.add(e.comment);});
+  return[...all];
+}
+function onACInput(){
+  const ta=document.getElementById('tk-comment');const val=ta.value;const box=document.getElementById('autocomplete-box');
+  if(!val||val.length<2){closeAC();return;}
+  const candidates=buildACCandidates().filter(p=>p.toLowerCase().includes(val.toLowerCase())&&p.toLowerCase()!==val.toLowerCase()).slice(0,7);
+  if(!candidates.length){closeAC();return;}
+  acIdx=-1;
+  box.innerHTML=candidates.map((p,i)=>`<div class="ac-item" data-i="${i}" onmousedown="applyAC(event,'${esc(p)}')">${highlightMatch(esc(p),esc(val))}<span class="ac-tag">sugerencia</span></div>`).join('');
+  box.style.display='block';
+}
+function highlightMatch(text,q){return text.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark class="hist-match">$1</mark>');}
+function applyAC(e,text){e.preventDefault();document.getElementById('tk-comment').value=text;closeAC();document.getElementById('tk-comment').focus();}
+function closeAC(){const b=document.getElementById('autocomplete-box');if(b){b.style.display='none';b.innerHTML='';}acIdx=-1;}
+function navigateAC(dir){const items=document.querySelectorAll('.ac-item');if(!items.length)return;items[acIdx]?.classList.remove('ac-sel');acIdx=(acIdx+dir+items.length)%items.length;items[acIdx]?.classList.add('ac-sel');items[acIdx]?.scrollIntoView({block:'nearest'});}
+function confirmAC(){const sel=document.querySelector('.ac-item.ac-sel');if(sel){document.getElementById('tk-comment').value=sel.textContent.replace('sugerencia','').trim();closeAC();}}
 
-  sorted.forEach(e=>{
-    lines.push(
-      fmtDate(e.date)+' '+e.time+
-      (e.status?' ['+e.status+']':'')+
-      ' — '+e.comment,
-      ''
-    );
+/* ══════════════════════════════════════════════
+   HIST SEARCH
+══════════════════════════════════════════════ */
+function onHistSearch(){const val=document.getElementById('hist-search').value;document.getElementById('hs-clear-btn').className='hs-clear'+(val?' show':'');renderTimeline();}
+function clearHistSearch(){document.getElementById('hist-search').value='';document.getElementById('hs-clear-btn').className='hs-clear';renderTimeline();}
+
+/* ══════════════════════════════════════════════
+   EXPORT
+══════════════════════════════════════════════ */
+let exportScope='single';
+function openExportModal(){
+  exportScope=selectedIds.size>0?'selected':'single';
+  const lbl=document.getElementById('export-scope-label');
+  if(exportScope==='selected')lbl.textContent=`Exportando ${selectedIds.size} tickets seleccionados`;
+  else if(activeId)lbl.textContent=`Exportando ticket: ${activeId}`;
+  else{lbl.textContent='Selecciona un ticket primero.';exportScope='none';}
+  document.getElementById('export-modal').className='modal-overlay open';
+}
+function closeExportModal(){document.getElementById('export-modal').className='modal-overlay';}
+function getExportIds(){if(exportScope==='selected')return[...selectedIds];if(exportScope==='single'&&activeId)return[activeId];return[];}
+function includePrivate(){return document.getElementById('export-include-private')?.checked||false;}
+
+function doExport(type){
+  const ids=getExportIds();if(!ids.length){closeExportModal();return;}
+  const withPrivate=includePrivate();
+  if(type==='txt'){const c=ids.length===1?buildTxt(ids[0],withPrivate):buildCombinedTxt(ids,withPrivate);dl(c,(ids.length===1?ids[0]:'NOC_combinado')+'_bitacora.txt','text/plain');}
+  else if(type==='html'){const c=ids.length===1?buildHTML(ids[0],withPrivate):buildCombinedHTML(ids,withPrivate);dl(c,(ids.length===1?ids[0]:'NOC_combinado')+'_bitacora.html','text/html');}
+  else if(type==='pdf'){const c=ids.length===1?buildHTML(ids[0],withPrivate):buildCombinedHTML(ids,withPrivate);const f=document.getElementById('print-frame');f.contentDocument.open();f.contentDocument.write(c);f.contentDocument.close();setTimeout(()=>f.contentWindow.print(),400);}
+  else if(type==='clip'){const c=ids.length===1?buildTxt(ids[0],withPrivate):buildCombinedTxt(ids,withPrivate);navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✓ Copiado al portapapeles';setTimeout(closeExportModal,1200);}).catch(()=>{});}
+  else if(type==='snow'){const c=ids.length===1?buildSnowNotes(ids[0]):ids.map(id=>buildSnowNotes(id)).join('\n\n'+'─'.repeat(50)+'\n\n');navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✅ Copiado en formato ServiceNow — pégalo en Work Notes';setTimeout(closeExportModal,1800);}).catch(()=>{});}
+  if(type!=='clip'&&type!=='snow')closeExportModal();clearSelection();
+}
+
+function getEntries(id,withPrivate=false){
+  const tk=data.tickets[id];if(!tk)return[];
+  return tk.entries.filter(e=>withPrivate||!e.private).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+}
+
+// ServiceNow date format: YYYY-MM-DD HH:MM:SS
+function fmtSnowDate(date,time){
+  if(!date)return'';
+  return date+' '+(time||'00:00')+':00';
+}
+
+function buildSnowNotes(id){
+  const tk=data.tickets[id];if(!tk)return'';
+  const entries=getEntries(id,false); // never include private in ServiceNow export
+  const lines=[];
+  lines.push('[NOC Internal Tracker — '+id+']');
+  lines.push('Export date: '+new Date().toLocaleString('es-SV'));
+  lines.push('');
+  entries.forEach(e=>{
+    // ServiceNow Work Notes format
+    lines.push(fmtSnowDate(e.date,e.time));
+    if(e.status)lines.push('['+e.status+']');
+    lines.push(e.comment);
+    lines.push(''); // blank line between entries
   });
-
   if(tk.resolution){
-    lines.push(
-      '',
-      'RESOLUCIÓN / CAUSA RAÍZ',
-      '—'.repeat(20),
-      tk.resolution
-    );
+    lines.push('─'.repeat(40));
+    lines.push('Resolution / Root Cause:');
+    lines.push(tk.resolution);
   }
-
   return lines.join('\n');
 }
 
-function copyHistorico(){
-  if(!activeId || !data.tickets[activeId]) return;
+function buildTxt(id,withPrivate=false){
+  const tk=data.tickets[id];if(!tk)return'';
+  const entries=getEntries(id,withPrivate);
+  const lines=['BITÁCORA DE SEGUIMIENTO','='.repeat(40),'Ticket: '+id,'Exportado: '+new Date().toLocaleString('es-SV'),''];
+  // attachment (adjunto) is NEVER exported — it's display-only
+  entries.forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+(e.private?' [PRIVADO]':'')+' — '+e.comment,''));
+  if(tk.resolution)lines.push('','RESOLUCIÓN / CAUSA RAÍZ','—'.repeat(20),tk.resolution);
+  return lines.join('\n');
+}
+function buildCombinedTxt(ids,withPrivate=false){
+  const lines=['BITÁCORA COMBINADA — NOC','='.repeat(40),'Exportado: '+new Date().toLocaleString('es-SV'),''];
+  ids.forEach(id=>{if(!data.tickets[id])return;lines.push('','TICKET: '+id,'-'.repeat(36));getEntries(id,withPrivate).forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+(e.private?' [PRIVADO]':'')+' — '+e.comment));if(data.tickets[id].resolution)lines.push('','RESOLUCIÓN: '+data.tickets[id].resolution);});
+  return lines.join('\n');
+}
+function buildHTML(id,withPrivate=false){
+  const tk=data.tickets[id];if(!tk)return'';
+  const entries=getEntries(id,withPrivate);
+  const stMap={};data.statuses.forEach(s=>stMap[s.label]=s);
+  const rows=entries.map(e=>{const st=stMap[e.status]||{};const pill=e.status?`<span style="background:${st.bg||'#eee'};color:${st.color||'#333'};padding:1px 7px;border-radius:8px;font-size:11px;font-weight:bold;">${esc(e.status)}</span>`:'';const priv=e.private?'<span style="background:#f3e5f5;color:#6a1b9a;font-size:10px;font-weight:bold;padding:1px 5px;border-radius:8px;margin-left:4px;">PRIVADO</span>':'';return`<tr style="${e.private?'background:#fdf2ff;':''}"><td style="padding:6px 10px;white-space:nowrap;color:#555;font-size:12px;vertical-align:top;">${fmtDate(e.date)}<br>${e.time}</td><td style="padding:6px 10px;vertical-align:top;">${pill}${priv}</td><td style="padding:6px 10px;font-size:13px;">${esc(e.comment).replace(/\n/g,'<br>')}</td></tr>`;}).join('');
+  const resBlock=tk.resolution?`<div style="margin-top:18px;background:#f9fbe7;border-left:4px solid #a5d6a7;padding:10px 14px;border-radius:0 4px 4px 0;"><strong style="color:#2e7d32;">RESOLUCIÓN / CAUSA RAÍZ</strong><p style="margin-top:5px;font-size:13px;">${esc(tk.resolution).replace(/\n/g,'<br>')}</p></div>`:'';
+  return`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Bitácora ${esc(id)}</title><style>body{font-family:Arial,sans-serif;font-size:13px;color:#222;padding:24px;max-width:860px;margin:0 auto;}h1{color:#1a1a2e;font-size:17px;margin-bottom:3px;}.meta{font-size:11px;color:#9e9e9e;margin-bottom:16px;}table{width:100%;border-collapse:collapse;}th{background:#1a1a2e;color:#fff;padding:6px 10px;text-align:left;font-size:11px;}tr:nth-child(even){background:#f5f5f5;}@media print{body{padding:8px;}}</style></head><body><h1>📋 Bitácora — ${esc(id)}</h1><div class="meta">Exportado: ${new Date().toLocaleString('es-SV')} | Entradas: ${entries.length}</div><table><thead><tr><th>Fecha/Hora</th><th>Estado</th><th>Comentario</th></tr></thead><tbody>${rows}</tbody></table>${resBlock}</body></html>`;
+}
+function buildCombinedHTML(ids,withPrivate=false){
+  const sections=ids.map(id=>{if(!data.tickets[id])return'';return`<h2 style="margin-top:24px;color:#1a1a2e;font-size:14px;border-bottom:2px solid #3f51b5;padding-bottom:3px;">Ticket: ${esc(id)}</h2>`+buildHTML(id,withPrivate).replace(/<!DOCTYPE.*?<body[^>]*>/s,'').replace(/<\/body>.*$/s,'');}).join('');
+  return`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Bitácora Combinada NOC</title><style>body{font-family:Arial,sans-serif;font-size:13px;color:#222;padding:24px;max-width:900px;margin:0 auto;}h1{color:#1a1a2e;}h2{color:#3f51b5;}table{width:100%;border-collapse:collapse;margin-bottom:10px;}th{background:#1a1a2e;color:#fff;padding:6px 10px;text-align:left;font-size:11px;}tr:nth-child(even){background:#f5f5f5;}@media print{body{padding:8px;}}</style></head><body><h1>📋 Bitácora Combinada — NOC</h1><div style="font-size:11px;color:#9e9e9e;margin-bottom:14px;">Exportado: ${new Date().toLocaleString('es-SV')}</div>${sections}</body></html>`;
+}
 
-  const tk = data.tickets[activeId];
+function copyHistorico(){if(!activeId||!data.tickets[activeId])return;navigator.clipboard.writeText(buildTxt(activeId,false)).catch(()=>{});}
 
-  const sorted = [...tk.entries].sort(
-    (a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time)
-  );
+/* ══════════════════════════════════════════════
+   IMPORT
+══════════════════════════════════════════════ */
+function openImportModal(){resetImport();document.getElementById('import-modal').className='modal-overlay open';}
+function closeImportModal(){document.getElementById('import-modal').className='modal-overlay';}
+function switchImportTab(tab){
+  document.getElementById('imp-file-tab').style.display=tab==='file'?'block':'none';
+  document.getElementById('imp-paste-tab').style.display=tab==='paste'?'block':'none';
+  document.getElementById('imp-tab-file').className='import-tab'+(tab==='file'?' active':'');
+  document.getElementById('imp-tab-paste').className='import-tab'+(tab==='paste'?' active':'');
+}
+function impDragOver(e){e.preventDefault();document.getElementById('imp-drop-zone').classList.add('dragover');}
+function impDragLeave(){document.getElementById('imp-drop-zone').classList.remove('dragover');}
+function impDrop(e){e.preventDefault();impDragLeave();const f=e.dataTransfer.files[0];if(f)handleImportFile(f);}
+function handleImportFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const txt=ev.target.result;
+    if(file.name.endsWith('.json'))parseImportJSON(txt);
+    else parseImportCSV(txt);
+  };
+  reader.readAsText(file);
+}
+function parseImportPaste(){
+  const txt=document.getElementById('imp-paste-area').value.trim();
+  if(!txt)return;
+  if(txt.startsWith('[')||txt.startsWith('{'))parseImportJSON(txt);
+  else parseImportCSV(txt);
+}
+function parseImportCSV(txt){
+  const lines=txt.trim().split('\n').filter(l=>l.trim());
+  if(lines.length<2){alert('CSV debe tener encabezados y al menos una fila.');return;}
+  importHeaders=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
+  importedRows=lines.slice(1).map(line=>{
+    const vals=line.match(/("([^"]*)")|([^,]*)/g)||[];
+    const clean=vals.filter((_,i)=>i%2===0).map(v=>v.replace(/^"|"$/g,'').trim());
+    const obj={};importHeaders.forEach((h,i)=>obj[h]=clean[i]||'');return obj;
+  });
+  showImportPreview();
+}
+function parseImportJSON(txt){
+  try{
+    let arr=JSON.parse(txt);
+    if(!Array.isArray(arr))arr=[arr];
+    if(!arr.length){alert('JSON vacío.');return;}
+    importedRows=arr;
+    importHeaders=Object.keys(arr[0]);
+    showImportPreview();
+  }catch(e){alert('JSON inválido: '+e.message);}
+}
+function showImportPreview(){
+  if(!importedRows.length)return;
+  document.getElementById('imp-preview-text').textContent=JSON.stringify(importedRows.slice(0,3),null,2)+(importedRows.length>3?'\n... y '+(importedRows.length-3)+' filas más':'');
+  buildMappingUI();
+  document.getElementById('imp-preview-section').style.display='flex';
+}
+const FIELD_OPTS=['(ignorar)','fecha','hora','comentario','estado','número ticket'];
+function buildMappingUI(){
+  const container=document.getElementById('imp-mapping');
+  // Auto-detect common ServiceNow column names
+  const autoMap={number:'número ticket',opened_at:'fecha',sys_created_on:'fecha',short_description:'comentario',description:'comentario',comments:'comentario',state:'estado',close_notes:'comentario',work_notes:'comentario',resolved_at:'fecha'};
+  container.innerHTML=importHeaders.map(h=>{
+    const auto=autoMap[h.toLowerCase()]||'(ignorar)';
+    const opts=FIELD_OPTS.map(o=>`<option value="${o}"${o===auto?' selected':''}>${o}</option>`).join('');
+    return`<div class="map-row"><span style="font-weight:bold;overflow:hidden;text-overflow:ellipsis;">${esc(h)}</span><span style="text-align:center;color:#9e9e9e;">→</span><select id="map-${h}">${opts}</select></div>`;
+  }).join('');
+}
+function executeImport(){
+  if(!importedRows.length)return;
+  // Read mapping
+  const map={};
+  importHeaders.forEach(h=>{const sel=document.getElementById('map-'+h);if(sel)map[h]=sel.value;});
+  const dateFields=importHeaders.filter(h=>map[h]==='fecha');
+  const commentFields=importHeaders.filter(h=>map[h]==='comentario');
+  const stateFields=importHeaders.filter(h=>map[h]==='estado');
+  const numFields=importHeaders.filter(h=>map[h]==='número ticket');
+  let imported=0;
+  importedRows.forEach(row=>{
+    const ticketNum=numFields.length?row[numFields[0]]:'';
+    const targetInput=document.getElementById('imp-target-id').value.trim();
+    const tkId=targetInput||(ticketNum||'IMP-'+Date.now());
+    const dateRaw=dateFields.length?row[dateFields[0]]:'';
+    let date=nowDate(),time='00:00';
+    if(dateRaw){const d=new Date(dateRaw);if(!isNaN(d)){date=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());time=pad(d.getHours())+':'+pad(d.getMinutes());}}
+    const commentParts=commentFields.map(f=>row[f]||'').filter(Boolean);
+    const comment=commentParts.join(' | ')||JSON.stringify(row);
+    const status=stateFields.length?row[stateFields[0]]:'';
+    if(!data.tickets[tkId]){const dk=todayKey();ensureFolder(dk);data.tickets[tkId]={entries:[],archived:false,folder:dk,created:Date.now(),resolution:''};}
+    data.tickets[tkId].entries.push({id:Date.now()+imported,date,time,comment,status,private:false});
+    imported++;
+  });
+  save();renderSidebar();
+  alert(`✓ Se importaron ${imported} entradas.`);
+  closeImportModal();resetImport();
+}
+function resetImport(){importedRows=[];importHeaders=[];document.getElementById('imp-preview-section').style.display='none';document.getElementById('imp-paste-area').value='';document.getElementById('imp-target-id').value='';document.getElementById('imp-file-input').value='';}
 
-  const lines = [];
+/* ══════════════════════════════════════════════
+   DASHBOARD — SHIFT VIEW
+══════════════════════════════════════════════ */
+function toggleDashboard(){
+  dashOpen=!dashOpen;
+  document.getElementById('dashboard-view').className=dashOpen?'dashboard open':'dashboard';
+  document.getElementById('main-panel').style.display=dashOpen?'none':'flex';
+  document.getElementById('sidebar').style.display=dashOpen?'none':'flex';
+  document.getElementById('btn-dashboard').innerHTML=dashOpen?'<i class="ti ti-x"></i> Cerrar':'<i class="ti ti-layout-dashboard"></i> Dashboard';
+  if(dashOpen)renderDashboard();
+}
+function clearDashFilter(){dashFilterStatus=null;renderDashboard();}
+function renderDashboard(){
+  const stMap={};data.statuses.forEach(s=>stMap[s.label]=s);
+  // Get tickets worked in current shift (or all if no shift)
+  const start=data.turno?.active?new Date(data.turno.start):null;
+  const tickets=Object.entries(data.tickets).filter(([,tk])=>{
+    if(tk.archived)return false;
+    if(!start)return true;
+    return tk.entries.some(e=>new Date(e.id)>=start);
+  });
+  // Stats
+  const total=tickets.length;
+  const statusCounts={};
+  tickets.forEach(([,tk])=>{
+    const last=tk.entries.sort((a,b)=>b.id-a.id)[0];
+    const s=last?.status||'Sin estado';
+    statusCounts[s]=(statusCounts[s]||0)+1;
+  });
+  // Stats pills
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-pill"><div class="sv">${total}</div><div class="sl">Tickets</div></div>
+    ${Object.entries(statusCounts).map(([s,c])=>{const st=stMap[s]||{};return`<div class="stat-pill" style="border-color:${st.sel_bg||'#9e9e9e'}"><div class="sv" style="color:${st.sel_bg||'#3f51b5'}">${c}</div><div class="sl">${s}</div></div>`;}).join('')}
+  `;
+  // Filter chips
+  const filterRow=document.getElementById('dash-filter-chips');
+  filterRow.innerHTML=data.statuses.map(s=>{
+    const isSel=dashFilterStatus===s.label;
+    return`<button style="padding:3px 10px;border-radius:10px;border:1px solid ${s.sel_bg};font-size:11px;font-weight:bold;cursor:pointer;background:${isSel?s.sel_bg:s.bg};color:${isSel?'#fff':s.color};" onclick="dashFilterStatus='${esc(s.label)}';renderDashboard();">${esc(s.label)}</button>`;
+  }).join('');
+  // Cards
+  const filtered=dashFilterStatus?tickets.filter(([,tk])=>{const last=[...tk.entries].sort((a,b)=>b.id-a.id)[0];return(last?.status||'')=== dashFilterStatus;}):tickets;
+  const grid=document.getElementById('dash-grid');
+  if(!filtered.length){grid.innerHTML='<div class="dash-empty"><i class="ti ti-inbox" style="font-size:32px;display:block;margin-bottom:8px;opacity:.25;"></i>No hay tickets'+(start?' trabajados en este turno':' activos')+'.</div>';return;}
+  const sorted=filtered.sort((a,b)=>{
+    const la=[...a[1].entries].sort((x,y)=>y.id-x.id)[0];
+    const lb=[...b[1].entries].sort((x,y)=>y.id-x.id)[0];
+    return(lb?.id||0)-(la?.id||0);
+  });
+  grid.innerHTML=sorted.map(([id,tk])=>{
+    const lastEntry=[...tk.entries].sort((a,b)=>b.id-a.id)[0];
+    const st=stMap[lastEntry?.status||'']||{};
+    const entryCount=tk.entries.length;
+    const hasRes=!!tk.resolution;
+    const lastTime=lastEntry?fmtDate(lastEntry.date)+' '+lastEntry.time:'—';
+    const lastComment=lastEntry?.comment||'Sin comentarios';
+    const stPill=lastEntry?.status?`<span class="dash-status-pill" style="background:${st.sel_bg||'#9e9e9e'};color:#fff;">${esc(lastEntry.status)}</span>`:'';
+    const privCount=tk.entries.filter(e=>e.private).length;
+    return`<div class="dash-card" onclick="selectTicket('${esc(id)}')">
+      <div class="dash-card-head">
+        <i class="ti ti-ticket" style="color:#9fa8da;font-size:16px;"></i>
+        <span class="dash-card-id">${esc(id)}</span>
+        ${stPill}
+      </div>
+      <div class="dash-last-comment">${esc(lastComment)}</div>
+      <div class="dash-meta">
+        <span><i class="ti ti-clock"></i> ${lastTime}</span>
+        <span><i class="ti ti-message"></i> ${entryCount} entrada${entryCount!==1?'s':''}</span>
+        ${hasRes?'<span style="color:#2e7d32;"><i class="ti ti-check"></i> resolución</span>':''}
+        ${privCount?`<span style="color:#8e24aa;"><i class="ti ti-eye-off"></i> ${privCount} privada${privCount!==1?'s':''}</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
 
- sorted.forEach(e=>{ lines.push( fmtDate(e.date)+' '+e.time+ (e.status ? ' ['+e.status+']' : '')+ ' — '+e.comment ); });
+/* ══════════════════════════════════════════════
+   AI — MULTI-PROVIDER (Claude · OpenAI · Copilot · Custom)
+══════════════════════════════════════════════ */
 
-  if(tk.resolution){
-    lines.push('');
-    lines.push('RESOLUCIÓN / CAUSA RAÍZ');
-    lines.push('--------------------');
-    lines.push(tk.resolution);
+/* ── Provider definitions ── */
+const AI_PROVIDERS={
+  claude:{
+    name:'Claude (Anthropic)',
+    icon:'ti-brand-anthropic',
+    keyPlaceholder:'sk-ant-api03-...',
+    defaultModels:[
+      {id:'claude-sonnet-4-20250514',label:'claude-sonnet-4 (recomendado)'},
+      {id:'claude-opus-4-5',label:'claude-opus-4'},
+      {id:'claude-haiku-4-5-20251001',label:'claude-haiku-4 (rápido)'}
+    ],
+    call: async(key,model,messages,systemPrompt,maxTokens)=>{
+      const body={model,max_tokens:maxTokens,messages};
+      if(systemPrompt)body.system=systemPrompt;
+      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+      const d=await r.json();return d.content.map(c=>c.text||'').join('');
+    }
+  },
+  openai:{
+    name:'ChatGPT (OpenAI)',
+    icon:'ti-brand-openai',
+    keyPlaceholder:'sk-proj-...',
+    defaultModels:[
+      {id:'gpt-4o',label:'gpt-4o (recomendado)'},
+      {id:'gpt-4-turbo',label:'gpt-4-turbo'},
+      {id:'gpt-4o-mini',label:'gpt-4o-mini (rápido)'},
+      {id:'o1-mini',label:'o1-mini (razonamiento)'}
+    ],
+    call: async(key,model,messages,systemPrompt,maxTokens)=>{
+      const msgs=systemPrompt?[{role:'system',content:systemPrompt},...messages]:messages;
+      const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+        body:JSON.stringify({model,messages:msgs,max_tokens:maxTokens})});
+      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+      const d=await r.json();return d.choices[0]?.message?.content||'';
+    }
+  },
+  copilot:{
+    name:'GitHub Copilot API',
+    icon:'ti-brand-github',
+    keyPlaceholder:'ghp_... o ghu_...',
+    defaultModels:[
+      {id:'gpt-4o',label:'gpt-4o'},
+      {id:'gpt-4o-mini',label:'gpt-4o-mini'},
+      {id:'claude-sonnet-4',label:'claude-sonnet-4'}
+    ],
+    call: async(key,model,messages,systemPrompt,maxTokens)=>{
+      const msgs=systemPrompt?[{role:'system',content:systemPrompt},...messages]:messages;
+      const r=await fetch('https://api.githubcopilot.com/chat/completions',{method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'Copilot-Integration-Id':'vscode-chat'},
+        body:JSON.stringify({model,messages:msgs,max_tokens:maxTokens})});
+      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+      const d=await r.json();return d.choices[0]?.message?.content||'';
+    }
+  },
+  custom:{
+    name:'Custom / Ollama',
+    icon:'ti-plug',
+    keyPlaceholder:'(opcional, o "ollama")',
+    defaultModels:[
+      {id:'llama3.2',label:'llama3.2 (Ollama)'},
+      {id:'mistral',label:'mistral (Ollama)'},
+      {id:'gemma3',label:'gemma3 (Ollama)'},
+      {id:'custom-model',label:'Escribe tu modelo...'}
+    ],
+    call: async(key,model,messages,systemPrompt,maxTokens,endpoint)=>{
+      const ep=endpoint||'http://localhost:11434/v1/chat/completions';
+      const msgs=systemPrompt?[{role:'system',content:systemPrompt},...messages]:messages;
+      const headers={'Content-Type':'application/json'};
+      if(key&&key!=='ollama')headers['Authorization']='Bearer '+key;
+      const r=await fetch(ep,{method:'POST',headers,body:JSON.stringify({model,messages:msgs,max_tokens:maxTokens})});
+      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+      const d=await r.json();
+      // Handle both OpenAI-compatible and raw text responses
+      if(d.choices)return d.choices[0]?.message?.content||'';
+      if(d.content)return Array.isArray(d.content)?d.content.map(c=>c.text||'').join(''):d.content;
+      return JSON.stringify(d);
+    }
   }
+};
 
-  navigator.clipboard.writeText(lines.join('\n')).catch(()=>{});
+let currentProvider='claude';
+
+function toggleAI(){
+  aiOpen=!aiOpen;
+  document.getElementById('ai-panel').className=aiOpen?'ai-panel open':'ai-panel';
+  if(aiOpen)loadAiConfig();
 }
 
-function generateBitacora(){
-  if(!activeId||!data.tickets[activeId])return;
-  dl(buildBitacora(),(activeId)+'_bitacora.txt');
+function loadAiConfig(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('noc_ai_cfg')||'{}');
+    currentProvider=saved.provider||'claude';
+    document.getElementById('ai-key-input').value=saved.key||'';
+    document.getElementById('ai-endpoint-input').value=saved.endpoint||'';
+    updateProviderUI(currentProvider,saved.model);
+  }catch(e){}
 }
 
-function getDaysSorted(){return Object.keys(data.folders).filter(k=>k!=='__archived__').sort((a,b)=>{if(data.folders[b]&&data.folders[b].custom&&!(data.folders[a]&&data.folders[a].custom))return -1;if(data.folders[a]&&data.folders[a].custom&&!(data.folders[b]&&data.folders[b].custom))return 1;return b.localeCompare(a);});}
-
-function getTicketsForDay(dk,q){
-  const archived=dk==='__archived__';
-  return Object.entries(data.tickets)
-    .filter(([id,tk])=>archived?tk.archived:(tk.folder===dk&&!tk.archived)&&(!q||(id).toLowerCase().includes(q)))
-    .sort((a,b)=>b[1].created-a[1].created);
+function saveAiConfig(){
+  const key=document.getElementById('ai-key-input').value.trim();
+  const model=document.getElementById('ai-model-select').value;
+  const endpoint=document.getElementById('ai-endpoint-input').value.trim();
+  localStorage.setItem('noc_ai_cfg',JSON.stringify({provider:currentProvider,key,model,endpoint}));
 }
+
+function selectProvider(pv){
+  currentProvider=pv;
+  updateProviderUI(pv,null);
+  saveAiConfig();
+}
+
+function updateProviderUI(pv,savedModel){
+  // Update card selection
+  Object.keys(AI_PROVIDERS).forEach(p=>{
+    document.getElementById('pv-'+p)?.classList.toggle('selected',p===pv);
+  });
+  const pvDef=AI_PROVIDERS[pv];
+  // Update key placeholder
+  document.getElementById('ai-key-input').placeholder=pvDef.keyPlaceholder;
+  // Update model dropdown
+  const sel=document.getElementById('ai-model-select');
+  sel.innerHTML=pvDef.defaultModels.map(m=>`<option value="${m.id}"${savedModel===m.id?' selected':''}>${m.label}</option>`).join('');
+  if(savedModel&&!pvDef.defaultModels.find(m=>m.id===savedModel)){
+    sel.innerHTML+=`<option value="${savedModel}" selected>${savedModel}</option>`;
+  }
+  // Show/hide custom endpoint
+  document.getElementById('ai-custom-endpoint-row').style.display=pv==='custom'?'block':'none';
+  // Update badge
+  const badge=document.getElementById('ai-active-badge');
+  badge.innerHTML=`<i class="ti ${pvDef.icon}"></i> ${pvDef.name}`;
+  // Update spinner label
+  document.getElementById('ai-spinner-label').textContent='Procesando con '+pvDef.name+'...';
+}
+
+async function testApiKey(){
+  const cfg=getAiConfig();
+  if(!cfg.key&&currentProvider!=='custom'){alert('Ingresa tu API key primero.');return;}
+  showAISpinner(true);
+  try{
+    const pv=AI_PROVIDERS[currentProvider];
+    let r;
+    if(currentProvider==='custom'){
+      r=await pv.call(cfg.key,cfg.model,[{role:'user',content:'Responde solo la palabra: OK'}],'',50,cfg.endpoint);
+    } else {
+      r=await pv.call(cfg.key,cfg.model,[{role:'user',content:'Responde solo: OK'}],'',50);
+    }
+    showAISpinner(false);
+    showAIResponse('✅ Conexión exitosa con '+AI_PROVIDERS[currentProvider].name+'.\nModelo: '+cfg.model+'\nRespuesta: '+r.trim());
+  }catch(e){showAISpinner(false);showAIResponse('❌ Error de conexión:\n'+e.message+'\n\nVerifica: API key, modelo y que el proveedor permita llamadas desde el navegador.');}
+}
+
+function getAiConfig(){
+  try{return JSON.parse(localStorage.getItem('noc_ai_cfg')||'{}');}catch(e){return{};}
+}
+
+async function callAI(messages,systemPrompt='',maxTokens=800){
+  const cfg=getAiConfig();
+  const pv=AI_PROVIDERS[currentProvider]||AI_PROVIDERS.claude;
+  const key=cfg.key||'';
+  const model=cfg.model||pv.defaultModels[0].id;
+  const endpoint=cfg.endpoint||'';
+  if(currentProvider==='custom')return pv.call(key,model,messages,systemPrompt,maxTokens,endpoint);
+  return pv.call(key,model,messages,systemPrompt,maxTokens);
+}
+
+function buildTicketContext(){
+  if(!activeId||!data.tickets[activeId])return null;
+  const tk=data.tickets[activeId];
+  const entries=[...tk.entries].sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  const lines=[`TICKET ID: ${activeId}`,'HISTORIAL:'];
+  entries.forEach(e=>lines.push(`  ${fmtDate(e.date)} ${e.time} [${e.status||'—'}]${e.private?' [PRIVADO]':''} — ${e.comment}`));
+  if(tk.resolution)lines.push('RESOLUCIÓN ACTUAL:',tk.resolution);
+  return lines.join('\n');
+}
+
+const AI_PROMPTS={
+  summary:{
+    system:'Eres un experto en operaciones NOC. Genera resúmenes concisos y profesionales para tickets de ServiceNow en español.',
+    user:'Con base en este historial de ticket NOC, genera un resumen ejecutivo profesional en 3-4 oraciones, listo para pegar en el campo "Work Notes" de ServiceNow. Sé directo y técnico.\n\n{CONTEXT}'
+  },
+  resolution:{
+    system:'Eres un experto en resolución de incidentes de red y sistemas. Tu lenguaje es técnico y preciso en español.',
+    user:'Basándote en el historial de este ticket, sugiere una causa raíz probable y los pasos de resolución recomendados. Formato:\n**Causa raíz:** ...\n**Pasos de resolución:**\n1. ...\n\n{CONTEXT}'
+  },
+  handoff:{
+    system:'Eres un coordinador de NOC experto en comunicación de handoffs entre turnos. Escribe en español formal y conciso.',
+    user:'Genera un resumen de handoff para el siguiente turno basado en este ticket. Incluye: estado actual, acciones realizadas, pendientes y recomendaciones.\n\n{CONTEXT}'
+  },
+  timeline:{
+    system:'Eres un analista de NOC que convierte logs técnicos en narrativas claras para management en español.',
+    user:'Convierte este historial de ticket en una narrativa cronológica clara y legible para un supervisor no técnico. Máximo 200 palabras.\n\n{CONTEXT}'
+  }
+};
+
+async function aiAction(type){
+  const cfg=getAiConfig();
+  if(!cfg.key&&currentProvider!=='custom'){
+    showAIResponse('⚠️ Configura tu API key arriba antes de usar el asistente.');return;
+  }
+  if(type==='custom'){
+    const customWrap=document.getElementById('ai-custom-row');
+    if(customWrap.style.display==='none'){customWrap.style.display='block';document.getElementById('ai-custom-input').focus();return;}
+    const q=document.getElementById('ai-custom-input').value.trim();
+    if(!q)return;
+    const ctx=buildTicketContext();
+    if(!ctx){showAIResponse('Selecciona un ticket primero.');return;}
+    showAISpinner(true);
+    try{
+      const r=await callAI([{role:'user',content:q+'\n\nContexto del ticket:\n'+ctx}],'Eres un asistente experto en operaciones NOC. Responde en español.',800);
+      showAISpinner(false);showAIResponse(r);
+    }catch(e){showAISpinner(false);showAIResponse('❌ Error: '+e.message);}
+    return;
+  }
+  document.getElementById('ai-custom-row').style.display='none';
+  const ctx=buildTicketContext();
+  if(!ctx){showAIResponse('Selecciona un ticket primero.');return;}
+  const prompt=AI_PROMPTS[type];if(!prompt)return;
+  showAISpinner(true);
+  try{
+    const r=await callAI([{role:'user',content:prompt.user.replace('{CONTEXT}',ctx)}],prompt.system,800);
+    showAISpinner(false);showAIResponse(r);
+  }catch(e){showAISpinner(false);showAIResponse('❌ Error al conectar con '+AI_PROVIDERS[currentProvider].name+':\n'+e.message);}
+}
+
+function showAISpinner(show){
+  document.getElementById('ai-spinner').className='ai-spinner'+(show?' show':'');
+  if(show){document.getElementById('ai-response').style.display='none';document.getElementById('ai-response-actions').style.display='none';}
+}
+function showAIResponse(text){
+  const box=document.getElementById('ai-response');box.textContent=text;box.style.display='block';
+  document.getElementById('ai-response-actions').style.display='flex';
+}
+function copyAiResponse(){navigator.clipboard.writeText(document.getElementById('ai-response').textContent).catch(()=>{});}
+function applyAiToResolution(){
+  const txt=document.getElementById('ai-response').textContent;if(!txt||!activeId)return;
+  const resWrap=document.getElementById('res-wrap');
+  if(resWrap.style.display!=='block')toggleResolucion();
+  document.getElementById('tk-resolution').value=txt;saveResolution();
+}
+
+/* ══════════════════════════════════════════════
+   BACKUP / RESTORE
+══════════════════════════════════════════════ */
+function openBackupModal(){
+  document.getElementById('backup-modal').className='modal-overlay open';
+  // Render stats
+  const tks=Object.keys(data.tickets).length;
+  const entries=Object.values(data.tickets).reduce((sum,tk)=>sum+tk.entries.length,0);
+  const folders=Object.keys(data.folders).filter(k=>k!=='__archived__').length;
+  const withRes=Object.values(data.tickets).filter(tk=>tk.resolution).length;
+  const withAttach=Object.values(data.tickets).reduce((sum,tk)=>sum+tk.entries.filter(e=>e.attachment).length,0);
+  document.getElementById('backup-stats').innerHTML=
+    `🎫 Tickets: <b>${tks}</b><br>`+
+    `💬 Entradas totales: <b>${entries}</b><br>`+
+    `📁 Carpetas: <b>${folders}</b><br>`+
+    `✅ Con resolución: <b>${withRes}</b><br>`+
+    `📎 Con adjunto: <b>${withAttach}</b><br>`+
+    `📦 Tamaño aprox: <b>${Math.round(JSON.stringify(data).length/1024)} KB</b>`;
+  document.getElementById('backup-status').style.display='none';
+}
+function closeBackupModal(){document.getElementById('backup-modal').className='modal-overlay';}
+function doBackup(){
+  const payload={
+    _version:'3.2',
+    _exported:new Date().toISOString(),
+    _app:'NOC Ticket Tracker',
+    ...data
+  };
+  dl(JSON.stringify(payload,null,2),'NOC_backup_'+nowDate()+'.json','application/json');
+  showBackupStatus('✅ Backup descargado correctamente.');
+}
+function doRestore(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const parsed=JSON.parse(ev.target.result);
+      if(!parsed.tickets){showBackupStatus('❌ Archivo no válido — no contiene datos de tickets.');return;}
+      if(!confirm('¿Restaurar este backup? Se reemplazarán todos los datos actuales.\n\nTickets en backup: '+Object.keys(parsed.tickets).length))return;
+      // Strip meta fields
+      const{_version,_exported,_app,...restored}=parsed;
+      Object.assign(data,restored);
+      save();renderSidebar();
+      const ids=Object.keys(data.tickets);
+      if(ids.length){activeId=ids[0];renderPanel();}
+      showBackupStatus('✅ Backup restaurado. '+Object.keys(parsed.tickets).length+' tickets cargados.');
+    }catch(e){showBackupStatus('❌ Error al leer el archivo: '+e.message);}
+  };
+  reader.readAsText(file);
+  document.getElementById('restore-file-input').value='';
+}
+function showBackupStatus(msg){
+  const el=document.getElementById('backup-status');
+  el.textContent=msg;el.style.display='block';
+  el.style.background=msg.startsWith('✅')?'#e8f5e9':'#fce4ec';
+  el.style.color=msg.startsWith('✅')?'#2e7d32':'#c62828';
+}
+function clearAllData(){
+  if(!confirm('⚠️ ¿Borrar TODOS los datos del tracker?\nEsta acción no se puede deshacer.\n\nSe recomienda hacer un backup primero.'))return;
+  data={tickets:{},folders:{},custom_folders:{},statuses:[...DEF_STATUS],templates:[...DEF_TPLS],ac_phrases:[...DEF_AC],turno:null};
+  activeId=null;save();renderSidebar();renderPanel();closeBackupModal();
+}
+
+/* ══════════════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════════════ */
+function toggleSettings(){settingsOpen=!settingsOpen;document.getElementById('panel-settings').className='panel-card'+(settingsOpen?' open':'');if(settingsOpen){renderStatusEditList();renderTplEditList();renderAcEditList();}}
+function toggleHelp(){helpOpen=!helpOpen;document.getElementById('panel-help').className='panel-card'+(helpOpen?' open':'');}
+function renderStatusEditList(){document.getElementById('status-edit-list').innerHTML=data.statuses.map((s,i)=>`<div class="editable-item"><input type="text" value="${esc(s.label)}" onchange="updateStatus(${i},this.value)"><button class="del-item" onclick="deleteStatus(${i})"><i class="ti ti-trash"></i></button></div>`).join('');}
+function updateStatus(i,val){if(val.trim()){if(currentStatus===data.statuses[i].label)currentStatus=val.trim();data.statuses[i].label=val.trim();save();renderStatusChips();}}
+function deleteStatus(i){if(data.statuses.length<=1)return;data.statuses.splice(i,1);save();renderStatusEditList();renderStatusChips();}
+function addStatus(){const inp=document.getElementById('new-status-input');const val=inp.value.trim();if(!val)return;const bg=['#e8f5e9','#e3f2fd','#fff3e0','#ede7f6','#fce4ec'];const fg=['#2e7d32','#1565c0','#e65100','#4527a0','#c62828'];const idx=data.statuses.length%bg.length;data.statuses.push({label:val,bg:bg[idx],color:fg[idx],sel_bg:fg[idx]});inp.value='';save();renderStatusEditList();renderStatusChips();}
+function renderTplEditList(){document.getElementById('tpl-edit-list').innerHTML=data.templates.map((t,i)=>`<div class="editable-item"><input type="text" value="${esc(t)}" onchange="updateTemplate(${i},this.value)"><button class="del-item" onclick="deleteTpl(${i})"><i class="ti ti-trash"></i></button></div>`).join('');}
+function updateTemplate(i,val){if(val.trim()){data.templates[i]=val.trim();save();renderTplChips();}}
+function deleteTpl(i){data.templates.splice(i,1);save();renderTplEditList();renderTplChips();}
+function addTemplate(){const inp=document.getElementById('new-tpl-input');const val=inp.value.trim();if(!val)return;data.templates.push(val);inp.value='';save();renderTplEditList();renderTplChips();}
+function renderAcEditList(){document.getElementById('ac-edit-list').innerHTML=data.ac_phrases.map((p,i)=>`<div class="editable-item"><input type="text" value="${esc(p)}" onchange="updateAcPhrase(${i},this.value)"><button class="del-item" onclick="deleteAcPhrase(${i})"><i class="ti ti-trash"></i></button></div>`).join('');}
+function updateAcPhrase(i,val){if(val.trim()){data.ac_phrases[i]=val.trim();save();}}
+function deleteAcPhrase(i){data.ac_phrases.splice(i,1);save();renderAcEditList();}
+function addAcPhrase(){const inp=document.getElementById('new-ac-input');const val=inp.value.trim();if(!val)return;data.ac_phrases.push(val);inp.value='';save();renderAcEditList();}
+
+/* ══════════════════════════════════════════════
+   TURNO
+══════════════════════════════════════════════ */
+function toggleTurnoModal(){
+  turnoModalOpen=!turnoModalOpen;
+  document.getElementById('panel-turno-modal').className='panel-card'+(turnoModalOpen?' open':'');
+  if(turnoModalOpen){
+    if(data.turno?.active){document.getElementById('turno-modal-title').textContent='Cerrar turno';document.getElementById('turno-modal-body').style.display='none';document.getElementById('turno-cierre-body').style.display='flex';renderTurnoCierreInfo();}
+    else{document.getElementById('turno-modal-title').textContent='Iniciar turno';document.getElementById('turno-modal-body').style.display='flex';document.getElementById('turno-cierre-body').style.display='none';}
+  }
+}
+function closeTurnoModal(){turnoModalOpen=false;document.getElementById('panel-turno-modal').className='panel-card';}
+function iniciarTurno(){
+  const nombre=document.getElementById('turno-nombre-input').value.trim();if(!nombre)return;
+  data.turno={active:true,nombre,start:new Date().toISOString()};save();closeTurnoModal();
+  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-stop"></i> Cerrar turno';
+  document.getElementById('btn-turno').className='tb-btn amber';
+  document.getElementById('turno-badge').style.display='flex';
+  document.getElementById('turno-nombre-badge').textContent=nombre;updateTurnoBadge();
+}
+function updateTurnoBadge(){
+  if(!data.turno?.active)return;
+  const diff=Math.floor((Date.now()-new Date(data.turno.start))/60000);
+  document.getElementById('turno-time-badge').textContent=pad(Math.floor(diff/60))+'h'+pad(diff%60)+'m';
+}
+function renderTurnoCierreInfo(){
+  if(!data.turno?.active)return;
+  const start=new Date(data.turno.start);
+  const diff=Math.floor((Date.now()-start)/60000);
+  const tksWorked=Object.entries(data.tickets).filter(([,tk])=>tk.entries.length&&new Date(Math.max(...tk.entries.map(e=>e.id)))>=start);
+  document.getElementById('turno-cierre-info').innerHTML=`Turno: <b>${esc(data.turno.nombre)}</b><br>Inicio: <b>${start.toLocaleString('es-SV')}</b><br>Duración: <b>${pad(Math.floor(diff/60))}h ${pad(diff%60)}m</b><br>Tickets trabajados: <b>${tksWorked.length}</b>`;
+}
+function cerrarTurno(){
+  if(!data.turno)return;
+  const start=new Date(data.turno.start);
+  const handoff=document.getElementById('turno-handoff').value.trim();
+  const tksWorked=Object.entries(data.tickets).filter(([,tk])=>tk.entries.length&&new Date(Math.max(...tk.entries.map(e=>e.id)))>=start);
+  const diff=Math.floor((Date.now()-start)/60000);
+  const lines=['RESUMEN DE TURNO — HANDOFF','='.repeat(44),'Agente: '+data.turno.nombre,'Inicio: '+start.toLocaleString('es-SV'),'Cierre: '+new Date().toLocaleString('es-SV'),'Duración: '+pad(Math.floor(diff/60))+'h '+pad(diff%60)+'m','Tickets trabajados: '+tksWorked.length,'','RESUMEN POR TICKET','—'.repeat(30),''];
+  tksWorked.forEach(([id,tk])=>{
+    const lastEntry=tk.entries.reduce((a,b)=>a.id>b.id?a:b,tk.entries[0]);
+    lines.push('► '+id,'  Último estado: '+(lastEntry.status||'—'),'  Última actualización: '+fmtDate(lastEntry.date)+' '+lastEntry.time,'  '+lastEntry.comment);
+    if(tk.resolution)lines.push('  RESOLUCIÓN: '+tk.resolution);
+    const filtered=tk.entries.filter(e=>new Date(e.id)>=start&&!e.private).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+    if(filtered.length){lines.push('  Historial del turno:');filtered.forEach(e=>lines.push('    '+fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+' — '+e.comment));}
+    lines.push('');
+  });
+  if(handoff)lines.push('','NOTAS HANDOFF / PENDIENTES','—'.repeat(28),handoff);
+  dl(lines.join('\n'),'handoff_'+data.turno.nombre.replace(/\s/g,'_')+'_'+nowDate()+'.txt','text/plain');
+  data.turno={active:false};save();
+  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-play"></i> Iniciar turno';
+  document.getElementById('btn-turno').className='tb-btn green';
+  document.getElementById('turno-badge').style.display='none';
+  document.getElementById('turno-handoff').value='';closeTurnoModal();
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════ */
+function createCustomFolder(){const name=document.getElementById('sb-new-folder').value.trim();if(!name)return;const key='custom_'+Date.now();if(!data.custom_folders)data.custom_folders={};data.custom_folders[key]=name;data.folders[key]={open:true,custom:true};save();document.getElementById('sb-new-folder').value='';renderSidebar();}
+function deleteFolder(key){const tks=Object.values(data.tickets).filter(t=>t.folder===key);if(tks.length&&!confirm('¿Eliminar carpeta y mover tickets a Hoy?'))return;const today=todayKey();tks.forEach(t=>{t.folder=today;ensureFolder(today);});delete data.folders[key];if(data.custom_folders)delete data.custom_folders[key];save();renderSidebar();}
+function getDaysSorted(){return Object.keys(data.folders).filter(k=>k!=='__archived__').sort((a,b)=>{if(data.folders[b]?.custom&&!data.folders[a]?.custom)return -1;if(data.folders[a]?.custom&&!data.folders[b]?.custom)return 1;return b.localeCompare(a);});}
+function getTicketsForDay(dk,q){const archived=dk==='__archived__';return Object.entries(data.tickets).filter(([id,tk])=>archived?tk.archived:(tk.folder===dk&&!tk.archived&&(!q||id.toLowerCase().includes(q)))).sort((a,b)=>b[1].created-a[1].created);}
+function toggleSelect(id){if(selectedIds.has(id))selectedIds.delete(id);else selectedIds.add(id);renderSidebar();updateSelBar();}
+function updateSelBar(){const n=selectedIds.size;document.getElementById('sel-count-lbl').textContent=n+' seleccionado'+(n===1?'':'s');document.getElementById('sb-sel-bar').className='sel-bar'+(n>0?' show':'');}
+function clearSelection(){selectedIds.clear();multiMode=false;const cb=document.getElementById('export-multi-cb');if(cb)cb.checked=false;renderSidebar();updateSelBar();}
+function openMultiExport(){multiMode=!multiMode;if(!multiMode)clearSelection();else{selectedIds.clear();renderSidebar();updateSelBar();}}
+function exportSelected(type){doExport(type);}
 
 function renderSidebar(){
   const q=document.getElementById('sb-search').value.trim().toLowerCase();
-  const el=document.getElementById('sb-scroll');
-  const days=getDaysSorted();
-  let html='';
+  const el=document.getElementById('sb-scroll');const days=getDaysSorted();let html='';
   days.forEach(dk=>{
-    const allTks=getTicketsForDay(dk,'');
-    const filteredTks=q?getTicketsForDay(dk,q):allTks;
+    const allTks=getTicketsForDay(dk,'');const filteredTks=q?getTicketsForDay(dk,q):allTks;
     if(q&&!filteredTks.length)return;
-    const fold=data.folders[dk]||{open:true};
-    const isOpen=fold.open;
-    const isCustom=fold.custom;
-    const label=folderLabel(dk);
-    const folderIcon=isCustom?'ti-folder-star':'ti-folder';
-    html+=`<div class="day-folder" id="fold-${dk}">
-      <div class="day-header${isOpen?' open':''}" ondragover="folderDragOver(event,'${dk}')" ondrop="folderDrop(event,'${dk}')" ondragleave="folderDragLeave(event,'${dk}')">
-        <i class="ti ti-chevron-right fold-icon" onclick="toggleFolder('${dk}')" aria-hidden="true"></i>
-        <i class="ti ${folderIcon}" style="font-size:12px;color:${isCustom?'#7c83d6':'#f9a825'};" onclick="toggleFolder('${dk}')" aria-hidden="true"></i>
-        <span class="day-label" onclick="toggleFolder('${dk}')">${label}</span>
-        <span class="day-count">${allTks.length}</span>
-        ${isCustom?`<button class="fold-del" onclick="deleteFolder('${dk}')" title="Eliminar carpeta" aria-label="Eliminar carpeta"><i class="ti ti-x" aria-hidden="true"></i></button>`:''}
-      </div>
-      <div class="day-tickets${isOpen?' open':''}" id="tickets-${dk}"
-        ondragover="folderDragOver(event,'${dk}')" ondrop="folderDrop(event,'${dk}')" ondragleave="folderDragLeave(event,'${dk}')">`;
-    filteredTks.forEach(([id,tk])=>{
-      const isSel=selectedIds.has(id);
-      html+=`<div class="tk-item${(id===activeId&&!multiMode)||isSel?' active':''}${tk.archived?' archived':''}"
-        id="tk-${id}" draggable="true"
-        ondragstart="dragStart(event,'${id}')" ondragend="dragEnd(event)"
-        onclick="selectTicket('${id}')">
-        <div class="tk-id-row">
-          ${multiMode?`<input type="checkbox" class="cb" ${isSel?'checked':''} onclick="event.stopPropagation();toggleSelect('${id}')">`:''}<b>${id}</b>${tk.archived?' <span style="font-size:9px;color:#9e9e9e;">[A]</span>':''}
-        </div>
-        <div class="tk-cnt">${tk.entries.length} ${tk.entries.length===1?'entrada':'entradas'}${tk.resolution?' · resolución':''}
-        </div>
+    const fold=data.folders[dk]||{open:true};const isOpen=fold.open,isCustom=fold.custom;
+    html+=`<div class="day-folder" id="fold-${dk}"><div class="day-header${isOpen?' open':''}" ondragover="folderDragOver(event,'${dk}')" ondrop="folderDrop(event,'${dk}')" ondragleave="folderDragLeave(event,'${dk}')">
+      <i class="ti ti-chevron-right fold-icon" onclick="toggleFolder('${dk}')"></i>
+      <i class="ti ${isCustom?'ti-folder-star':'ti-folder'}" style="font-size:12px;color:${isCustom?'#7c83d6':'#f9a825'};" onclick="toggleFolder('${dk}')"></i>
+      <span class="day-label" onclick="toggleFolder('${dk}')">${folderLabel(dk)}</span>
+      <span class="day-count">${allTks.length}</span>
+      ${isCustom?`<button class="fold-del" onclick="deleteFolder('${dk}')"><i class="ti ti-x"></i></button>`:''}
+    </div>
+    <div class="day-tickets${isOpen?' open':''}" id="tickets-${dk}" ondragover="folderDragOver(event,'${dk}')" ondrop="folderDrop(event,'${dk}')" ondragleave="folderDragLeave(event,'${dk}')">`;
+    filteredTks.forEach(([id,tk])=>{const isSel=selectedIds.has(id);const privCount=tk.entries.filter(e=>e.private).length;
+      html+=`<div class="tk-item${(id===activeId&&!multiMode)||isSel?' active':''}${tk.archived?' archived':''}" id="tk-${id}" draggable="true" ondragstart="dragStart(event,'${id}')" ondragend="dragEnd(event)" onclick="selectTicket('${id}')">
+        <div class="tk-id-row">${multiMode?`<input type="checkbox" class="cb" ${isSel?'checked':''} onclick="event.stopPropagation();toggleSelect('${id}')">`:''}<b>${esc(id)}</b></div>
+        <div class="tk-cnt">${tk.entries.length} ${tk.entries.length===1?'entrada':'entradas'}${tk.resolution?' · ✓':''}${privCount?' · 🔒'+privCount:''}</div>
       </div>`;
     });
     if(!filteredTks.length&&!q)html+=`<div style="font-size:11px;color:#ccc;padding:3px 4px 5px;font-style:italic;">Vacía</div>`;
@@ -606,39 +1562,26 @@ function renderSidebar(){
   const archTks=getTicketsForDay('__archived__',q);
   if(!q||archTks.length){
     const archOpen=(data.folders['__archived__']||{}).open;
-    html+=`<div class="day-folder arch-folder" id="fold-__archived__">
-      <div class="day-header${archOpen?' open':''}" ondragover="folderDragOver(event,'__archived__')" ondrop="folderDrop(event,'__archived__')" ondragleave="folderDragLeave(event,'__archived__')">
-        <i class="ti ti-chevron-right fold-icon" onclick="toggleFolder('__archived__')" aria-hidden="true"></i>
-        <i class="ti ti-archive" style="font-size:12px;color:#bdbdbd;" onclick="toggleFolder('__archived__')" aria-hidden="true"></i>
-        <span class="day-label" onclick="toggleFolder('__archived__')">Archivados</span>
-        <span class="day-count">${archTks.length}</span>
-      </div>
-      <div class="day-tickets${archOpen?' open':''}" id="tickets-__archived__"
-        ondragover="folderDragOver(event,'__archived__')" ondrop="folderDrop(event,'__archived__')" ondragleave="folderDragLeave(event,'__archived__')">`;
-    archTks.forEach(([id,tk])=>{
-      html+=`<div class="tk-item archived${id===activeId?' active':''}" id="tk-${id}" draggable="true"
-        ondragstart="dragStart(event,'${id}')" ondragend="dragEnd(event)"
-        onclick="selectTicket('${id}')">
-        <div class="tk-id-row"><b>${id}</b></div>
-        <div class="tk-cnt">${tk.entries.length} entradas</div>
-      </div>`;
-    });
+    html+=`<div class="day-folder arch-folder" id="fold-__archived__"><div class="day-header${archOpen?' open':''}" ondragover="folderDragOver(event,'__archived__')" ondrop="folderDrop(event,'__archived__')" ondragleave="folderDragLeave(event,'__archived__')">
+      <i class="ti ti-chevron-right fold-icon" onclick="toggleFolder('__archived__')"></i>
+      <i class="ti ti-archive" style="font-size:12px;color:#bdbdbd;" onclick="toggleFolder('__archived__')"></i>
+      <span class="day-label" onclick="toggleFolder('__archived__')">Archivados</span>
+      <span class="day-count">${archTks.length}</span>
+    </div>
+    <div class="day-tickets${archOpen?' open':''}" id="tickets-__archived__" ondragover="folderDragOver(event,'__archived__')" ondrop="folderDrop(event,'__archived__')" ondragleave="folderDragLeave(event,'__archived__')">`;
+    archTks.forEach(([id,tk])=>{html+=`<div class="tk-item archived${id===activeId?' active':''}" id="tk-${id}" draggable="true" ondragstart="dragStart(event,'${id}')" ondragend="dragEnd(event)" onclick="selectTicket('${id}')"><div class="tk-id-row"><b>${esc(id)}</b></div><div class="tk-cnt">${tk.entries.length} entradas</div></div>`;});
     if(!archTks.length)html+=`<div style="font-size:11px;color:#ccc;padding:3px 4px 5px;font-style:italic;">Sin archivados</div>`;
     html+='</div></div>';
   }
-  if(!html)html='<div class="sb-empty" style="font-size:11px;color:#bbb;text-align:center;padding:14px;">Sin tickets.</div>';
+  if(!html)html='<div class="sb-empty">Sin tickets.</div>';
   el.innerHTML=html;
+  const cb=document.getElementById('export-multi-cb');if(cb)cb.checked=multiMode;
 }
-
-function toggleFolder(dk){
-  if(!data.folders[dk])data.folders[dk]={open:false};
-  data.folders[dk].open=!data.folders[dk].open;
-  save();renderSidebar();
-}
-function dragStart(e,id){dragId=id;setTimeout(()=>{const el=document.getElementById('tk-'+id);if(el)el.classList.add('dragging');},0);e.dataTransfer.effectAllowed='move';}
-function dragEnd(){if(dragId){const el=document.getElementById('tk-'+dragId);if(el)el.classList.remove('dragging');}dragId=null;document.querySelectorAll('.day-tickets').forEach(el=>el.classList.remove('drag-over'));}
-function folderDragOver(e,dk){e.preventDefault();e.stopPropagation();const z=document.getElementById('tickets-'+dk)||e.currentTarget;z.classList.add('drag-over');}
-function folderDragLeave(e,dk){e.stopPropagation();const z=document.getElementById('tickets-'+dk)||e.currentTarget;z.classList.remove('drag-over');}
+function toggleFolder(dk){if(!data.folders[dk])data.folders[dk]={open:false};data.folders[dk].open=!data.folders[dk].open;save();renderSidebar();}
+function dragStart(e,id){dragId=id;setTimeout(()=>document.getElementById('tk-'+id)?.classList.add('dragging'),0);e.dataTransfer.effectAllowed='move';}
+function dragEnd(){if(dragId)document.getElementById('tk-'+dragId)?.classList.remove('dragging');dragId=null;document.querySelectorAll('.day-tickets').forEach(el=>el.classList.remove('drag-over'));}
+function folderDragOver(e,dk){e.preventDefault();e.stopPropagation();document.getElementById('tickets-'+dk)?.classList.add('drag-over');}
+function folderDragLeave(e,dk){e.stopPropagation();document.getElementById('tickets-'+dk)?.classList.remove('drag-over');}
 function folderDrop(e,dk){
   e.preventDefault();e.stopPropagation();
   if(dragId&&data.tickets[dragId]){
@@ -649,189 +1592,175 @@ function folderDrop(e,dk){
   document.querySelectorAll('.day-tickets').forEach(el=>el.classList.remove('drag-over'));dragId=null;
 }
 
+/* ══════════════════════════════════════════════
+   RENDER PANEL & TIMELINE
+══════════════════════════════════════════════ */
 function renderPanel(){
-  const emp=document.getElementById('panel-empty');
-  const main=document.getElementById('panel-main');
+  const emp=document.getElementById('panel-empty'),main=document.getElementById('panel-main');
   if(!activeId||!data.tickets[activeId]){emp.style.display='block';main.style.display='none';return;}
   emp.style.display='none';main.style.display='flex';
   const tk=data.tickets[activeId];
   const arch=tk.archived?'<span class="arch-badge">ARCHIVADO</span>':'';
-  document.getElementById('panel-title').innerHTML='Ticket <span class="tid">'+activeId+'</span>'+arch;
+  document.getElementById('panel-title').innerHTML='Ticket <span class="tid">'+esc(activeId)+'</span>'+arch;
   document.getElementById('lbl-archive').textContent=tk.archived?'Desarchivar':'Archivar';
   document.getElementById('tk-resolution').value=tk.resolution||'';
-  renderStatusChips();renderTplChips();renderTimeline();
+  renderStatusChips();renderTplChips();renderTimeline();suggestSmartTemplates(currentStatus);
 }
+function renderTimeline(){
+  if(!activeId||!data.tickets[activeId])return;
+  const q=(document.getElementById('hist-search')?.value||'').trim().toLowerCase();
+  const showPrivate=document.getElementById('show-private-cb')?.checked!==false;
+  let entries=[...data.tickets[activeId].entries].sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time));
+  if(!showPrivate)entries=entries.filter(e=>!e.private);
+  if(q)entries=entries.filter(e=>(e.comment||'').toLowerCase().includes(q)||(e.status||'').toLowerCase().includes(q)||e.date.includes(q)||e.time.includes(q));
+  document.getElementById('hist-count').textContent=entries.length?'('+entries.length+' '+(entries.length===1?'registro':'registros')+')':'';
+  const el=document.getElementById('tk-timeline');
+  if(!entries.length){el.innerHTML='<div class="empty-state">'+(q?'Sin resultados para "'+esc(q)+'"':'Sin comentarios aún.')+'</div>';return;}
+  const stMap={};data.statuses.forEach(s=>stMap[s.label]=s);
+  el.innerHTML=entries.map((e,i)=>{
+    const st=stMap[e.status]||{};
+    const leftColor=e.private?'#8e24aa':(st.sel_bg||STATUS_LEFT[e.status]||'#9fa8da');
+    const pillStyle=st.bg?`background:${st.bg};color:${st.color};border:1px solid ${st.color+'44'};`:'';
+    const commentHTML=q?highlightMatch(esc(e.comment),q):esc(e.comment);
+    const privBadge=e.private?'<span class="private-badge" style="margin-left:4px;"><i class="ti ti-eye-off" style="font-size:10px;"></i> Privado</span>':'';
 
-function renderStatusChips(){
-  const row=document.getElementById('status-chips-row');
-  row.innerHTML=data.statuses.map(s=>{
-    const isSel=s.label===currentStatus;
-    return`<button class="s-chip${isSel?' sel':''}" data-s="${s.label}" style="background:${isSel?s.sel_bg:s.bg};color:${isSel?'#fff':s.color};border-color:${isSel?s.sel_bg:s.color+'44'};" onclick="selectStatus('${s.label}')">${s.label}</button>`;
+    // Collapsible attachment block (never exported)
+    const attachBlock=e.attachment?`
+      <div class="tl-attach">
+        <button class="tl-attach-toggle" onclick="toggleAttach(this)" title="Mostrar/ocultar adjunto">
+          <i class="ti ti-paperclip" style="font-size:11px;"></i>
+          <span>Adjunto / Validación</span>
+          <span style="font-size:10px;color:#bdbdbd;margin-left:4px;">(no se exporta)</span>
+          <i class="ti ti-chevron-down chevron" style="font-size:11px;margin-left:auto;"></i>
+          <button class="tl-attach-edit-btn" onclick="event.stopPropagation();editAttach(${e.id})">Editar</button>
+        </button>
+        <div class="tl-attach-body">${esc(e.attachment)}</div>
+      </div>`
+    :`<div class="tl-attach">
+        <button class="tl-attach-toggle" onclick="addAttach(${e.id})" title="Agregar adjunto/validación">
+          <i class="ti ti-paperclip" style="font-size:11px;opacity:.4;"></i>
+          <span style="opacity:.5;">+ Agregar adjunto/validación</span>
+        </button>
+      </div>`;
+
+    return`<div class="tl-entry"><div class="tl-dot"></div>
+      <div class="tl-card${e.private?' is-private':''}" style="border-left-color:${leftColor};">
+        <div class="tl-inner">
+          <div class="tl-meta">
+            <i class="ti ti-calendar" style="font-size:11px;"></i>
+            <input class="tl-dt-edit" type="date" value="${e.date}" onchange="updateEntryDate(${e.id},this.value)" title="Editar fecha" aria-label="Editar fecha">
+            <span class="tl-sep">|</span><i class="ti ti-clock" style="font-size:11px;"></i>
+            <input class="tl-dt-edit" type="time" value="${e.time}" onchange="updateEntryTime(${e.id},this.value)" title="Editar hora" aria-label="Editar hora" style="min-width:60px;">
+            ${e.status?`<span class="tl-spill" style="${pillStyle}">${esc(e.status)}</span>`:''}
+            ${privBadge}${i===0?'<span class="tl-new">RECIENTE</span>':''}
+            <button class="tl-del" onclick="deleteEntry(${e.id})" title="Eliminar"><i class="ti ti-trash"></i></button>
+          </div>
+          <div class="tl-comment" ondblclick="editComment(${e.id},this)" title="Doble clic para editar">${commentHTML.replace(/\n/g,'<br>')}</div>
+        </div>
+        ${attachBlock}
+      </div></div>`;
   }).join('');
 }
 
-function selectStatus(label){
-  currentStatus=label;
-  renderStatusChips();
+/* ── Inline entry edit helpers ── */
+function updateEntryDate(eid,val){
+  if(!activeId||!data.tickets[activeId]||!val)return;
+  const e=data.tickets[activeId].entries.find(x=>x.id===eid);
+  if(e){e.date=val;save();renderSidebar();}
 }
-
-function renderTplChips(){
-  const row=document.getElementById('tpl-chips-row');
-  row.innerHTML=data.templates.map((t,i)=>`<button class="tpl-chip" onclick="insertTemplate(${i})">+ ${t}</button>`).join('');
+function updateEntryTime(eid,val){
+  if(!activeId||!data.tickets[activeId]||!val)return;
+  const e=data.tickets[activeId].entries.find(x=>x.id===eid);
+  if(e){e.time=val;save();renderSidebar();}
 }
-function insertTemplate(i){
-  const ta=document.getElementById('tk-comment');
-  const v=ta.value.trim();
-  ta.value=v+(v?'. ':'')+data.templates[i];
-  ta.focus();
-}
-
-function toggleSettings(){
-  settingsOpen=!settingsOpen;
-  const panel=document.getElementById('panel-settings');
-  panel.className='settings-panel'+(settingsOpen?' open':'');
-  if(settingsOpen){renderStatusEditList();renderTplEditList();}
-}
-
-function renderStatusEditList(){
-  const el=document.getElementById('status-edit-list');
-  el.innerHTML=data.statuses.map((s,i)=>`
-    <div class="editable-item">
-      <input type="text" value="${s.label}" onchange="updateStatus(${i},this.value)">
-      <button class="del-item" onclick="deleteStatus(${i})" aria-label="Eliminar estado"><i class="ti ti-trash" aria-hidden="true"></i></button>
-    </div>`).join('');
-}
-function updateStatus(i,val){if(val.trim()){data.statuses[i].label=val.trim();if(currentStatus===data.statuses[i].label)currentStatus=val.trim();save();renderStatusChips();}}
-function deleteStatus(i){if(data.statuses.length<=1)return;data.statuses.splice(i,1);save();renderStatusEditList();renderStatusChips();}
-function addStatus(){
-  const inp=document.getElementById('new-status-input');
-  const val=inp.value.trim();
-  if(!val)return;
-  const colors=['#e8f5e9','#e3f2fd','#fff3e0','#ede7f6','#fce4ec'];
-  const textColors=['#2e7d32','#1565c0','#e65100','#4527a0','#c62828'];
-  const idx=data.statuses.length%colors.length;
-  data.statuses.push({label:val,bg:colors[idx],color:textColors[idx],sel_bg:textColors[idx]});
-  inp.value='';save();renderStatusEditList();renderStatusChips();
-}
-
-function renderTplEditList(){
-  const el=document.getElementById('tpl-edit-list');
-  el.innerHTML=data.templates.map((t,i)=>`
-    <div class="editable-item">
-      <input type="text" value="${t.replace(/"/g,'&quot;')}" onchange="updateTemplate(${i},this.value)">
-      <button class="del-item" onclick="deleteTpl(${i})" aria-label="Eliminar plantilla"><i class="ti ti-trash" aria-hidden="true"></i></button>
-    </div>`).join('');
-}
-function updateTemplate(i,val){if(val.trim()){data.templates[i]=val.trim();save();renderTplChips();}}
-function deleteTpl(i){data.templates.splice(i,1);save();renderTplEditList();renderTplChips();}
-function addTemplate(){
-  const inp=document.getElementById('new-tpl-input');
-  const val=inp.value.trim();
-  if(!val)return;
-  data.templates.push(val);inp.value='';
-  save();renderTplEditList();renderTplChips();
-}
-
-function toggleTurnoModal(){
-  turnoModalOpen=!turnoModalOpen;
-  const modal=document.getElementById('panel-turno-modal');
-  modal.className='turno-modal'+(turnoModalOpen?' open':'');
-  if(turnoModalOpen){
-    if(data.turno&&data.turno.active){
-      document.getElementById('turno-modal-title').textContent='Cerrar turno';
-      document.getElementById('turno-modal-body').style.display='none';
-      document.getElementById('turno-cierre-body').style.display='flex';
-      renderTurnoCierreInfo();
-    } else {
-      document.getElementById('turno-modal-title').textContent='Iniciar turno';
-      document.getElementById('turno-modal-body').style.display='flex';
-      document.getElementById('turno-cierre-body').style.display='none';
+function editComment(eid,el){
+  if(el.contentEditable==='true')return;
+  el.contentEditable='true';el.focus();
+  el.style.background='#fffde7';el.style.outline='1px dashed #f9a825';el.style.borderRadius='2px';
+  const range=document.createRange();range.selectNodeContents(el);const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);
+  el.addEventListener('blur',function onBlur(){
+    el.contentEditable='false';el.style.background='';el.style.outline='';
+    const newText=el.innerText.trim();
+    if(newText&&activeId&&data.tickets[activeId]){
+      const e=data.tickets[activeId].entries.find(x=>x.id===eid);
+      if(e){e.comment=newText;save();}
     }
+    el.removeEventListener('blur',onBlur);
+  },{once:true});
+  el.addEventListener('keydown',function(ev){if(ev.key==='Escape'){el.contentEditable='false';el.blur();}});
+}
+
+/* ── Attachment (adjunto) helpers ── */
+function toggleAttach(btn){
+  btn.classList.toggle('open');
+  const body=btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+function addAttach(eid){
+  if(!activeId||!data.tickets[activeId])return;
+  const text=prompt('Pega aquí el texto del adjunto/validación/correo.\nSe separará con líneas y no se exportará en la bitácora:','');
+  if(text===null)return;
+  const e=data.tickets[activeId].entries.find(x=>x.id===eid);
+  if(e){e.attachment=text;save();renderTimeline();}
+}
+function editAttach(eid){
+  if(!activeId||!data.tickets[activeId])return;
+  const e=data.tickets[activeId].entries.find(x=>x.id===eid);
+  if(!e)return;
+  const text=prompt('Editar adjunto:',e.attachment||'');
+  if(text===null)return;
+  if(text.trim()===''){delete e.attachment;}else{e.attachment=text;}
+  save();renderTimeline();
+}
+
+/* ══════════════════════════════════════════════
+   KEYBOARD SHORTCUTS
+══════════════════════════════════════════════ */
+document.addEventListener('keydown',e=>{
+  const ta=document.getElementById('tk-comment');
+  const acBox=document.getElementById('autocomplete-box');
+  if(acBox&&acBox.style.display==='block'){
+    if(e.key==='ArrowDown'){e.preventDefault();navigateAC(1);return;}
+    if(e.key==='ArrowUp'){e.preventDefault();navigateAC(-1);return;}
+    if(e.key==='Tab'){e.preventDefault();confirmAC();return;}
+    if(e.key==='Escape'){closeAC();return;}
   }
-}
-function closeTurnoModal(){turnoModalOpen=false;document.getElementById('panel-turno-modal').className='turno-modal';}
+  if(e.ctrlKey&&e.key==='Enter'&&document.activeElement===ta){e.preventDefault();addEntry();return;}
+  if(e.ctrlKey&&e.key.toLowerCase()==='n'){e.preventDefault();document.getElementById('sb-new-id').focus();}
+  if(e.ctrlKey&&e.key.toLowerCase()==='f'){e.preventDefault();document.getElementById('hist-search')?.focus();}
+  if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==='c'){e.preventDefault();copyHistorico();}
+  if(e.ctrlKey&&e.key.toLowerCase()==='e'){e.preventDefault();openExportModal();}
+  if(e.ctrlKey&&e.key===','){e.preventDefault();toggleSettings();}
+  if(e.ctrlKey&&e.key.toLowerCase()==='d'){e.preventDefault();toggleDashboard();}
+  if(e.ctrlKey&&e.key.toLowerCase()==='i'){e.preventDefault();openImportModal();}
+});
 
-function iniciarTurno(){
-  const nombre=document.getElementById('turno-nombre-input').value.trim();
-  if(!nombre)return;
-  data.turno={active:true,nombre,start:new Date().toISOString(),tickets_start:Object.keys(data.tickets).length};
-  save();closeTurnoModal();
-  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-stop" aria-hidden="true"></i> Cerrar turno';
-  document.getElementById('btn-turno').className='tb-btn amber';
-  document.getElementById('turno-badge').style.display='flex';
-  document.getElementById('turno-nombre-badge').textContent=nombre;
-  updateTurnoBadge();
-}
+// Private note checkbox wiring
+document.addEventListener('DOMContentLoaded',()=>{
+  const privCb=document.getElementById('is-private-cb');
+  if(privCb)privCb.addEventListener('change',()=>togglePrivateHint(privCb.checked));
+  const ta=document.getElementById('tk-comment');
+  if(ta){
+    ta.addEventListener('input',onACInput);
+    ta.addEventListener('keydown',e=>{
+      const box=document.getElementById('autocomplete-box');
+      if(box&&box.style.display==='block'){
+        if(e.key==='ArrowDown'){e.preventDefault();navigateAC(1);}
+        else if(e.key==='ArrowUp'){e.preventDefault();navigateAC(-1);}
+        else if(e.key==='Tab'){e.preventDefault();confirmAC();}
+        else if(e.key==='Escape'){closeAC();}
+      }
+    });
+    ta.addEventListener('blur',()=>setTimeout(closeAC,150));
+  }
+});
 
-function updateTurnoBadge(){
-  if(!data.turno||!data.turno.active)return;
-  const start=new Date(data.turno.start);
-  const diff=Math.floor((Date.now()-start)/60000);
-  const h=Math.floor(diff/60),m=diff%60;
-  document.getElementById('turno-time-badge').textContent=pad(h)+'h'+pad(m)+'m';
-}
-
-function renderTurnoCierreInfo(){
-  if(!data.turno||!data.turno.active)return;
-  const start=new Date(data.turno.start);
-  const diff=Math.floor((Date.now()-start)/60000);
-  const h=Math.floor(diff/60),m=diff%60;
-  const tksWorked=Object.entries(data.tickets).filter(([id,tk])=>{
-    if(!tk.entries.length)return false;
-    const last=new Date(Math.max(...tk.entries.map(e=>e.id)));
-    return last>=start;
-  });
-  document.getElementById('turno-cierre-info').innerHTML=
-    `Turno de: <b>${data.turno.nombre}</b><br>`+
-    `Inicio: <b>${start.toLocaleString('es-SV')}</b><br>`+
-    `Duración: <b>${pad(h)}h ${pad(m)}m</b><br>`+
-    `Tickets trabajados: <b>${tksWorked.length}</b>`;
-}
-
-function cerrarTurno(){
-  if(!data.turno)return;
-  const start=new Date(data.turno.start);
-  const handoff=document.getElementById('turno-handoff').value.trim();
-  const tksWorked=Object.entries(data.tickets).filter(([id,tk])=>{
-    if(!tk.entries.length)return false;
-    const last=new Date(Math.max(...tk.entries.map(e=>e.id)));
-    return last>=start;
-  });
-  const diff=Math.floor((Date.now()-start)/60000);
-  const h=Math.floor(diff/60),m=diff%60;
-  const lines=[
-    'RESUMEN DE TURNO — HANDOFF','='.repeat(40),
-    'Agente: '+data.turno.nombre,
-    'Inicio: '+start.toLocaleString('es-SV'),
-    'Cierre: '+new Date().toLocaleString('es-SV'),
-    'Duración: '+pad(h)+'h '+pad(m)+'m',
-    'Tickets trabajados: '+tksWorked.length,'',
-    'DETALLE DE TICKETS','—'.repeat(30),''
-  ];
-  tksWorked.forEach(([id,tk])=>{
-    lines.push('Ticket: '+id+(tk.archived?' [ARCHIVADO]':''));
-    const sorted=[...tk.entries].filter(e=>new Date(e.id)>=start).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
-    sorted.forEach(e=>lines.push('  '+fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+' — '+e.comment));
-    if(tk.resolution)lines.push('  RESOLUCIÓN: '+tk.resolution);
-    lines.push('');
-  });
-  if(handoff){lines.push('NOTAS HANDOFF','—'.repeat(20),handoff);}
-  dl(lines.join('\n'),'turno_'+data.turno.nombre.replace(/\s/g,'_')+'_'+nowDate()+'.txt');
-  data.turno={active:false};save();
-  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-play" aria-hidden="true"></i> Iniciar turno';
-  document.getElementById('btn-turno').className='tb-btn green';
-  document.getElementById('turno-badge').style.display='none';
-  document.getElementById('turno-handoff').value='';
-  closeTurnoModal();
-}
-
-function renderTimeline(){ if(!activeId||!data.tickets[activeId])return; const q=(document.getElementById('hist-search')?.value||'') .trim() .toLowerCase(); let entries=[...data.tickets[activeId].entries] .sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time)); if(q){ entries=entries.filter(e=> (e.comment||'').toLowerCase().includes(q) || (e.status||'').toLowerCase().includes(q) || (e.date||'').includes(q) || (e.time||'').includes(q) ); } document.getElementById('hist-count').textContent= entries.length ? '('+entries.length+' '+(entries.length===1?'registro':'registros')+')' : ''; const el=document.getElementById('tk-timeline'); if(!entries.length){ el.innerHTML='<div class="empty-state">Sin resultados en el histórico.</div>'; return; } const stMap={}; data.statuses.forEach(s=>stMap[s.label]=s); el.innerHTML=entries.map((e,i)=>{ const st=stMap[e.status]||{}; const leftColor=st.sel_bg||STATUS_LEFT[e.status]||'#9fa8da'; const pillStyle=st.bg ? `background:${st.bg};color:${st.color};border:1px solid ${st.color+'44'};` : ''; return` <div class="tl-entry"> <div class="tl-dot"></div> <div class="tl-card" style="border-left-color:${leftColor};"> <div class="tl-inner"> <div class="tl-meta"> <i class="ti ti-calendar" style="font-size:11px;"></i> <b>${fmtDate(e.date)}</b> <span class="tl-sep">|</span> <i class="ti ti-clock" style="font-size:11px;"></i> <b>${e.time}</b> ${e.status ? `<span class="tl-spill" style="${pillStyle}">${e.status}</span>` : '' } ${i===0 ? '<span class="tl-new">RECIENTE</span>' : '' } <button class="tl-del" onclick="deleteEntry(${e.id})" aria-label="Eliminar" > <i class="ti ti-trash"></i> </button> </div> <div class="tl-comment"> ${e.comment .replace(/</g,'&lt;') .replace(/>/g,'&gt;') .replace(/\n/g,'<br>') } </div> </div> </div> </div> `; }).join(''); }
-
-document.addEventListener('keydown',e=>{ /* CTRL + ENTER */ if( e.ctrlKey && e.key==='Enter' && document.activeElement.id==='tk-comment' ){ e.preventDefault(); addEntry(); } /* CTRL + N */ if(e.ctrlKey && e.key.toLowerCase()==='n'){ e.preventDefault(); document.getElementById('sb-new-id').focus(); } /* CTRL + F */ if(e.ctrlKey && e.key.toLowerCase()==='f'){ e.preventDefault(); if(document.getElementById('hist-search')){ document.getElementById('hist-search').focus(); } } /* CTRL + SHIFT + C */ if( e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='c' ){ e.preventDefault(); copyHistorico(); } /* CTRL + E */ if(e.ctrlKey && e.key.toLowerCase()==='e'){ e.preventDefault(); generateBitacora(); } /* CTRL + , */ if(e.ctrlKey && e.key===','){ e.preventDefault(); toggleSettings(); } });
-
+/* ══════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════ */
 load();
-if(data.turno&&data.turno.active){
-  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-stop" aria-hidden="true"></i> Cerrar turno';
+if(data.turno?.active){
+  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-stop"></i> Cerrar turno';
   document.getElementById('btn-turno').className='tb-btn amber';
   document.getElementById('turno-badge').style.display='flex';
   document.getElementById('turno-nombre-badge').textContent=data.turno.nombre;
@@ -839,69 +1768,10 @@ if(data.turno&&data.turno.active){
 }
 if(!data.folders['__archived__'])data.folders['__archived__']={open:false,special:'archived'};
 renderSidebar();
-const ids=Object.keys(data.tickets);
-if(ids.length){activeId=ids[0];renderPanel();}
+const initIds=Object.keys(data.tickets);
+if(initIds.length){activeId=initIds[0];renderPanel();}
 else document.getElementById('panel-empty').style.display='block';
 setNow();startClock();
-```js
-const commentBox=document.getElementById('tk-comment');
-const autocompleteBox=document.getElementById('autocomplete-box');
-
-
-
-function hideAutocomplete(){
-  autocompleteBox.style.display='none';
-}
-
-function showAutocomplete(items){
-
-  if(!items.length){
-    hideAutocomplete();
-    return;
-  }
-
-  autocompleteBox.innerHTML=items.map(t=>`
-    <div
-      class="autocomplete-item"
-      onclick="useTemplate(\`${t.replace(/`/g,'')}\`)"
-    >
-      ${t}
-    </div>
-  `).join('');
-
-  autocompleteBox.style.display='block';
-}
-
-commentBox.addEventListener('input',()=>{
-
-  const lines=commentBox.value.split('\n');
-
-  const current=lines[lines.length-1]
-    .trim()
-    .toLowerCase();
-
-  if(!current){
-    hideAutocomplete();
-    return;
-  }
-
-  const matches=data.templates.filter(t=>
-    t.toLowerCase().includes(current)
-  );
-
-  showAutocomplete(matches.slice(0,6));
-});
-
-document.addEventListener('click',e=>{
-
-  if(
-    !autocompleteBox.contains(e.target) &&
-    e.target!==commentBox
-  ){
-    hideAutocomplete();
-  }
-
-});
-```
-
 </script>
+</body>
+</html>
