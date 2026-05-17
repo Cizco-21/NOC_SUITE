@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOC Ticket Tracker V3.2</title>
+<title>NOC Suite V4.1</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -163,7 +163,60 @@ html,body{height:100%;background:#f0f0f0;}
 .snow-copy-btn{background:#00796b;color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;}
 .snow-copy-btn:hover{background:#00695c;}
 .snow-copy-btn.copied{background:#2e7d32;}
-/* PANELS */
+/* APP TABS */
+.app-tabs{background:#13152a;border-bottom:2px solid #2a2d4a;display:flex;gap:0;flex-shrink:0;}
+.app-tab{padding:10px 20px;font-size:12px;font-weight:bold;color:#9e9e9e;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:6px;transition:color .15s,border-color .15s;}
+.app-tab:hover{color:#fff;background:rgba(255,255,255,.05);}
+.app-tab.active{color:#fff;border-bottom-color:#7c83d6;}
+.tab-panel{display:none;flex:1;flex-direction:column;min-height:0;}
+.tab-panel.active{display:flex;}
+/* FOCUS MODE */
+.focus-overlay{position:fixed;inset:0;background:#fff;z-index:500;display:none;flex-direction:column;overflow:hidden;}
+.focus-overlay.open{display:flex;}
+.focus-topbar{background:#1a1a2e;color:#fff;padding:8px 18px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:bold;flex-shrink:0;}
+.focus-topbar .focus-tid{color:#9fa8da;font-size:16px;}
+.focus-content{flex:1;overflow-y:auto;padding:24px 32px;max-width:860px;margin:0 auto;width:100%;}
+.focus-entry{position:relative;padding-left:22px;margin-bottom:14px;}
+.focus-entry::before{content:'';position:absolute;left:7px;top:0;bottom:-14px;width:2px;background:#e0e0e0;}
+.focus-entry:last-child::before{display:none;}
+.focus-dot{position:absolute;left:3px;top:4px;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #9fa8da;}
+.focus-entry:first-child .focus-dot{background:#3f51b5;border-color:#3f51b5;}
+.focus-card{background:#fff;border:1px solid #e8e8e8;border-left:3px solid #9fa8da;border-radius:0 4px 4px 0;padding:10px 14px;}
+.focus-meta{font-size:11px;color:#9e9e9e;margin-bottom:5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.focus-comment{font-size:14px;color:#222;line-height:1.6;}
+.focus-pill{font-size:10px;font-weight:bold;padding:1px 8px;border-radius:8px;}
+/* INLINE ATTACHMENT EDITOR (replaces prompt()) */
+.tl-attach-editor{padding:6px 8px;border-top:1px solid #e8e8e8;background:#fafafa;display:none;}
+.tl-attach-editor.open{display:block;}
+.tl-attach-editor textarea{width:100%;min-height:90px;border:1px solid #bbb;border-radius:3px;padding:6px 8px;font-size:12px;font-family:monospace;resize:vertical;outline:none;background:#fff;}
+.tl-attach-editor textarea:focus{border-color:#3f51b5;}
+.tl-attach-editor-btns{display:flex;gap:6px;margin-top:5px;}
+.tl-attach-editor-btns button{padding:4px 10px;border-radius:3px;border:none;font-size:11px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;}
+.tl-attach-save{background:#3f51b5;color:#fff;}.tl-attach-save:hover{background:#303f9f;}
+.tl-attach-cancel{background:#e0e0e0;color:#555;}.tl-attach-cancel:hover{background:#ccc;}
+.tl-attach-del{background:#c62828;color:#fff;margin-left:auto;}.tl-attach-del:hover{background:#b71c1c;}
+/* GENERADOR (Tab 2) */
+.gen-wrap{font-family:"Segoe UI",Arial,sans-serif;flex:1;display:flex;flex-direction:column;overflow-y:auto;background:#f5f5f5;padding:16px;}
+.gen-card{background:#fff;border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin-bottom:12px;}
+.gen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.gen-label{font-weight:700;font-size:12px;margin-bottom:4px;display:block;color:#444;text-transform:uppercase;letter-spacing:.03em;}
+.gen-input,.gen-select{width:100%;padding:7px 9px;border-radius:4px;border:1px solid #bbb;background:#fff;color:#222;font-size:13px;font-family:Arial,sans-serif;outline:none;}
+.gen-input:focus,.gen-select:focus{border-color:#3f51b5;}
+.gen-textarea{width:100%;padding:7px 9px;border-radius:4px;border:1px solid #bbb;background:#fff;color:#222;font-size:13px;font-family:Arial,sans-serif;resize:vertical;min-height:60px;outline:none;}
+.gen-textarea:focus{border-color:#3f51b5;}
+.gen-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;transition:filter .12s;}
+.gen-btn:hover{filter:brightness(1.1);}
+.gen-btn-green{background:#2e7d32;color:#fff;}
+.gen-btn-blue{background:#3f51b5;color:#fff;}
+.gen-btn-gray{background:#607d8b;color:#fff;}
+.gen-btn-red{background:#c62828;color:#fff;}
+.gen-btn-teal{background:#00796b;color:#fff;}
+.gen-btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.gen-registro{font-size:12px;padding:5px 0;border-bottom:1px dashed #e0e0e0;color:#333;}
+.gen-historial h3{font-size:13px;font-weight:bold;color:#555;margin-bottom:6px;}
+/* FOOTER */
+.footer{text-align:center;font-size:10px;color:#aaa;padding:5px 0;border-top:1px solid #e0e0e0;background:#fff;flex-shrink:0;}
+.kbd{background:#eee;border:1px solid #ccc;border-radius:2px;padding:1px 4px;font-size:10px;font-family:monospace;color:#555;}
 .panel-card{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:12px 14px;display:none;flex-direction:column;gap:10px;}
 .panel-card.open{display:flex;}
 .settings-section{display:flex;flex-direction:column;gap:6px;}
@@ -259,16 +312,61 @@ html,body{height:100%;background:#f0f0f0;}
 </style>
 </head>
 <body>
+<!-- FOCUS MODE OVERLAY -->
+<div class="focus-overlay" id="focus-overlay">
+  <div class="focus-topbar">
+    <i class="ti ti-timeline" style="color:#7c83d6;font-size:18px;"></i>
+    <span>Modo Lectura —</span><span class="focus-tid" id="focus-tid"></span>
+    <button onclick="closeFocusMode()" style="margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:3px;padding:4px 10px;font-size:11px;font-weight:bold;cursor:pointer;">✕ Salir</button>
+  </div>
+  <div class="focus-content" id="focus-content"></div>
+</div>
+
 <div class="app">
 
-<!-- TOPBAR -->
+<!-- ══ UNIFIED LOGIN ══ -->
+<div id="suite-login" style="position:fixed;inset:0;background:#1a1a2e;z-index:2000;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:10px;padding:32px 36px;min-width:320px;text-align:center;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px;">
+      <i class="ti ti-activity" style="font-size:26px;color:#3f51b5;"></i>
+      <div style="text-align:left;">
+        <div style="font-size:17px;font-weight:bold;color:#1a1a2e;">NOC Suite</div>
+        <div style="font-size:11px;color:#9e9e9e;">Ticket Tracker · Generador de Cierre</div>
+      </div>
+    </div>
+    <input class="gen-input" id="suite-login-user" placeholder="Usuario" onkeydown="if(event.key==='Enter')document.getElementById('suite-login-pass').focus()" style="text-align:left;">
+    <input class="gen-input" type="password" id="suite-login-pass" placeholder="Contraseña" onkeydown="if(event.key==='Enter')suiteLogin()">
+    <button onclick="suiteLogin()" style="background:#3f51b5;color:#fff;border:none;border-radius:4px;padding:9px;font-size:13px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+      <i class="ti ti-arrow-right"></i> Ingresar
+    </button>
+    <div id="suite-login-err" style="font-size:12px;color:#c62828;display:none;">❌ Usuario o contraseña incorrectos</div>
+    <div style="font-size:10px;color:#bdbdbd;margin-top:4px;">GMELENDEZ — NOC Suite V.4.1</div>
+  </div>
+</div>
+<!-- APP TAB BAR -->
+<div class="app-tabs">
+  <i class="ti ti-activity" style="color:#7c83d6;font-size:16px;margin:auto 6px auto 10px;"></i>
+  <span style="color:#fff;font-size:13px;font-weight:bold;margin-right:16px;">NOC Suite</span>
+  <div class="app-tab active" id="tab-tracker" onclick="switchTab('tracker')">
+    <i class="ti ti-timeline"></i> Ticket Tracker
+  </div>
+  <div class="app-tab" id="tab-generador" onclick="switchTab('generador')">
+    <i class="ti ti-file-text"></i> Generador de Cierre
+  </div>
+</div>
+
+<!-- ══ TAB 1: TRACKER ══ -->
+<div class="tab-panel active" id="panel-tab-tracker">
 <div class="topbar">
-  <i class="ti ti-activity"></i> NOC Ticket Tracker
+  <i class="ti ti-activity"></i> Tracker
   <div class="topbar-right">
     <div class="turno-badge" id="turno-badge" style="display:none;">
       <i class="ti ti-clock"></i>
       <span id="turno-nombre-badge"></span> — <span id="turno-time-badge"></span>
     </div>
+    <button class="tb-btn" id="btn-focus" onclick="openFocusMode()" title="Modo lectura (solo timeline)">
+      <i class="ti ti-maximize"></i> Foco
+    </button>
     <button class="tb-btn" id="btn-dashboard" onclick="toggleDashboard()" title="Vista de turno">
       <i class="ti ti-layout-dashboard"></i> Dashboard
     </button>
@@ -287,12 +385,13 @@ html,body{height:100%;background:#f0f0f0;}
     <button class="tb-btn" onclick="toggleSettings()">
       <i class="ti ti-settings"></i> Config
     </button>
-    <button class="tb-btn" onclick="openBackupModal()" title="Backup/Restore datos">
+    <button class="tb-btn" onclick="openBackupModal()" title="Backup/Restore">
       <i class="ti ti-database"></i>
     </button>
     <button class="tb-btn" onclick="toggleHelp()" title="Atajos">
       <i class="ti ti-keyboard"></i>
     </button>
+    <button class="tb-btn amber" onclick="suiteLogout()" title="Cerrar sesión"><i class="ti ti-logout"></i></button>
   </div>
 </div>
 
@@ -437,8 +536,8 @@ html,body{height:100%;background:#f0f0f0;}
           <div class="pv-desc">gpt-4o · gpt-4-turbo</div>
         </div>
         <div class="ai-provider-card" onclick="selectProvider('copilot')" id="pv-copilot">
-          <div class="pv-name"><i class="ti ti-brand-github" style="font-size:14px;color:#2563eb;"></i> GitHub Copilot API</div>
-          <div class="pv-desc">Compatible OpenAI</div>
+          <div class="pv-name"><i class="ti ti-brand-windows" style="font-size:14px;color:#0078d4;"></i> Microsoft Copilot</div>
+          <div class="pv-desc">Azure OpenAI · Copilot Studio</div>
         </div>
         <div class="ai-provider-card" onclick="selectProvider('custom')" id="pv-custom">
           <div class="pv-name"><i class="ti ti-plug" style="font-size:14px;color:#7c3aed;"></i> Custom / Ollama</div>
@@ -680,9 +779,102 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
   </div>
 </div>
 
-<div class="footer">GMELENDEZ — NOC Ticket Tracker V.3.2 &nbsp;|&nbsp; <span style="color:#9e9e9e;">Ctrl+, Config &nbsp;·&nbsp; Ctrl+F Buscar &nbsp;·&nbsp; Ctrl+D Dashboard &nbsp;·&nbsp; Ctrl+I Importar</span></div>
-<iframe id="print-frame" style="display:none;"></iframe>
+</div><!-- /tab-panel-tracker -->
+
+<!-- ══ TAB 2: GENERADOR DE CIERRE ══ -->
+<div class="tab-panel" id="panel-tab-generador">
+<div class="topbar">
+  <i class="ti ti-file-check" style="color:#a5d6a7;"></i> Generador de Cierre de Tickets
+  <div class="topbar-right">
+    <span id="gen-user-badge" style="font-size:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:3px 10px;"></span>
+    <button class="tb-btn" onclick="genToggleDark()" title="Modo oscuro/claro"><i class="ti ti-moon"></i></button>
+    <button class="tb-btn amber" onclick="suiteLogout()"><i class="ti ti-logout"></i> Cerrar sesión</button>
+  </div>
+</div>
+
+<!-- GEN APP -->
+<div id="gen-app" style="display:flex;flex:1;flex-direction:column;overflow:hidden;">
+<div class="gen-wrap" id="gen-wrap">
+
+  <div class="gen-card gen-grid">
+    <div><span class="gen-label">Quien cierra</span><input class="gen-input" id="g-quien"></div>
+    <div><span class="gen-label">Área resolutor</span>
+      <select class="gen-select" id="g-area">
+        <option></option><option>HELPDESK B2B</option><option>PLEX</option><option>OYM</option>
+        <option>ITX</option><option>IT</option><option>TX</option><option>CSCORE</option>
+        <option>PSCORE</option><option>COMERCIAL</option><option>BITWORKS</option>
+        <option>VAS</option><option>TTC</option><option>PLANNING</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Producto</span>
+      <select class="gen-select" id="g-producto">
+        <option></option><option>SDWAN</option><option>INTERNET</option><option>DATOS</option>
+        <option>M2M</option><option>SMS</option><option>E1</option><option>SIPTRUNK</option>
+        <option>CLOUD</option><option>FWaaS</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Medio transporte</span>
+      <select class="gen-select" id="g-transporte">
+        <option></option><option>IPRAN</option><option>TRADICIONAL</option>
+        <option>GPON</option><option>ANTENA</option><option>STARLINK</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Reporte</span>
+      <select class="gen-select" id="g-reporte" onchange="genActualizarCausas()">
+        <option></option><option>FALLA</option><option>SOLICITUD</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Departamento</span>
+      <select class="gen-select" id="g-depto">
+        <option></option><option>AHUACHAPAN</option><option>CABAÑAS</option>
+        <option>CHALATENANGO</option><option>CUSCATLÁN</option><option>LA LIBERTAD</option>
+        <option>LA PAZ</option><option>LA UNIÓN</option><option>MORAZAN</option>
+        <option>SAN MIGUEL</option><option>SAN SALVADOR</option><option>SAN VICENTE</option>
+        <option>SANTA ANA</option><option>SONSONATE</option><option>USULUTÁN</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Medio reporte</span>
+      <select class="gen-select" id="g-medio">
+        <option></option><option>CORREO</option><option>TELEFONO</option>
+        <option>ALERTA</option><option>PROACTIVO</option><option>FIEL SERVICE</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Causa de falla</span><select class="gen-select" id="g-causa"></select></div>
+    <div><span class="gen-label">Solución predefinida</span>
+      <select class="gen-select" id="g-preset" onchange="genUsarPreset()"></select>
+    </div>
+    <div><span class="gen-label">Solución</span><input class="gen-input" id="g-solucion"></div>
+    <div><span class="gen-label">Hora restablecimiento</span>
+      <input class="gen-input" type="datetime-local" id="g-hora">
+    </div>
+  </div>
+
+  <div class="gen-card">
+    <div class="gen-btn-row">
+      <button class="gen-btn gen-btn-green" onclick="genGenerar()"><i class="ti ti-pencil"></i> Escribir</button>
+      <button class="gen-btn gen-btn-blue" onclick="genCopiar()"><i class="ti ti-copy"></i> Copiar</button>
+      <button class="gen-btn gen-btn-teal" onclick="genGuardarPreset()"><i class="ti ti-device-floppy"></i> Guardar preset</button>
+      <button class="gen-btn gen-btn-gray" onclick="genEditarPreset()"><i class="ti ti-edit"></i> Editar preset</button>
+      <button class="gen-btn gen-btn-red" onclick="genEliminarPreset()"><i class="ti ti-trash"></i> Eliminar preset</button>
+    </div>
+    <textarea class="gen-textarea" id="g-resultado" style="min-height:70px;" readonly></textarea>
+  </div>
+
+  <div class="gen-card" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <input class="gen-input" id="g-search" placeholder="🔍 Buscar historial..." oninput="genBuscar(this.value)" style="flex:1;min-width:160px;">
+    <button class="gen-btn gen-btn-teal" onclick="genExportarCSV()"><i class="ti ti-file-spreadsheet"></i> Exportar CSV</button>
+    <button class="gen-btn gen-btn-red" onclick="genLimpiarHistorial()"><i class="ti ti-eraser"></i> Limpiar historial</button>
+  </div>
+
+  <div class="gen-card gen-historial" id="g-historial"></div>
+</div>
+</div><!-- /gen-app -->
+</div><!-- /tab-panel-generador -->
+
 </div><!-- /app -->
+
+<div class="footer">GMELENDEZ — NOC Suite V.4.1 &nbsp;|&nbsp; <span style="color:#9e9e9e;">Tracker · Generador de Cierre · Ctrl+, Config · Ctrl+F Buscar</span></div>
+<iframe id="print-frame" style="display:none;"></iframe>
 
 <style>
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -897,7 +1089,7 @@ function doExport(type){
   if(type==='txt'){const c=ids.length===1?buildTxt(ids[0],withPrivate):buildCombinedTxt(ids,withPrivate);dl(c,(ids.length===1?ids[0]:'NOC_combinado')+'_bitacora.txt','text/plain');}
   else if(type==='html'){const c=ids.length===1?buildHTML(ids[0],withPrivate):buildCombinedHTML(ids,withPrivate);dl(c,(ids.length===1?ids[0]:'NOC_combinado')+'_bitacora.html','text/html');}
   else if(type==='pdf'){const c=ids.length===1?buildHTML(ids[0],withPrivate):buildCombinedHTML(ids,withPrivate);const f=document.getElementById('print-frame');f.contentDocument.open();f.contentDocument.write(c);f.contentDocument.close();setTimeout(()=>f.contentWindow.print(),400);}
-  else if(type==='clip'){const c=ids.length===1?buildTxt(ids[0],withPrivate):buildCombinedTxt(ids,withPrivate);navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✓ Copiado al portapapeles';setTimeout(closeExportModal,1200);}).catch(()=>{});}
+  else if(type==='clip'){const c=ids.length===1?buildCopyText(ids[0],withPrivate):ids.map(id=>buildCopyText(id,withPrivate)).join('\n');navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✓ Copiado al portapapeles';setTimeout(closeExportModal,1200);}).catch(()=>{});}
   else if(type==='snow'){const c=ids.length===1?buildSnowNotes(ids[0]):ids.map(id=>buildSnowNotes(id)).join('\n\n'+'─'.repeat(50)+'\n\n');navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✅ Copiado en formato ServiceNow — pégalo en Work Notes';setTimeout(closeExportModal,1800);}).catch(()=>{});}
   if(type!=='clip'&&type!=='snow')closeExportModal();clearSelection();
 }
@@ -938,16 +1130,31 @@ function buildSnowNotes(id){
 function buildTxt(id,withPrivate=false){
   const tk=data.tickets[id];if(!tk)return'';
   const entries=getEntries(id,withPrivate);
-  const lines=['BITÁCORA DE SEGUIMIENTO','='.repeat(40),'Ticket: '+id,'Exportado: '+new Date().toLocaleString('es-SV'),''];
-  // attachment (adjunto) is NEVER exported — it's display-only
-  entries.forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+(e.private?' [PRIVADO]':'')+' — '+e.comment,''));
+  // Header block
+  const lines=['BITÁCORA DE SEGUIMIENTO','='.repeat(40),'Ticket: '+id,''];
+  // Entries — no blank line between them
+  entries.forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+(e.private?' [PRIVADO]':'')+' — '+e.comment));
   if(tk.resolution)lines.push('','RESOLUCIÓN / CAUSA RAÍZ','—'.repeat(20),tk.resolution);
   return lines.join('\n');
 }
 function buildCombinedTxt(ids,withPrivate=false){
-  const lines=['BITÁCORA COMBINADA — NOC','='.repeat(40),'Exportado: '+new Date().toLocaleString('es-SV'),''];
-  ids.forEach(id=>{if(!data.tickets[id])return;lines.push('','TICKET: '+id,'-'.repeat(36));getEntries(id,withPrivate).forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+(e.private?' [PRIVADO]':'')+' — '+e.comment));if(data.tickets[id].resolution)lines.push('','RESOLUCIÓN: '+data.tickets[id].resolution);});
+  const lines=['BITÁCORA COMBINADA — NOC','='.repeat(40),''];
+  ids.forEach(id=>{
+    if(!data.tickets[id])return;
+    lines.push('TICKET: '+id,'-'.repeat(36));
+    getEntries(id,withPrivate).forEach(e=>lines.push(fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+(e.private?' [PRIVADO]':'')+' — '+e.comment));
+    if(data.tickets[id].resolution)lines.push('','RESOLUCIÓN: '+data.tickets[id].resolution,'');
+    else lines.push('');
+  });
   return lines.join('\n');
+}
+
+// "Copiar" = solo líneas, sin encabezado, sin saltos entre ellas
+function buildCopyText(id,withPrivate=false){
+  const tk=data.tickets[id];if(!tk)return'';
+  return getEntries(id,withPrivate)
+    .map(e=>fmtDate(e.date)+' '+e.time+(e.status?' ['+e.status+']':'')+' — '+e.comment)
+    .join('\n');
 }
 function buildHTML(id,withPrivate=false){
   const tk=data.tickets[id];if(!tk)return'';
@@ -962,7 +1169,7 @@ function buildCombinedHTML(ids,withPrivate=false){
   return`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Bitácora Combinada NOC</title><style>body{font-family:Arial,sans-serif;font-size:13px;color:#222;padding:24px;max-width:900px;margin:0 auto;}h1{color:#1a1a2e;}h2{color:#3f51b5;}table{width:100%;border-collapse:collapse;margin-bottom:10px;}th{background:#1a1a2e;color:#fff;padding:6px 10px;text-align:left;font-size:11px;}tr:nth-child(even){background:#f5f5f5;}@media print{body{padding:8px;}}</style></head><body><h1>📋 Bitácora Combinada — NOC</h1><div style="font-size:11px;color:#9e9e9e;margin-bottom:14px;">Exportado: ${new Date().toLocaleString('es-SV')}</div>${sections}</body></html>`;
 }
 
-function copyHistorico(){if(!activeId||!data.tickets[activeId])return;navigator.clipboard.writeText(buildTxt(activeId,false)).catch(()=>{});}
+function copyHistorico(){if(!activeId||!data.tickets[activeId])return;navigator.clipboard.writeText(buildCopyText(activeId,false)).catch(()=>{});}
 
 /* ══════════════════════════════════════════════
    IMPORT
@@ -1182,20 +1389,21 @@ const AI_PROVIDERS={
     }
   },
   copilot:{
-    name:'GitHub Copilot API',
-    icon:'ti-brand-github',
-    keyPlaceholder:'ghp_... o ghu_...',
+    name:'Microsoft Copilot',
+    icon:'ti-brand-windows',
+    keyPlaceholder:'Bearer token de Azure OpenAI...',
     defaultModels:[
-      {id:'gpt-4o',label:'gpt-4o'},
-      {id:'gpt-4o-mini',label:'gpt-4o-mini'},
-      {id:'claude-sonnet-4',label:'claude-sonnet-4'}
+      {id:'gpt-4o',label:'gpt-4o (Copilot)'},
+      {id:'gpt-4o-mini',label:'gpt-4o-mini (Copilot)'},
+      {id:'o1-mini',label:'o1-mini (Copilot)'}
     ],
     call: async(key,model,messages,systemPrompt,maxTokens)=>{
+      // Microsoft Azure OpenAI / Copilot Studio compatible endpoint
       const msgs=systemPrompt?[{role:'system',content:systemPrompt},...messages]:messages;
-      const r=await fetch('https://api.githubcopilot.com/chat/completions',{method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'Copilot-Integration-Id':'vscode-chat'},
-        body:JSON.stringify({model,messages:msgs,max_tokens:maxTokens})});
-      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+      const r=await fetch('https://api.cognitive.microsoft.com/openai/deployments/'+model+'/chat/completions?api-version=2024-02-01',{method:'POST',
+        headers:{'Content-Type':'application/json','api-key':key},
+        body:JSON.stringify({messages:msgs,max_tokens:maxTokens})});
+      if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status+' — Verifica tu endpoint de Azure OpenAI y que el deployment exista.');}
       const d=await r.json();return d.choices[0]?.message?.content||'';
     }
   },
@@ -1624,23 +1832,42 @@ function renderTimeline(){
     const commentHTML=q?highlightMatch(esc(e.comment),q):esc(e.comment);
     const privBadge=e.private?'<span class="private-badge" style="margin-left:4px;"><i class="ti ti-eye-off" style="font-size:10px;"></i> Privado</span>':'';
 
-    // Collapsible attachment block (never exported)
+    // Collapsible attachment block with inline editor (never exported)
+    const attachId='attach-'+e.id;
+    const editorId='editor-'+e.id;
     const attachBlock=e.attachment?`
       <div class="tl-attach">
-        <button class="tl-attach-toggle" onclick="toggleAttach(this)" title="Mostrar/ocultar adjunto">
+        <button class="tl-attach-toggle" onclick="toggleAttach('${attachId}','${editorId}')" id="toggle-${attachId}">
           <i class="ti ti-paperclip" style="font-size:11px;"></i>
           <span>Adjunto / Validación</span>
           <span style="font-size:10px;color:#bdbdbd;margin-left:4px;">(no se exporta)</span>
           <i class="ti ti-chevron-down chevron" style="font-size:11px;margin-left:auto;"></i>
-          <button class="tl-attach-edit-btn" onclick="event.stopPropagation();editAttach(${e.id})">Editar</button>
+          <button class="tl-attach-edit-btn" onclick="event.stopPropagation();openAttachEditor('${editorId}')">Editar</button>
         </button>
-        <div class="tl-attach-body">${esc(e.attachment)}</div>
+        <div class="tl-attach-body" id="${attachId}">${esc(e.attachment)}</div>
+        <div class="tl-attach-editor" id="${editorId}">
+          <textarea class="attach-textarea" id="ta-${e.id}">${esc(e.attachment)}</textarea>
+          <div class="tl-attach-editor-btns">
+            <button class="tl-attach-save" onclick="saveAttach(${e.id},'ta-${e.id}','${attachId}','${editorId}')"><i class="ti ti-check"></i> Guardar</button>
+            <button class="tl-attach-cancel" onclick="closeAttachEditor('${editorId}')">Cancelar</button>
+            <button class="tl-attach-del" onclick="deleteAttach(${e.id})"><i class="ti ti-trash"></i> Eliminar adjunto</button>
+          </div>
+        </div>
       </div>`
     :`<div class="tl-attach">
-        <button class="tl-attach-toggle" onclick="addAttach(${e.id})" title="Agregar adjunto/validación">
+        <button class="tl-attach-toggle" onclick="openAttachEditor('${editorId}')">
           <i class="ti ti-paperclip" style="font-size:11px;opacity:.4;"></i>
-          <span style="opacity:.5;">+ Agregar adjunto/validación</span>
+          <span style="opacity:.5;">+ Agregar adjunto / validación / correo</span>
+          <span style="font-size:10px;color:#bdbdbd;margin-left:4px;">(no se exporta)</span>
         </button>
+        <div class="tl-attach-editor" id="${editorId}">
+          <div style="font-size:11px;color:#607d8b;margin-bottom:5px;"><i class="ti ti-info-circle"></i> Pega aquí el texto, correo o validación. No aparecerá en exportaciones.</div>
+          <textarea class="attach-textarea" id="ta-${e.id}" placeholder="Pega el texto del correo, validación o cualquier referencia..."></textarea>
+          <div class="tl-attach-editor-btns">
+            <button class="tl-attach-save" onclick="saveAttach(${e.id},'ta-${e.id}','${attachId}','${editorId}')"><i class="ti ti-check"></i> Guardar</button>
+            <button class="tl-attach-cancel" onclick="closeAttachEditor('${editorId}')">Cancelar</button>
+          </div>
+        </div>
       </div>`;
 
     return`<div class="tl-entry"><div class="tl-dot"></div>
@@ -1690,27 +1917,192 @@ function editComment(eid,el){
   el.addEventListener('keydown',function(ev){if(ev.key==='Escape'){el.contentEditable='false';el.blur();}});
 }
 
-/* ── Attachment (adjunto) helpers ── */
-function toggleAttach(btn){
-  btn.classList.toggle('open');
-  const body=btn.nextElementSibling;
-  body.classList.toggle('open');
+/* ── Attachment inline editor ── */
+function toggleAttach(bodyId,editorId){
+  const body=document.getElementById(bodyId);
+  const toggle=document.getElementById('toggle-'+bodyId);
+  if(!body)return;
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  if(toggle)toggle.classList.toggle('open',!isOpen);
 }
-function addAttach(eid){
-  if(!activeId||!data.tickets[activeId])return;
-  const text=prompt('Pega aquí el texto del adjunto/validación/correo.\nSe separará con líneas y no se exportará en la bitácora:','');
-  if(text===null)return;
-  const e=data.tickets[activeId].entries.find(x=>x.id===eid);
-  if(e){e.attachment=text;save();renderTimeline();}
+function openAttachEditor(editorId){
+  const editor=document.getElementById(editorId);
+  if(!editor)return;
+  editor.classList.add('open');
+  const ta=editor.querySelector('textarea');
+  if(ta)setTimeout(()=>ta.focus(),50);
 }
-function editAttach(eid){
+function closeAttachEditor(editorId){
+  const editor=document.getElementById(editorId);
+  if(editor)editor.classList.remove('open');
+}
+function saveAttach(eid,taId,bodyId,editorId){
+  if(!activeId||!data.tickets[activeId])return;
+  const ta=document.getElementById(taId);
+  if(!ta)return;
+  const text=ta.value.trim();
+  const e=data.tickets[activeId].entries.find(x=>x.id===eid);
+  if(e){
+    if(text)e.attachment=text; else delete e.attachment;
+    save();renderTimeline();
+  }
+}
+function deleteAttach(eid){
   if(!activeId||!data.tickets[activeId])return;
   const e=data.tickets[activeId].entries.find(x=>x.id===eid);
-  if(!e)return;
-  const text=prompt('Editar adjunto:',e.attachment||'');
-  if(text===null)return;
-  if(text.trim()===''){delete e.attachment;}else{e.attachment=text;}
-  save();renderTimeline();
+  if(e){delete e.attachment;save();renderTimeline();}
+}
+
+/* ══════════════════════════════════════════════
+   FOCUS MODE (read-only timeline)
+══════════════════════════════════════════════ */
+let focusOpen=false;
+function openFocusMode(){
+  if(!activeId||!data.tickets[activeId])return;
+  focusOpen=true;
+  document.getElementById('focus-tid').textContent=activeId;
+  const tk=data.tickets[activeId];
+  const entries=[...tk.entries].filter(e=>!e.private).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  const stMap={};data.statuses.forEach(s=>stMap[s.label]=s);
+  const STATUS_LEFT_LOCAL={Investigando:'#ff6d00','En progreso':'#2e7d32',Escalado:'#c62828','Esperando respuesta':'#1565c0',Resuelto:'#4527a0'};
+  let html='';
+  if(!entries.length){html='<div style="text-align:center;color:#9e9e9e;padding:40px;">Sin comentarios para este ticket.</div>';}
+  else{
+    html=entries.map((e,i)=>{
+      const st=stMap[e.status]||{};
+      const leftColor=st.sel_bg||STATUS_LEFT_LOCAL[e.status]||'#9fa8da';
+      const pillStyle=st.bg?`background:${st.bg};color:${st.color};border:1px solid ${st.color+'44'};`:'';
+      return`<div class="focus-entry">
+        <div class="focus-dot"></div>
+        <div class="focus-card" style="border-left-color:${leftColor};">
+          <div class="focus-meta">
+            <span><i class="ti ti-calendar" style="font-size:11px;"></i> <b>${fmtDate(e.date)}</b></span>
+            <span><i class="ti ti-clock" style="font-size:11px;"></i> <b>${e.time}</b></span>
+            ${e.status?`<span class="focus-pill" style="${pillStyle}">${esc(e.status)}</span>`:''}
+            ${i===entries.length-1?'<span style="font-size:10px;font-weight:bold;background:#e8eaf6;color:#3f51b5;padding:1px 6px;border-radius:4px;">MÁS RECIENTE</span>':''}
+          </div>
+          <div class="focus-comment">${esc(e.comment).replace(/\n/g,'<br>')}</div>
+        </div>
+      </div>`;
+    }).join('');
+    if(tk.resolution){
+      html+=`<div style="margin-top:20px;background:#f9fbe7;border-left:4px solid #a5d6a7;padding:12px 16px;border-radius:0 6px 6px 0;">
+        <div style="font-size:11px;font-weight:bold;color:#2e7d32;text-transform:uppercase;margin-bottom:6px;"><i class="ti ti-check"></i> Resolución / Causa raíz</div>
+        <div style="font-size:14px;line-height:1.6;color:#333;">${esc(tk.resolution).replace(/\n/g,'<br>')}</div>
+      </div>`;
+    }
+  }
+  document.getElementById('focus-content').innerHTML=html;
+  document.getElementById('focus-overlay').className='focus-overlay open';
+  document.getElementById('btn-focus').innerHTML='<i class="ti ti-minimize"></i> Foco';
+}
+function closeFocusMode(){
+  focusOpen=false;
+  document.getElementById('focus-overlay').className='focus-overlay';
+  document.getElementById('btn-focus').innerHTML='<i class="ti ti-maximize"></i> Foco';
+}
+
+/* ══════════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════════ */
+let activeTab='tracker';
+function switchTab(tab){
+  activeTab=tab;
+  document.getElementById('panel-tab-tracker').classList.toggle('active',tab==='tracker');
+  document.getElementById('panel-tab-generador').classList.toggle('active',tab==='generador');
+  document.getElementById('tab-tracker').classList.toggle('active',tab==='tracker');
+  document.getElementById('tab-generador').classList.toggle('active',tab==='generador');
+  if(tab==='generador'){genIniciar();}
+}
+
+/* ══════════════════════════════════════════════
+   GENERADOR DE CIERRE — Logic (Tab 2)
+══════════════════════════════════════════════ */
+const GEN_USERS={gmelendez:'noc2026',admin:'admin123',dacornejo:'aguacate34',marortiz:'minsal2026',luamartinez:'luis2026',vblanco:'vanessa2026'};
+const GEN_NOMBRES={gmelendez:'GUILLERMO MELENDEZ',admin:'ADMINISTRADOR',dacornejo:'DANIEL CORNEJO',marortiz:'ELIZABETH ORTIZ',luamartinez:'LUIS MARTINEZ',vblanco:'VANESSA BLANCO'};
+const GEN_PRESETS_BASE=['Cliente reporta enlace caído, luego de validación, se solicita descartes a cliente. Posterior a reinicio eléctrico el servicio restablece.','En validación del enlace reportado, se identificó servicio operativo posterior a reinicio eléctrico aplicado sobre equipo en sitio.','Servicio afectado por corte de fibra ocasionado por incidente externo. Servicio restablecido.','Cliente solicita limpieza DHCP y ARP. Se realiza lo solicitado por cliente.'];
+const GEN_CAUSAS_FALLA=['Router inhibido','Obstrucción en el rectificador','Degradación','Red de cliente','Saturación','Puerto LAN desconectado','Energía interna','Hardware dañado en nodo','BUG en elemento de red','Atenuación','Falla en la red de transmisión','Firmware dañado','Conectividad','Equipo inhibido en nodo dependiente','Falla en equipo de fuerza en nodo dependiente','Patchcord dañado','Interfaz inhibida en nodo','Retiro de equipos por parte de cliente','Componente óptico dañado','Degradación en salida internacional','Power injector inhibido','Aparato telefónico de cliente dañado','Corte de fibra óptica'];
+const GEN_CAUSAS_SOL=['Limpieza DHCP y ARP','Sincronización en VERSA de CPE','Habilitación de sitios web','Cambio de DNS','Cambio a perfil de navegación','Apertura de puertos','Solicitud de información','Solicitud de configuración','Configuración de URL','Validación de configuración','Solicitud de monitoreo','Configuración de VLAN','Incremento ancho de banda','Decremento ancho de banda','Falla con aparato telefonico','Configurar VPN','Creación de usuarios VPN','Vista de monitoreo','Creación de usuarios LDAP','Registro DNS','RFO','Creación de usuarios Orion','Reserva de IP y MAC'];
+let genCurrentUser=null;
+let genDark=false;
+
+function genIniciar(){
+  // Uses the unified suite session — no separate login needed
+  genCurrentUser=suiteUser||localStorage.getItem('suite_session');
+  if(!genCurrentUser)return;
+  const nombre=SUITE_NOMBRES[genCurrentUser]||genCurrentUser.toUpperCase();
+  document.getElementById('gen-user-badge').textContent='👤 '+nombre;
+  const gQuien=document.getElementById('g-quien');
+  if(gQuien&&!gQuien.value)gQuien.value=nombre;
+  genCargarPresets();genMostrarHistorial();
+}
+function genToggleDark(){genDark=!genDark;document.getElementById('gen-wrap').style.background=genDark?'#1a1a2e':'#f5f5f5';document.getElementById('gen-wrap').style.color=genDark?'#eaeaea':'#222';document.querySelectorAll('.gen-card').forEach(c=>{c.style.background=genDark?'#242638':'#fff';c.style.borderColor=genDark?'#3a3d5c':'#ddd';c.style.color=genDark?'#eaeaea':'#222';});document.querySelectorAll('.gen-input,.gen-select,.gen-textarea').forEach(i=>{i.style.background=genDark?'#2e3150':'#fff';i.style.color=genDark?'#eaeaea':'#222';i.style.borderColor=genDark?'#4a4d70':'#bbb';});}
+function genCargarPresets(){
+  const preset=document.getElementById('g-preset');
+  preset.innerHTML='<option></option>';
+  const custom=JSON.parse(localStorage.getItem('gen_presets_'+genCurrentUser)||'[]');
+  [...GEN_PRESETS_BASE,...custom].forEach(p=>preset.innerHTML+=`<option>${p}</option>`);
+}
+function genUsarPreset(){document.getElementById('g-solucion').value=document.getElementById('g-preset').value;}
+function genGuardarPreset(){
+  const sol=document.getElementById('g-solucion').value;if(!sol)return;
+  let p=JSON.parse(localStorage.getItem('gen_presets_'+genCurrentUser)||'[]');
+  p.push(sol);localStorage.setItem('gen_presets_'+genCurrentUser,JSON.stringify([...new Set(p)]));
+  genCargarPresets();
+}
+function genEditarPreset(){
+  const preset=document.getElementById('g-preset');
+  let p=JSON.parse(localStorage.getItem('gen_presets_'+genCurrentUser)||'[]');
+  const i=p.indexOf(preset.value);if(i<0)return alert('Solo se pueden editar presets guardados');
+  p[i]=document.getElementById('g-solucion').value;
+  localStorage.setItem('gen_presets_'+genCurrentUser,JSON.stringify(p));genCargarPresets();
+}
+function genEliminarPreset(){
+  const preset=document.getElementById('g-preset');
+  let p=JSON.parse(localStorage.getItem('gen_presets_'+genCurrentUser)||'[]');
+  if(!p.includes(preset.value))return alert('No se puede eliminar un preset base');
+  p=p.filter(x=>x!==preset.value);
+  localStorage.setItem('gen_presets_'+genCurrentUser,JSON.stringify(p));
+  preset.value='';document.getElementById('g-solucion').value='';genCargarPresets();
+}
+function genActualizarCausas(){
+  const causa=document.getElementById('g-causa');
+  causa.innerHTML='<option></option>';
+  const lista=document.getElementById('g-reporte').value==='FALLA'?GEN_CAUSAS_FALLA:GEN_CAUSAS_SOL;
+  lista.forEach(c=>causa.innerHTML+=`<option>${c}</option>`);
+}
+function genGenerar(){
+  const hora=document.getElementById('g-hora').value;
+  if(!hora)return alert('Seleccione fecha y hora');
+  const d=new Date(hora);
+  const fecha=String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' - '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+' H';
+  const texto=[document.getElementById('g-quien').value,document.getElementById('g-area').value,document.getElementById('g-producto').value,document.getElementById('g-transporte').value,document.getElementById('g-reporte').value,document.getElementById('g-depto').value,document.getElementById('g-medio').value,document.getElementById('g-causa').value,document.getElementById('g-solucion').value,fecha].join(' | ');
+  document.getElementById('g-resultado').value=texto;
+  genGuardarHistorial(texto);
+}
+function genCopiar(){const ta=document.getElementById('g-resultado');navigator.clipboard.writeText(ta.value).catch(()=>{ta.select();document.execCommand('copy');});}
+function genGuardarHistorial(t){
+  let h=JSON.parse(localStorage.getItem('gen_hist_'+genCurrentUser)||'[]');
+  h.unshift(t);localStorage.setItem('gen_hist_'+genCurrentUser,JSON.stringify(h));genMostrarHistorial();
+}
+function genMostrarHistorial(f=''){
+  let h=JSON.parse(localStorage.getItem('gen_hist_'+genCurrentUser)||'[]');
+  const el=document.getElementById('g-historial');
+  el.innerHTML='<div class="gen-historial"><h3>📜 Historial de cierres</h3>';
+  h.filter(x=>x.toLowerCase().includes(f.toLowerCase())).forEach(r=>{el.innerHTML+=`<div class="gen-registro">${r}</div>`;});
+  el.innerHTML+='</div>';
+}
+function genBuscar(v){genMostrarHistorial(v);}
+function genExportarCSV(){
+  let h=JSON.parse(localStorage.getItem('gen_hist_'+genCurrentUser)||'[]');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,QUIEN|AREA|PRODUCTO|TRANSPORTE|REPORTE|DEPTO|MEDIO|CAUSA|SOLUCION|HORA\n'+h.join('\n');
+  a.download='historial_noc.csv';a.click();
+}
+function genLimpiarHistorial(){
+  if(!confirm('⚠️ ¿Seguro que deseas eliminar todo el historial?'))return;
+  localStorage.removeItem('gen_hist_'+genCurrentUser);genMostrarHistorial();
 }
 
 /* ══════════════════════════════════════════════
@@ -1726,6 +2118,8 @@ document.addEventListener('keydown',e=>{
     if(e.key==='Escape'){closeAC();return;}
   }
   if(e.ctrlKey&&e.key==='Enter'&&document.activeElement===ta){e.preventDefault();addEntry();return;}
+  if(e.key==='Escape'&&focusOpen){closeFocusMode();return;}
+  if(e.ctrlKey&&e.key.toLowerCase()==='l'){e.preventDefault();openFocusMode();return;}
   if(e.ctrlKey&&e.key.toLowerCase()==='n'){e.preventDefault();document.getElementById('sb-new-id').focus();}
   if(e.ctrlKey&&e.key.toLowerCase()==='f'){e.preventDefault();document.getElementById('hist-search')?.focus();}
   if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==='c'){e.preventDefault();copyHistorico();}
@@ -1756,22 +2150,73 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 /* ══════════════════════════════════════════════
+   UNIFIED LOGIN
+══════════════════════════════════════════════ */
+const SUITE_USERS={gmelendez:'noc2026',admin:'admin123',dacornejo:'aguacate34',marortiz:'minsal2026',luamartinez:'luis2026',vblanco:'vanessa2026'};
+const SUITE_NOMBRES={gmelendez:'GUILLERMO MELENDEZ',admin:'ADMINISTRADOR',dacornejo:'DANIEL CORNEJO',marortiz:'ELIZABETH ORTIZ',luamartinez:'LUIS MARTINEZ',vblanco:'VANESSA BLANCO'};
+let suiteUser=null;
+
+function suiteLogin(){
+  const u=document.getElementById('suite-login-user').value.trim().toLowerCase();
+  const p=document.getElementById('suite-login-pass').value;
+  if(SUITE_USERS[u]&&SUITE_USERS[u]===p){
+    localStorage.setItem('suite_session',u);
+    suiteUser=u;
+    document.getElementById('suite-login').style.display='none';
+    suiteInitApp();
+  } else {
+    const err=document.getElementById('suite-login-err');
+    err.style.display='block';
+    setTimeout(()=>err.style.display='none',3000);
+  }
+}
+function suiteLogout(){
+  localStorage.removeItem('suite_session');suiteUser=null;
+  document.getElementById('suite-login').style.display='flex';
+  document.getElementById('suite-login-user').value='';
+  document.getElementById('suite-login-pass').value='';
+}
+function suiteInitApp(){
+  const nombre=SUITE_NOMBRES[suiteUser]||suiteUser.toUpperCase();
+  // Update badges
+  document.getElementById('gen-user-badge').textContent='👤 '+nombre;
+  // Pre-fill Generador quien cierra
+  const gQuien=document.getElementById('g-quien');
+  if(gQuien&&!gQuien.value)gQuien.value=nombre;
+  // Pre-fill turno name field
+  const turnoInput=document.getElementById('turno-nombre-input');
+  if(turnoInput)turnoInput.value=nombre;
+  // Init Generador data
+  genCurrentUser=suiteUser;
+  genCargarPresets();genMostrarHistorial();
+  // Init Tracker
+  load();
+  if(data.turno?.active){
+    document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-stop"></i> Cerrar turno';
+    document.getElementById('btn-turno').className='tb-btn amber';
+    document.getElementById('turno-badge').style.display='flex';
+    document.getElementById('turno-nombre-badge').textContent=data.turno.nombre;
+    updateTurnoBadge();
+  }
+  if(!data.folders['__archived__'])data.folders['__archived__']={open:false,special:'archived'};
+  renderSidebar();
+  const initIds=Object.keys(data.tickets);
+  if(initIds.length){activeId=initIds[0];renderPanel();}
+  else document.getElementById('panel-empty').style.display='block';
+  setNow();startClock();
+}
+
+/* ══════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════ */
-load();
-if(data.turno?.active){
-  document.getElementById('btn-turno').innerHTML='<i class="ti ti-player-stop"></i> Cerrar turno';
-  document.getElementById('btn-turno').className='tb-btn amber';
-  document.getElementById('turno-badge').style.display='flex';
-  document.getElementById('turno-nombre-badge').textContent=data.turno.nombre;
-  updateTurnoBadge();
+// Check existing session on load
+suiteUser=localStorage.getItem('suite_session');
+if(suiteUser&&SUITE_USERS[suiteUser]){
+  document.getElementById('suite-login').style.display='none';
+  suiteInitApp();
 }
-if(!data.folders['__archived__'])data.folders['__archived__']={open:false,special:'archived'};
-renderSidebar();
-const initIds=Object.keys(data.tickets);
-if(initIds.length){activeId=initIds[0];renderPanel();}
-else document.getElementById('panel-empty').style.display='block';
-setNow();startClock();
+// Enter key on login password
+document.getElementById('suite-login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')suiteLogin();});
 </script>
 </body>
 </html>
