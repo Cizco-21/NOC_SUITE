@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOC Suite V6.0</title>
+<title>NOC Suite V7.2</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 /* ══ CSS VARIABLES — light & dark ══ */
@@ -379,6 +379,31 @@ html,body{height:100%;background:var(--bg);}
 .dark #suite-login{background:#060810;}
 .dark #suite-login>div{background:#161b2e;border:1px solid #2a3050;color:#e0e4ff;}
 
+/* ══ GLOBAL SEARCH ══ */
+.gs-wrap{position:relative;display:flex;align-items:center;}
+.gs-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:4px 10px 4px 28px;font-size:12px;font-family:Arial,sans-serif;color:#fff;width:200px;outline:none;transition:width .2s,background .15s;}
+.gs-input::placeholder{color:rgba(255,255,255,.45);}
+.gs-input:focus{width:280px;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4);}
+.gs-icon{position:absolute;left:8px;font-size:13px;color:rgba(255,255,255,.5);pointer-events:none;}
+.gs-clear{position:absolute;right:7px;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:14px;display:none;padding:0;}
+.gs-clear.show{display:block;}
+.gs-clear:hover{color:#fff;}
+.gs-panel{position:fixed;top:88px;left:50%;transform:translateX(-50%);width:680px;max-width:96vw;background:var(--card);border:1px solid var(--border2);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:800;display:none;max-height:72vh;overflow-y:auto;}
+.gs-panel.open{display:block;}
+.gs-section{padding:8px 14px 4px;border-bottom:1px solid var(--border3);}
+.gs-section-title{font-size:10px;font-weight:bold;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.gs-result{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:4px;cursor:pointer;transition:background .1s;}
+.gs-result:hover{background:var(--sb-active);}
+.gs-result-main{flex:1;min-width:0;}
+.gs-result-id{font-size:12px;font-weight:bold;color:var(--chip-color);}
+.gs-result-text{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.gs-result-text mark{background:var(--hist-match);color:inherit;border-radius:2px;padding:0 2px;}
+.gs-result-meta{font-size:10px;color:var(--text3);white-space:nowrap;margin-top:1px;}
+.gs-empty{padding:24px;text-align:center;font-size:13px;color:var(--text3);}
+.gs-badge{font-size:10px;font-weight:bold;padding:1px 6px;border-radius:8px;}
+.gs-badge-ticket{background:var(--chip-bg);color:var(--chip-color);}
+.gs-badge-session{background:#fff3e0;color:#e65100;}
+.gs-badge-entry{background:var(--bg2);color:var(--text2);}
 /* ══ SESSIONS MODULE CSS ══ */
 .ses-tpl-btn{padding:3px 8px;font-size:10px;border-radius:2px;border:1px solid var(--chip-border);background:var(--chip-bg);color:var(--chip-color);cursor:pointer;font-family:Arial,sans-serif;transition:filter .1s;}
 .ses-tpl-btn:hover{filter:brightness(.9);}
@@ -463,7 +488,7 @@ html,body{height:100%;background:var(--bg);}
       <i class="ti ti-arrow-right"></i> Ingresar
     </button>
     <div id="suite-login-err" style="font-size:12px;color:#c62828;display:none;">❌ Usuario o contraseña incorrectos</div>
-    <div style="font-size:10px;color:#bdbdbd;margin-top:4px;">GMELENDEZ — NOC Suite V.7.1</div>
+    <div style="font-size:10px;color:#bdbdbd;margin-top:4px;">GMELENDEZ — NOC Suite V.7.2</div>
   </div>
 </div>
 <!-- APP TAB BAR -->
@@ -480,12 +505,24 @@ html,body{height:100%;background:var(--bg);}
     <i class="ti ti-notes"></i> Sesiones
     <span style="font-size:9px;background:#f57f17;color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px;font-weight:bold;letter-spacing:.03em;">BETA</span>
   </div>
-  <div style="margin-left:auto;display:flex;align-items:center;padding:0 10px;">
+  <div style="margin-left:auto;display:flex;align-items:center;gap:10px;padding:0 10px;">
+    <!-- Global Search -->
+    <div class="gs-wrap">
+      <i class="ti ti-search gs-icon"></i>
+      <input type="text" class="gs-input" id="gs-input" placeholder="Buscar en toda la Suite..." oninput="gsSearch(this.value)" onfocus="gsSearch(this.value)" onkeydown="gsKeydown(event)" autocomplete="off">
+      <button class="gs-clear" id="gs-clear" onclick="gsClear()" title="Limpiar"><i class="ti ti-x"></i></button>
+    </div>
     <button id="dark-toggle-btn" onclick="toggleDarkMode()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--text3);border-radius:3px;padding:4px 9px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:Arial,sans-serif;transition:background .15s;" title="Modo oscuro/claro">
       <i class="ti ti-moon" id="dark-toggle-icon"></i> Oscuro
     </button>
   </div>
 </div>
+
+<!-- GLOBAL SEARCH PANEL -->
+<div class="gs-panel" id="gs-panel">
+  <div id="gs-results"></div>
+</div>
+<div id="gs-backdrop" style="position:fixed;inset:0;z-index:799;display:none;" onclick="gsClose()"></div>
 
 <!-- ══ TAB 1: TRACKER ══ -->
 <div class="tab-panel active" id="panel-tab-tracker">
@@ -640,6 +677,7 @@ html,body{height:100%;background:var(--bg);}
       <div><span class="kbd">Ctrl+,</span> Configuración</div>
       <div><span class="kbd">Ctrl+D</span> Dashboard turno</div>
       <div><span class="kbd">Ctrl+I</span> Importar</div>
+      <div><span class="kbd">Ctrl+K</span> Búsqueda global</div>
     </div>
   </div>
 
@@ -834,6 +872,7 @@ html,body{height:100%;background:var(--bg);}
       <div class="export-opt" onclick="doExport('pdf')"><i class="ti ti-file-type-pdf" style="color:#c62828;"></i><div class="export-opt-info"><div class="export-opt-title">PDF (imprimir)</div><div class="export-opt-desc">Abre diálogo de impresión</div></div></div>
       <div class="export-opt" onclick="doExport('clip')"><i class="ti ti-clipboard" style="color:#00796b;"></i><div class="export-opt-info"><div class="export-opt-title">Copiar al portapapeles</div><div class="export-opt-desc">Para pegar en cualquier campo</div></div></div>
       <div class="export-opt" onclick="doExport('snow')" style="border-color:#00796b;"><i class="ti ti-brand-snowflake" style="color:#00796b;"></i><div class="export-opt-info"><div class="export-opt-title" style="color:#00796b;">ServiceNow — Work Notes</div><div class="export-opt-desc">Formato exacto SNOW: fecha, estado, notas separadas · Ctrl+V directo en el campo</div></div></div>
+      <div class="export-opt" onclick="doExport('md')"><i class="ti ti-brand-github" style="color:#333;font-size:20px;"></i><div class="export-opt-info"><div class="export-opt-title">Markdown (.md)</div><div class="export-opt-desc">Para Confluence, Notion, wikis, GitHub — tablas y formato</div></div></div>
     </div>
     <label style="font-size:12px;display:flex;align-items:center;gap:5px;cursor:pointer;">
       <input type="checkbox" id="export-multi-cb" onchange="renderSidebar()"> Seleccionar múltiples tickets
@@ -1068,6 +1107,7 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
       <div class="export-opt" onclick="sesDoExport('html')"><i class="ti ti-brand-html5" style="font-size:20px;color:#e65100;"></i><div><div class="export-opt-title">HTML visual</div><div class="export-opt-desc">Con l&#xED;nea de tiempo y participantes</div></div></div>
       <div class="export-opt" onclick="sesDoExport('snow')"><i class="ti ti-brand-snowflake" style="font-size:20px;color:#00796b;"></i><div><div class="export-opt-title">ServiceNow Work Notes</div><div class="export-opt-desc">Formato para pegar en SNOW</div></div></div>
       <div class="export-opt" onclick="sesDoExport('clip')"><i class="ti ti-clipboard" style="font-size:20px;color:#3f51b5;"></i><div><div class="export-opt-title">Copiar al portapapeles</div><div class="export-opt-desc">Solo l&#xED;neas cronol&#xF3;gicas</div></div></div>
+      <div class="export-opt" onclick="sesDoExport('md')"><i class="ti ti-brand-github" style="font-size:20px;color:#333;"></i><div><div class="export-opt-title">Markdown (.md)</div><div class="export-opt-desc">Para Confluence, Notion, wikis</div></div></div>
     </div>
   </div>
 </div>
@@ -1277,7 +1317,7 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
 
 </div><!-- /app -->
 
-<div class="footer">GMELENDEZ — NOC Suite V.7.1 &nbsp;|&nbsp; <span style="color:var(--text3);">Tracker · Generador · Sesiones (Beta) · Ctrl+, Config</span></div>
+<div class="footer">GMELENDEZ — NOC Suite V.7.2 &nbsp;|&nbsp; <span style="color:var(--text3);">Tracker · Generador · Sesiones (Beta) · Ctrl+, Config</span></div>
 <iframe id="print-frame" style="display:none;"></iframe>
 
 <style>
@@ -1495,6 +1535,7 @@ function doExport(type){
   else if(type==='pdf'){const c=ids.length===1?buildHTML(ids[0],withPrivate):buildCombinedHTML(ids,withPrivate);const f=document.getElementById('print-frame');f.contentDocument.open();f.contentDocument.write(c);f.contentDocument.close();setTimeout(()=>f.contentWindow.print(),400);}
   else if(type==='clip'){const c=ids.length===1?buildCopyText(ids[0],withPrivate):ids.map(id=>buildCopyText(id,withPrivate)).join('\n');navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✓ Copiado al portapapeles';setTimeout(closeExportModal,1200);}).catch(()=>{});}
   else if(type==='snow'){const c=ids.length===1?buildSnowNotes(ids[0]):ids.map(id=>buildSnowNotes(id)).join('\n\n'+'─'.repeat(50)+'\n\n');navigator.clipboard.writeText(c).then(()=>{const b=document.getElementById('export-scope-label');b.textContent='✅ Copiado en formato ServiceNow — pégalo en Work Notes';setTimeout(closeExportModal,1800);}).catch(()=>{});}
+  else if(type==='md'){const c=ids.length===1?buildMarkdown(ids[0],includePrivate()):buildCombinedMarkdown(ids,includePrivate());dl(c,(ids.length===1?ids[0]:'NOC_combinado')+'_bitacora.md','text/markdown');}
   if(type!=='clip'&&type!=='snow')closeExportModal();clearSelection();
 }
 
@@ -1571,6 +1612,34 @@ function buildHTML(id,withPrivate=false){
 function buildCombinedHTML(ids,withPrivate=false){
   const sections=ids.map(id=>{if(!data.tickets[id])return'';return`<h2 style="margin-top:24px;color:#1a1a2e;font-size:14px;border-bottom:2px solid #3f51b5;padding-bottom:3px;">Ticket: ${esc(id)}</h2>`+buildHTML(id,withPrivate).replace(/<!DOCTYPE.*?<body[^>]*>/s,'').replace(/<\/body>.*$/s,'');}).join('');
   return`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Bitácora Combinada NOC</title><style>body{font-family:Arial,sans-serif;font-size:13px;color:var(--text);padding:24px;max-width:900px;margin:0 auto;}h1{color:#1a1a2e;}h2{color:#3f51b5;}table{width:100%;border-collapse:collapse;margin-bottom:10px;}th{background:#1a1a2e;color:#fff;padding:6px 10px;text-align:left;font-size:11px;}tr:nth-child(even){background:var(--bg2);}@media print{body{padding:8px;}}</style></head><body><h1>📋 Bitácora Combinada — NOC</h1><div style="font-size:11px;color:var(--text3);margin-bottom:14px;">Exportado: ${new Date().toLocaleString('es-SV')}</div>${sections}</body></html>`;
+}
+
+/* ── Markdown export for Tracker ── */
+function buildMarkdown(id, withPrivate=false){
+  const tk = data.tickets[id]; if(!tk) return '';
+  const entries = getEntries(id, withPrivate);
+  const stMap = {}; data.statuses.forEach(s => stMap[s.label]=s);
+  const lines = [
+    `# 📋 Bitácora — ${id}`,
+    `> Exportado: ${new Date().toLocaleString('es-SV')}  `,
+    `> Entradas: ${entries.length}`,
+    '',
+  ];
+  if(tk.resolution){
+    lines.push('## ✅ Resolución / Causa raíz', '', tk.resolution, '');
+  }
+  lines.push('## 🕐 Historial', '','| Fecha | Hora | Estado | Comentario |','|-------|------|--------|------------|');
+  entries.forEach(e => {
+    const status = e.status ? `\`${e.status}\`` : '—';
+    const comment = e.comment.replace(/\|/g,'\\|').replace(/\n/g,' ');
+    const priv = e.private ? ' 🔒' : '';
+    lines.push(`| ${fmtDate(e.date)} | ${e.time} | ${status} | ${comment}${priv} |`);
+  });
+  return lines.join('\n');
+}
+function buildCombinedMarkdown(ids, withPrivate=false){
+  const sections = ids.filter(id => data.tickets[id]).map(id => buildMarkdown(id, withPrivate));
+  return `# 📋 Bitácora Combinada — NOC\n> Exportado: ${new Date().toLocaleString('es-SV')}\n\n---\n\n` + sections.join('\n\n---\n\n');
 }
 
 function copyHistorico(){if(!activeId||!data.tickets[activeId])return;navigator.clipboard.writeText(buildCopyText(activeId,false)).catch(()=>{});}
@@ -3687,7 +3756,48 @@ function sesDoExport(type) {
     const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Acta — ${esc(s.title)}</title><style>body{font-family:Arial,sans-serif;font-size:13px;color:var(--text);padding:24px;max-width:900px;margin:0 auto;}h1{color:#1a1a2e;font-size:17px;}h2{color:#e65100;font-size:14px;margin-top:20px;}table{width:100%;border-collapse:collapse;}th{background:#1a1a2e;color:#fff;padding:6px 10px;text-align:left;font-size:11px;}tr:nth-child(even){background:var(--bg2);}@media print{body{padding:8px;}}</style></head><body><h1>📋 Acta de Sesión — ${esc(s.title)}</h1><div style="font-size:12px;color:var(--text3);margin-bottom:16px;">Fecha: ${fmtDate(s.date)}${pars?' · Participantes: '+esc(pars):''}${linked?' · Tickets: '+esc(linked):''} · Exportado: ${new Date().toLocaleString('es-SV')}</div><table><thead><tr><th>Fecha/Hora</th><th>Tipo</th><th>Nota</th></tr></thead><tbody>${rows}</tbody></table>${accsHTML?'<h2>✅ Acciones pendientes</h2><ul>'+accsHTML+'</ul>':''}</body></html>`;
     dl(html, s.title.replace(/\s/g,'_')+'_acta.html', 'text/html');
   }
+  if (type === 'md') {
+    const md = buildSessionMarkdown(s, entries, pars, linked);
+    dl(md, s.title.replace(/\s/g,'_')+'_acta.md', 'text/markdown');
+    document.getElementById('ses-export-modal').className = 'modal-overlay';
+    return;
+  }
   document.getElementById('ses-export-modal').className = 'modal-overlay';
+}
+
+/* ── Markdown export for Sessions ── */
+function buildSessionMarkdown(s, entries, pars, linked) {
+  const lines = [
+    `# 📋 Acta de Sesión — ${s.title}`,
+    '',
+    `| Campo | Valor |`,
+    `|-------|-------|`,
+    `| Fecha | ${fmtDate(s.date)} |`,
+    `| Tipo | ${s.tag || 'N/A'} |`,
+    ...(pars ? [`| Participantes | ${pars} |`] : []),
+    ...(linked ? [`| Tickets vinculados | ${linked} |`] : []),
+    `| Exportado | ${new Date().toLocaleString('es-SV')} |`,
+    '',
+  ];
+  // Sections grouped by type
+  const groupOrder = ['critico','decision','accion','riesgo','nota','pregunta','seguimiento'];
+  groupOrder.forEach(type => {
+    const group = entries.filter(e => e.type === type);
+    if (!group.length) return;
+    const tm = SES_TYPE[type] || SES_TYPE.nota;
+    lines.push(`## ${tm.icon} ${tm.label}s`, '');
+    group.forEach(e => {
+      lines.push(`- **${fmtDate(e.date)} ${e.time}**${e.speaker ? ' _('+e.speaker+')_' : ''}: ${e.text}`);
+    });
+    lines.push('');
+  });
+  // Full timeline table
+  lines.push('## 🕐 Timeline completo', '', '| Fecha | Hora | Tipo | Participante | Nota |', '|-------|------|------|-------------|------|');
+  entries.forEach(e => {
+    const tm = SES_TYPE[e.type] || SES_TYPE.nota;
+    lines.push(`| ${fmtDate(e.date)} | ${e.time} | ${tm.icon} ${tm.label} | ${e.speaker||'—'} | ${e.text.replace(/\|/g,'\\|').replace(/\n/g,' ')} |`);
+  });
+  return lines.join('\n');
 }
 
 /* ══ FOCUS MODE ══ */
@@ -3853,8 +3963,245 @@ sesLoad();
 
 
 /* ══════════════════════════════════════════════
-   DARK MODE
+   GLOBAL SEARCH — searches Tracker tickets + Sessions simultaneously
+   Results grouped by source, click navigates directly to item
 ══════════════════════════════════════════════ */
+
+let gsDebounce = null;
+let gsSelectedIdx = -1;
+
+function gsSearch(q) {
+  q = q.trim();
+  const clearBtn = document.getElementById('gs-clear');
+  const panel = document.getElementById('gs-panel');
+  const backdrop = document.getElementById('gs-backdrop');
+
+  if (clearBtn) clearBtn.className = q ? 'gs-clear show' : 'gs-clear';
+
+  if (!q || q.length < 2) {
+    panel.className = 'gs-panel';
+    backdrop.style.display = 'none';
+    return;
+  }
+
+  // Debounce 120ms
+  clearTimeout(gsDebounce);
+  gsDebounce = setTimeout(() => gsExecuteSearch(q), 120);
+}
+
+function gsExecuteSearch(q) {
+  const panel = document.getElementById('gs-panel');
+  const backdrop = document.getElementById('gs-backdrop');
+  const ql = q.toLowerCase();
+  const results = { tickets: [], sessions: [], entries: [], sesEntries: [] };
+
+  // ── Search Tracker tickets ──
+  Object.entries(data.tickets || {}).forEach(([id, tk]) => {
+    const idMatch = id.toLowerCase().includes(ql);
+    const resMatch = tk.resolution?.toLowerCase().includes(ql);
+    if (idMatch || resMatch) {
+      results.tickets.push({ id, tk, matchType: idMatch ? 'id' : 'resolution' });
+    }
+    // Search inside ticket entries
+    tk.entries.forEach(e => {
+      if ((e.comment||'').toLowerCase().includes(ql)) {
+        results.entries.push({ id, e, tk });
+      }
+    });
+  });
+
+  // ── Search Sessions ──
+  Object.values(sesData.sessions || {}).forEach(s => {
+    const titleMatch = s.title.toLowerCase().includes(ql);
+    const partMatch = (s.participants||[]).some(p => p.nombre.toLowerCase().includes(ql));
+    if (titleMatch || partMatch) {
+      results.sessions.push({ s, matchType: titleMatch ? 'title' : 'participant' });
+    }
+    // Search inside session entries
+    s.entries.forEach(e => {
+      if ((e.text||'').toLowerCase().includes(ql) || (e.speaker||'').toLowerCase().includes(ql)) {
+        results.sesEntries.push({ s, e });
+      }
+    });
+  });
+
+  // Build result HTML
+  const total = results.tickets.length + results.sessions.length + results.entries.length + results.sesEntries.length;
+
+  if (!total) {
+    document.getElementById('gs-results').innerHTML =
+      `<div class="gs-empty"><i class="ti ti-search" style="display:block;font-size:28px;opacity:.2;margin-bottom:8px;"></i>Sin resultados para "<b>${esc(q)}</b>"</div>`;
+    panel.className = 'gs-panel open';
+    backdrop.style.display = 'block';
+    return;
+  }
+
+  let html = '';
+  const maxPerSection = 4;
+
+  // Ticket IDs + resolutions
+  if (results.tickets.length) {
+    html += `<div class="gs-section">
+      <div class="gs-section-title"><i class="ti ti-ticket"></i> Tickets (${results.tickets.length})<span class="gs-badge gs-badge-ticket">Tracker</span></div>`;
+    results.tickets.slice(0, maxPerSection).forEach(({ id, tk }) => {
+      const last = [...tk.entries].sort((a,b)=>b.id-a.id)[0];
+      html += `<div class="gs-result" onclick="gsGoTicket('${esc(id)}')">
+        <i class="ti ti-ticket" style="color:var(--chip-color);font-size:16px;flex-shrink:0;margin-top:1px;"></i>
+        <div class="gs-result-main">
+          <div class="gs-result-id">${gsHL(esc(id),ql)} <span style="font-size:10px;color:var(--text3);">${tk.entries.length} entradas</span></div>
+          <div class="gs-result-text">${last ? esc(last.comment) : 'Sin entradas'}</div>
+        </div>
+        <span class="gs-badge gs-badge-ticket">${last?.status||'—'}</span>
+      </div>`;
+    });
+    if (results.tickets.length > maxPerSection)
+      html += `<div style="font-size:11px;color:var(--text3);padding:4px 10px 6px;">+${results.tickets.length-maxPerSection} más</div>`;
+    html += '</div>';
+  }
+
+  // Ticket entries
+  if (results.entries.length) {
+    html += `<div class="gs-section">
+      <div class="gs-section-title"><i class="ti ti-message"></i> Entradas en tickets (${results.entries.length})<span class="gs-badge gs-badge-entry">Tracker</span></div>`;
+    results.entries.slice(0, maxPerSection).forEach(({ id, e }) => {
+      html += `<div class="gs-result" onclick="gsGoTicket('${esc(id)}')">
+        <i class="ti ti-message" style="color:var(--text3);font-size:14px;flex-shrink:0;margin-top:2px;"></i>
+        <div class="gs-result-main">
+          <div class="gs-result-id">${esc(id)} · <span style="font-weight:normal;color:var(--text3);">${fmtDate(e.date)} ${e.time}</span></div>
+          <div class="gs-result-text">${gsHL(esc(e.comment),ql)}</div>
+        </div>
+        ${e.status?`<span class="gs-badge gs-badge-entry">${esc(e.status)}</span>`:''}
+      </div>`;
+    });
+    if (results.entries.length > maxPerSection)
+      html += `<div style="font-size:11px;color:var(--text3);padding:4px 10px 6px;">+${results.entries.length-maxPerSection} más entradas</div>`;
+    html += '</div>';
+  }
+
+  // Session titles
+  if (results.sessions.length) {
+    html += `<div class="gs-section">
+      <div class="gs-section-title"><i class="ti ti-notes"></i> Sesiones (${results.sessions.length})<span class="gs-badge gs-badge-session">Sesiones</span></div>`;
+    results.sessions.slice(0, maxPerSection).forEach(({ s }) => {
+      const pars = (s.participants||[]).map(p=>p.nombre).join(', ');
+      html += `<div class="gs-result" onclick="gsGoSession('${esc(s.id)}')">
+        <i class="ti ti-notes" style="color:#f57f17;font-size:16px;flex-shrink:0;margin-top:1px;"></i>
+        <div class="gs-result-main">
+          <div class="gs-result-id">${gsHL(esc(s.title),ql)}</div>
+          <div class="gs-result-text">${fmtDate(s.date)}${pars?' · 👥 '+esc(pars.substring(0,40)):''}</div>
+        </div>
+        <span class="gs-badge gs-badge-session">${s.tag||'sesión'}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  // Session entries
+  if (results.sesEntries.length) {
+    html += `<div class="gs-section">
+      <div class="gs-section-title"><i class="ti ti-pencil"></i> Notas en sesiones (${results.sesEntries.length})<span class="gs-badge gs-badge-session">Sesiones</span></div>`;
+    results.sesEntries.slice(0, maxPerSection).forEach(({ s, e }) => {
+      const tm = SES_TYPE[e.type] || SES_TYPE.nota;
+      html += `<div class="gs-result" onclick="gsGoSession('${esc(s.id)}')">
+        <span style="font-size:14px;flex-shrink:0;">${tm.icon}</span>
+        <div class="gs-result-main">
+          <div class="gs-result-id">${esc(s.title)} · <span style="font-weight:normal;color:var(--text3);">${fmtDate(e.date)} ${e.time}</span></div>
+          <div class="gs-result-text">${gsHL(esc(e.text),ql)}${e.speaker?' <span style="color:var(--text3);">— '+esc(e.speaker)+'</span>':''}</div>
+        </div>
+        <span class="gs-badge gs-badge-session">${tm.label}</span>
+      </div>`;
+    });
+    if (results.sesEntries.length > maxPerSection)
+      html += `<div style="font-size:11px;color:var(--text3);padding:4px 10px 6px;">+${results.sesEntries.length-maxPerSection} más notas</div>`;
+    html += '</div>';
+  }
+
+  document.getElementById('gs-results').innerHTML = html;
+  panel.className = 'gs-panel open';
+  backdrop.style.display = 'block';
+  gsSelectedIdx = -1;
+}
+
+function gsHL(text, q) {
+  // Highlight query in result text
+  return text.replace(new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
+}
+
+function gsGoTicket(id) {
+  gsClose();
+  switchTab('tracker');
+  if (data.tickets[id]) {
+    activeId = id;
+    renderSidebar();
+    renderPanel();
+    setTimeout(() => {
+      const el = document.getElementById('tk-' + id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
+  }
+}
+
+function gsGoSession(sid) {
+  gsClose();
+  switchTab('sesiones');
+  if (sesData.sessions[sid]) {
+    sesSelectSession(sid);
+  }
+}
+
+function gsClose() {
+  document.getElementById('gs-panel').className = 'gs-panel';
+  document.getElementById('gs-backdrop').style.display = 'none';
+  gsSelectedIdx = -1;
+}
+
+function gsClear() {
+  document.getElementById('gs-input').value = '';
+  document.getElementById('gs-clear').className = 'gs-clear';
+  gsClose();
+  document.getElementById('gs-input').focus();
+}
+
+function gsKeydown(e) {
+  const panel = document.getElementById('gs-panel');
+  if (panel.className !== 'gs-panel open') return;
+  const results = panel.querySelectorAll('.gs-result');
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    results[gsSelectedIdx]?.classList.remove('gs-selected');
+    gsSelectedIdx = Math.min(gsSelectedIdx + 1, results.length - 1);
+    results[gsSelectedIdx]?.classList.add('gs-selected');
+    results[gsSelectedIdx]?.scrollIntoView({ block: 'nearest' });
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    results[gsSelectedIdx]?.classList.remove('gs-selected');
+    gsSelectedIdx = Math.max(gsSelectedIdx - 1, 0);
+    results[gsSelectedIdx]?.classList.add('gs-selected');
+    results[gsSelectedIdx]?.scrollIntoView({ block: 'nearest' });
+  } else if (e.key === 'Enter' && gsSelectedIdx >= 0) {
+    e.preventDefault();
+    results[gsSelectedIdx]?.click();
+  } else if (e.key === 'Escape') {
+    gsClose();
+    document.getElementById('gs-input').blur();
+  }
+}
+
+// Global Ctrl+K shortcut to focus search
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    const inp = document.getElementById('gs-input');
+    if (inp) { inp.focus(); inp.select(); }
+  }
+  if (e.key === 'Escape') {
+    const panel = document.getElementById('gs-panel');
+    if (panel?.className === 'gs-panel open') gsClose();
+  }
+});
+
+/* ══════════════════════════════════════════════
+   DARK MODE\n══════════════════════════════════════════════ */
 let isDark=false;
 function toggleDarkMode(){
   isDark=!isDark;
