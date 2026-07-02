@@ -457,6 +457,160 @@ html,body{height:100%;background:var(--bg);}
 /* Cross-ref note in timeline */
 .crossref-note{font-size:11px;color:var(--text3);margin-top:4px;padding-top:4px;border-top:1px solid var(--border3);display:flex;align-items:center;gap:4px;}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══ OT TRACKER CSS ══ */
+
+400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+.ot-app {--bg:#0d1117;--surface:#161b22;--border:#21262d;--border2:#30363d;--text:#e6edf3;--muted:#7d8590;--accent:#f78166;--accent2:#ff9500;--green:#3fb950;--blue:#58a6ff;--purple:#bc8cff;--red:#f85149;--yellow:#d29922;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--header-h:56px}
+
+
+
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:var(--header-h);flex-shrink:0;position:relative;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-tabs{display:flex;gap:2px}
+.nav-tab{padding:6px 16px;border-radius:6px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;transition:all .15s}
+.nav-tab:hover{color:var(--text);background:var(--border)}
+.nav-tab.active{color:var(--text);background:var(--border2)}
+main{flex:1;overflow-y:auto;padding:16px 20px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section{display:none}.section.active{display:block}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.card-title{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.grid{display:grid;gap:8px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.field label .req{color:var(--accent);margin-left:2px}
+input,select,textarea{background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--sans);font-size:12px;padding:6px 9px;width:100%;transition:border-color .15s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,.12)}
+textarea{resize:vertical;min-height:48px}
+select option{background:var(--surface)}
+/* TIME WRAP */
+.time-wrap{position:relative}
+.time-wrap input{font-family:var(--mono);letter-spacing:.05em;padding-right:32px}
+.clock-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:2px;line-height:1}
+.clock-btn:hover{color:var(--blue)}
+.clock-popup{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px;z-index:300;box-shadow:0 8px 32px rgba(0,0,0,.5);width:200px}
+.clock-popup.open{display:block}
+.clock-face{width:130px;height:130px;border-radius:50%;background:var(--bg);border:2px solid var(--border2);margin:0 auto 10px;position:relative;cursor:pointer}
+.clock-center{position:absolute;width:6px;height:6px;background:var(--blue);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2}
+.clock-hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom center;border-radius:3px;transition:transform .15s}
+.hand-h{width:3px;height:34px;background:var(--text);margin-left:-1.5px}
+.hand-m{width:2px;height:44px;background:var(--blue);margin-left:-1px}
+.clock-nums{position:absolute;inset:0}
+.clock-num{position:absolute;font-size:9px;font-family:var(--mono);color:var(--muted);transform:translate(-50%,-50%)}
+.clock-controls{display:flex;align-items:center;justify-content:center;gap:6px}
+.clock-controls input[type=number]{width:44px;text-align:center;font-family:var(--mono);font-size:18px;font-weight:600;padding:4px 2px}
+.clock-sep{font-size:20px;font-weight:700;color:var(--muted)}
+.clock-ok{display:block;width:100%;margin-top:8px;background:var(--blue);color:#fff;border:none;border-radius:6px;padding:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+.clock-ok:hover{background:#79b9ff}
+/* TOGGLES */
+.toggle-group{display:flex;gap:4px;flex-wrap:wrap}
+.toggle-btn{padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.toggle-btn:hover{border-color:var(--blue);color:var(--text)}
+.toggle-btn.selected{font-weight:600}
+.sel-blue{background:var(--blue);border-color:var(--blue);color:#fff!important}
+.sel-green{background:var(--green);border-color:var(--green);color:#000!important}
+.sel-yellow{background:var(--yellow);border-color:var(--yellow);color:#000!important}
+.sel-red{background:var(--red);border-color:var(--red);color:#fff!important}
+.sel-purple{background:var(--purple);border-color:var(--purple);color:#000!important}
+/* CHECK */
+.check-field{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:border-color .15s}
+.check-field:hover{border-color:var(--blue)}
+.check-field input[type=checkbox]{width:14px;height:14px;accent-color:var(--blue)}
+.check-field span{font-size:12px;color:var(--text);user-select:none}
+/* OT FLAG */
+.ot-flag{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;font-family:var(--mono)}
+.ot-flag.inside{background:rgba(63,185,80,.12);color:var(--green);border:1px solid rgba(63,185,80,.3)}
+.ot-flag.outside{background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+/* DURATION */
+.duration-display{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--accent2);padding:8px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;min-height:38px;display:flex;align-items:center}
+/* BUTTONS */
+.btn{padding:8px 18px;border-radius:6px;border:none;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#ff6b52}
+.btn-secondary{background:var(--border2);color:var(--text)}.btn-secondary:hover{background:var(--border)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}.btn-ghost:hover{color:var(--text);border-color:var(--border)}
+.btn-danger{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}.btn-danger:hover{background:rgba(248,81,73,.25)}
+.btn-sm{padding:5px 10px;font-size:11px}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:4px;padding-top:10px;border-top:1px solid var(--border)}
+/* MANUAL CONTACT */
+.manual-contact{margin-top:6px;display:none;gap:6px}
+.manual-contact.show{display:flex}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stat-value{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.stat-accent{color:var(--accent)}.stat-green{color:var(--green)}.stat-blue{color:var(--blue)}.stat-purple{color:var(--purple)}
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead th{padding:8px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody td{padding:10px 12px;vertical-align:middle}
+.mono{font-family:var(--mono)}
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.badge-red{background:rgba(248,81,73,.15);color:var(--red)}
+.badge-yellow{background:rgba(210,153,34,.15);color:var(--yellow)}
+.badge-blue{background:rgba(88,166,255,.15);color:var(--blue)}
+.badge-green{background:rgba(63,185,80,.15);color:var(--green)}
+.badge-purple{background:rgba(188,140,255,.15);color:var(--purple)}
+.badge-gray{background:rgba(125,133,144,.15);color:var(--muted)}
+.badge-orange{background:rgba(247,129,102,.15);color:var(--accent)}
+/* FILTER */
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-bar input,.filter-bar select{width:auto;font-size:12px;padding:6px 10px}
+/* CHARTS */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.bar-chart{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:flex;align-items:center;gap:8px}
+.bar-label{width:110px;font-size:11px;color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;background:var(--border);border-radius:3px;height:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .4s}
+.bar-count{font-family:var(--mono);font-size:10px;color:var(--muted);width:28px;text-align:right}
+/* EMPTY */
+.empty{text-align:center;padding:48px 24px;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:12px}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:12px;width:90%;max-width:860px;max-height:90vh;overflow-y:auto;padding:24px;position:relative}
+.modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--text)}
+.export-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media(max-width:1024px){
+  .grid-4{grid-template-columns:1fr 1fr 1fr}
+  .span-4{grid-column:span 3}
+}
+@media(max-width:768px){
+  
+  main{overflow-y:unset}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .charts-grid{grid-template-columns:1fr}
+  .span-3,.span-4{grid-column:span 2}
+  header{padding:0 12px}
+  .nav-tab{padding:5px 10px;font-size:12px}
+}
+@media(max-width:480px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .span-2,.span-3,.span-4{grid-column:span 1}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head>
 <body>
@@ -500,6 +654,9 @@ html,body{height:100%;background:var(--bg);}
   </div>
   <div class="app-tab" id="tab-generador" onclick="switchTab('generador')">
     <i class="ti ti-file-text"></i> Generador de Cierre
+  </div>
+  <div class="app-tab" id="tab-ot" onclick="switchTab('ot')">
+    <i class="ti ti-clock-bolt"></i> OT Tracker
   </div>
   <div class="app-tab" id="tab-sesiones" onclick="switchTab('sesiones')" style="position:relative;">
     <i class="ti ti-notes"></i> Sesiones
@@ -1315,18 +1472,2185 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
 </div><!-- /layout flex -->
 </div><!-- /tab-panel-sesiones -->
 
-</div><!-- /app -->
+<!-- ══ TAB: OT TRACKER ══ -->
+<div class="tab-panel" id="panel-tab-ot">
+<div class="ot-app" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
 
-<div class="footer">GMELENDEZ — NOC Suite V.7.2 &nbsp;|&nbsp; <span style="color:var(--text3);">Tracker · Generador · Sesiones (Beta) · Ctrl+, Config</span></div>
-<iframe id="print-frame" style="display:none;"></iframe>
+  <!-- OT sub-navbar (matches suite style) -->
+  <div style="background:var(--topbar);border-bottom:2px solid #1e2240;padding:0 12px;display:flex;align-items:center;gap:0;flex-shrink:0;">
+    <button class="ot-nav-btn" id="otnav-nuevo" onclick="otNav('nuevo',this)"
+      style="padding:10px 18px;border:none;border-bottom:2px solid #7c83d6;background:transparent;color:#fff;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s,border-color .15s;margin-bottom:-2px;">
+      <i class="ti ti-plus"></i> Nuevo Registro
+    </button>
+    <button class="ot-nav-btn" id="otnav-registros" onclick="otNav('registros',this)"
+      style="padding:10px 18px;border:none;border-bottom:2px solid transparent;background:transparent;color:#6a7099;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s,border-color .15s;margin-bottom:-2px;">
+      <i class="ti ti-list"></i> Registros
+    </button>
+    <button class="ot-nav-btn" id="otnav-dashboard" onclick="otNav('dashboard',this)"
+      style="padding:10px 18px;border:none;border-bottom:2px solid transparent;background:transparent;color:#6a7099;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s,border-color .15s;margin-bottom:-2px;">
+      <i class="ti ti-chart-bar"></i> Dashboard
+    </button>
+    <div style="margin-left:auto;padding-right:4px;">
+      <button onclick="otOpenExport()"
+        style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#9ea8cc;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:inherit;">
+        <i class="ti ti-download"></i> Exportar
+      </button>
+    </div>
+  </div>
 
+  <!-- OT scrollable content -->
+  <div style="flex:1;overflow-y:auto;padding:14px 18px;">
+    <div class="ot-app">
+
+
+
+
+<!-- NUEVO REGISTRO -->
+<div id="ot-sec-nuevo" class="ot-section active">
+
+  <div class="card">
+    <div class="card-title">Identificación del Contacto</div>
+    <div class="grid grid-4">
+
+      <div class="field">
+        <label>Fecha <span class="req">*</span></label>
+        <input type="date" id="f-fecha">
+      </div>
+
+      <div class="field span-2">
+        <label>Canal de Entrada <span class="req">*</span></label>
+        <div class="toggle-group" id="tg-canal">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">📞 Llamada</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">💬 Mensaje</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">📧 Correo</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">🎟 Ticket</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hora de Escalamiento</label>
+        <div class="time-wrap">
+          <input type="text" id="f-hora-contacto" placeholder="HH:MM" maxlength="5"
+            oninput="otFmtTime(this)" onblur="otSyncContactTime()">
+          <button class="clock-btn" onclick="otToggleClock('ck-contacto',event)">🕐</button>
+          <div class="clock-popup" id="ck-contacto"></div>
+        </div>
+      </div>
+
+      <div class="field span-2">
+        <label>Quién Contactó <span class="req">*</span></label>
+        <select id="f-contacto-sel" onchange="onContactChange()">
+          <option value="">— Seleccionar —</option>
+          <optgroup label="L1">
+            <option value="Luis Melara|L1">Luis Melara — L1</option>
+            <option value="Yanira Hernández|L1">Yanira Hernández — L1</option>
+            <option value="Ingrid Cerón|L1">Ingrid Cerón — L1</option>
+            <option value="Cruz Casco|L1">Cruz Casco — L1</option>
+            <option value="Fredis Bran|L1">Fredis Bran — L1</option>
+            <option value="Blanca Ibarra|L1">Blanca Ibarra — L1</option>
+            <option value="Christian Avalos|L1">Christian Avalos — L1</option>
+            <option value="Jaime Lemus|L1">Jaime Lemus — L1</option>
+            <option value="Walter Garcia|L1">Walter Garcia — L1</option>
+          </optgroup>
+          <optgroup label="L2">
+            <option value="Jose Santos|L2">Jose Santos — L2</option>
+            <option value="Octavio Torres|L2">Octavio Torres — L2</option>
+          </optgroup>
+          <optgroup label="Jefatura">
+            <option value="Carlos Diaz|Jefatura">Carlos Diaz — Jefatura</option>
+            <option value="Cesar Martinez|Jefatura">Cesar Martinez — Jefatura</option>
+            <option value="Robin Aguilar|Jefatura">Robin Aguilar — Jefatura</option>
+            <option value="Marco Cienfuegos|Jefatura">Marco Cienfuegos — Jefatura</option>
+            <option value="Vanessa Blanco|Jefatura">Vanessa Blanco — Jefatura</option>
+          </optgroup>
+          <option value="__manual__">✏ Ingresar manualmente…</option>
+        </select>
+        <div class="manual-contact" id="manual-wrap">
+          <input type="text" id="f-manual" placeholder="Nombre — Cargo">
+        </div>
+      </div>
+
+      <div class="field span-2">
+        <label>Cliente / Sitio <span class="req">*</span></label>
+        <input type="text" id="f-cliente" placeholder="Nombre del cliente o sitio" list="cli-list">
+        <datalist id="cli-list"></datalist>
+      </div>
+
+      <div class="field">
+        <label>Número de Ticket</label>
+        <input type="text" id="f-ticket" placeholder="INC-0000 / REQ-0000" style="font-family:var(--mono)">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Control de Tiempo</div>
+    <div class="grid grid-4">
+
+      <div class="field">
+        <label>Fecha Inicio <span class="req">*</span></label>
+        <input type="date" id="f-fecha-inicio" onchange="calcDuration()">
+      </div>
+
+      <div class="field">
+        <label>Hora Inicio <span class="req">*</span></label>
+        <div class="time-wrap">
+          <input type="text" id="f-inicio" placeholder="HH:MM" maxlength="5"
+            oninput="otFmtTime(this);calcDuration()">
+          <button class="clock-btn" onclick="otToggleClock('ck-inicio',event)">🕐</button>
+          <div class="clock-popup" id="ck-inicio"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Fecha Fin <span class="req">*</span></label>
+        <input type="date" id="f-fecha-fin" onchange="calcDuration()">
+      </div>
+
+      <div class="field">
+        <label>Hora Fin <span class="req">*</span></label>
+        <div class="time-wrap">
+          <input type="text" id="f-fin" placeholder="HH:MM" maxlength="5"
+            oninput="otFmtTime(this);calcDuration()">
+          <button class="clock-btn" onclick="otToggleClock('ck-fin',event)">🕐</button>
+          <div class="clock-popup" id="ck-fin"></div>
+        </div>
+      </div>
+
+      <div class="field span-2">
+        <label>Duración Total</label>
+        <div class="duration-display" id="dur-display">— : —</div>
+      </div>
+
+      <div class="field span-2">
+        <label>Horario Laboral</label>
+        <div style="display:flex;gap:4px;align-items:center">
+          <input type="text" id="f-hl-i" value="08:00" maxlength="5"
+            style="flex:1;font-family:var(--mono)" oninput="otFmtTime(this);calcDuration()">
+          <span style="color:var(--muted);font-size:12px">–</span>
+          <input type="text" id="f-hl-f" value="17:00" maxlength="5"
+            style="flex:1;font-family:var(--mono)" oninput="otFmtTime(this);calcDuration()">
+        </div>
+      </div>
+
+      <div class="field span-4">
+        <label>Estado de Horario</label>
+        <div id="ot-flag" class="ot-flag inside">✓ Dentro de horario</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Clasificación del Escalamiento</div>
+    <div class="grid grid-4">
+
+      <div class="field">
+        <label>Categoría <span class="req">*</span></label>
+        <div class="toggle-group" id="tg-cat">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Firewall</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">VERSA</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Conectividad</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">MPLS</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Orientación</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">DNS</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">VPN</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Otro</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Severidad</label>
+        <div class="toggle-group" id="tg-sev">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-red')">🔴 Crítico</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-yellow')">🟠 Alto</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-green')">🟡 Medio</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-purple')">🟢 Bajo</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿El escalamiento era evitable?</label>
+        <div class="toggle-group" id="tg-evitable">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-evitable','sel-red')">Sí</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-evitable','sel-yellow')">Parcialmente</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-evitable','sel-green')">No</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Documentación Antes del Escalamiento?</label>
+        <div class="toggle-group" id="tg-doc">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-doc','sel-green')">Sí</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-doc','sel-red')">No</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-doc','sel-purple')">N/A</button>
+        </div>
+      </div>
+
+      <div class="field span-4">
+        <label>Motivo del Contacto <span class="req">*</span></label>
+        <textarea id="f-motivo" placeholder="Descripción breve del problema reportado…"></textarea>
+      </div>
+
+      <div class="field span-4">
+        <label>Actividad Realizada <span class="req">*</span></label>
+        <textarea id="f-actividad" placeholder="Qué se hizo para resolver o atender el caso…"></textarea>
+      </div>
+
+      <div class="field span-2">
+        <label>Causa Raíz</label>
+        <input type="text" id="f-causa" list="causa-list" placeholder="Seleccionar o escribir…">
+        <datalist id="causa-list">
+          <option value="Configuración incorrecta">
+          <option value="Falla de hardware">
+          <option value="Error de usuario">
+          <option value="Proveedor externo">
+          <option value="Cambio no controlado">
+          <option value="Falla de software/firmware">
+          <option value="Problema de red externa">
+          <option value="En investigación">
+        </datalist>
+      </div>
+
+      <div class="field span-2">
+        <label>Estado de Resolución <span class="req">*</span></label>
+
+        <div class="toggle-group" id="tg-estado">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-green')">✅ Resuelto</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-blue')">🔄 En Seguimiento</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-yellow')">⬆ Escalado</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-red')">⏳ Pend. Cliente</button>
+        </div>
+      </div>
+
+      <div class="field span-4">
+        <label>Notas de Cierre</label>
+        <textarea id="f-notas" placeholder="Observaciones, pasos pendientes, contexto para seguimiento…"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  
+
+  <!-- CLASIFICACIÓN DEL ESCALAMIENTO -->
+  
+
+  <!-- CONTROL DE TIEMPO -->
+  
+
+  <div class="form-actions">
+    <button class="btn btn-ghost" onclick="otClearForm()">Limpiar</button>
+    <button class="btn btn-primary" onclick="otSaveRecord()">Guardar Registro</button>
+  </div>
+</div>
+
+<!-- REGISTROS -->
+<div id="ot-sec-registros" class="ot-section">
+  <div class="filter-bar">
+    <input type="text" id="flt-q" placeholder="🔍 Buscar…" oninput="otRenderTable()" style="width:200px">
+    <select id="flt-cli" onchange="otRenderTable()"><option value="">Todos los clientes</option></select>
+    <select id="flt-cat" onchange="otRenderTable()">
+      <option value="">Todas las categorías</option>
+      <option>Firewall</option><option>VERSA</option><option>Conectividad</option>
+      <option>MPLS</option><option>Orientación</option><option>DNS</option><option>VPN</option><option>Otro</option>
+    </select>
+    <select id="flt-per" onchange="otRenderTable()">
+      <option value="">Todos</option><option value="hoy">Hoy</option>
+      <option value="semana">Esta semana</option><option value="mes">Este mes</option>
+    </select>
+    <label><input type="checkbox" id="flt-ot" onchange="otRenderTable()"> Solo OT</label>
+  </div>
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Fecha</th><th>Hora</th><th>Contacto</th><th>Cliente</th><th>Ticket</th>
+          <th>Categoría</th><th>Sev.</th><th>Duración</th><th>OT</th><th>Estado</th><th></th>
+        </tr></thead>
+        <tbody id="rec-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="ot-sec-dashboard" class="ot-section">
+  <div class="filter-bar">
+    <label>Período:</label>
+    <select id="dash-per" onchange="otRenderDash()">
+      <option value="hoy">Hoy</option><option value="semana" selected>Esta semana</option>
+      <option value="mes">Este mes</option><option value="todo">Todo</option>
+    </select>
+  </div>
+  <div class="stats-grid" id="dash-stats"></div>
+  <div class="charts-grid">
+    <div class="card"><div class="card-title">Por Categoría</div><div class="bar-chart" id="ch-cat"></div></div>
+    <div class="card"><div class="card-title">Por Cliente</div><div class="bar-chart" id="ch-cli"></div></div>
+    <div class="card"><div class="card-title">Por Severidad</div><div class="bar-chart" id="ch-sev"></div></div>
+    <div class="card"><div class="card-title">Por Estado</div><div class="bar-chart" id="ch-est"></div></div>
+  </div>
+  <div class="card"><div class="card-title">Pendientes</div><div id="dash-pend"></div></div>
+</div>
+
+
+
+<!-- MODAL DETALLE -->
+<div class="modal-overlay" id="mod-det">
+  <div class="modal">
+    <button class="modal-close" onclick="otCloseModal('mod-det')">✕</button>
+    <div id="mod-content"></div>
+  </div>
+</div>
+
+<!-- MODAL EXPORT -->
+<div class="modal-overlay" id="mod-exp">
+  <div class="modal" style="max-width:360px">
+    <button class="modal-close" onclick="otCloseModal('mod-exp')">✕</button>
+    <div class="card-title" style="margin-bottom:16px">Exportar</div>
+    <div class="field">
+      <label>Período</label>
+      <select id="exp-per">
+        <option value="todo">Todos</option><option value="hoy">Hoy</option>
+        <option value="semana">Esta semana</option><option value="mes">Este mes</option>
+      </select>
+    </div>
+    <div class="export-btns">
+      <button class="btn btn-secondary" onclick="otExpCSV()">📊 CSV</button>
+      <button class="btn btn-secondary" onclick="otExpHTML()">🖨 HTML</button>
+      <button class="btn btn-secondary" onclick="otExpPDF()">📄 PDF</button>
+    </div>
+  </div>
+</div>
+
+E html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOC Suite V7.2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
+/* ══ CSS VARIABLES — light & dark ══ */
+:root{
+  --bg:#f0f0f0;
+  --bg2:#f5f5f5;
+  --card:#ffffff;
+  --card2:#fafafa;
+  --border:#d0d0d0;
+  --border2:#e0e0e0;
+  --border3:#e8e8e8;
+  --text:#222;
+  --text2:#555;
+  --text3:#9e9e9e;
+  --topbar:#1a1a2e;
+  --tabs:#13152a;
+  --input-bg:#ffffff;
+  --input-border:#bbb;
+  --input-focus:#3f51b5;
+  --sb-item:#ffffff;
+  --sb-hover:#e8f5e9;
+  --sb-hover-border:#a5d6a7;
+  --sb-active:#e8eaf6;
+  --sb-active-color:#1a237e;
+  --tl-line:#c5cae9;
+  --tl-dot:#9fa8da;
+  --attach-bg:#f9f9f9;
+  --attach-border:#e8e8e8;
+  --hist-match:#fff9c4;
+  --day-head:#fafafa;
+  --kbd-bg:#eee;
+  --kbd-border:#ccc;
+  --modal-overlay:rgba(0,0,0,.45);
+  --panel-card:#ffffff;
+  --focus-bg:#ffffff;
+  --gen-bg:#f5f5f5;
+  --gen-card:#ffffff;
+  --gen-border:#ddd;
+  --gen-registro-border:#e0e0e0;
+  --chip-bg:#e8eaf6;
+  --chip-color:#3f51b5;
+  --chip-border:#c5cae9;
+  --private-bg:#fdf2ff;
+  --res-bg:#f9fbe7;
+  --footer-bg:#ffffff;
+  --footer-border:#e0e0e0;
+  --dark-toggle-icon:'🌙';
+}
+.dark{
+  --bg:#0d0f1a;
+  --bg2:#111420;
+  --card:#161b2e;
+  --card2:#1a1f32;
+  --border:#2a3050;
+  --border2:#242840;
+  --border3:#1e2236;
+  --text:#e0e4ff;
+  --text2:#9ea8cc;
+  --text3:#5a6490;
+  --topbar:#0a0c18;
+  --tabs:#080a14;
+  --input-bg:#1a1f32;
+  --input-border:#2a3050;
+  --input-focus:#7c83d6;
+  --sb-item:#161b2e;
+  --sb-hover:#1a2540;
+  --sb-hover-border:#2a4060;
+  --sb-active:#1e2b50;
+  --sb-active-color:#9fa8da;
+  --tl-line:#2a3050;
+  --tl-dot:#3f4880;
+  --attach-bg:#1a1f32;
+  --attach-border:#2a3050;
+  --hist-match:#3d3a00;
+  --day-head:#131728;
+  --kbd-bg:#1a1f32;
+  --kbd-border:#2a3050;
+  --modal-overlay:rgba(0,0,0,.7);
+  --panel-card:#161b2e;
+  --focus-bg:#0d0f1a;
+  --gen-bg:#111420;
+  --gen-card:#161b2e;
+  --gen-border:#2a3050;
+  --gen-registro-border:#1e2236;
+  --chip-bg:#1e2540;
+  --chip-color:#9fa8da;
+  --chip-border:#2a3868;
+  --private-bg:#1e1428;
+  --res-bg:#141c14;
+  --footer-bg:#0a0c18;
+  --footer-border:#1a1f32;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:var(--bg);}
+.app{font-family:Arial,sans-serif;font-size:13px;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh;transition:background .2s,color .2s;}
+.topbar{background:var(--topbar);color:#fff;padding:8px 14px;font-size:14px;font-weight:bold;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.topbar>i{font-size:17px;color:#7c83d6;}
+.topbar-right{margin-left:auto;display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.tb-btn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:4px 9px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:Arial,sans-serif;transition:background .15s;}
+.tb-btn:hover{background:rgba(255,255,255,.22);}
+.tb-btn.green{background:#00796b;border-color:#00796b;}.tb-btn.green:hover{background:#00695c;}
+.tb-btn.amber{background:#f57f17;border-color:#f57f17;}.tb-btn.amber:hover{background:#e65100;}
+.tb-btn.purple{background:#4527a0;border-color:#4527a0;}.tb-btn.purple:hover{background:#311b92;}
+.tb-btn.ai{background:#6a1b9a;border-color:#6a1b9a;}.tb-btn.ai:hover{background:#4a148c;}
+.turno-badge{font-size:11px;background:#1b5e20;color:#a5d6a7;padding:3px 9px;border-radius:10px;display:flex;align-items:center;gap:4px;}
+.body{display:flex;flex:1;min-height:0;}
+.sel-bar{background:var(--sb-active);border-bottom:1px solid var(--border);padding:4px 9px;font-size:11px;color:#7c83d6;display:none;align-items:center;gap:5px;flex-shrink:0;}
+.sel-bar.show{display:flex;}
+.sel-bar button{background:#3f51b5;color:#fff;border:none;border-radius:2px;padding:3px 7px;font-size:11px;cursor:pointer;font-weight:bold;}
+.sel-bar .clr-btn{background:transparent;color:var(--text3);border:none;cursor:pointer;font-size:11px;margin-left:auto;}
+/* SIDEBAR */
+.sidebar{width:232px;min-width:200px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.sb-top{padding:8px 9px 6px;border-bottom:1px solid var(--border3);flex-shrink:0;}
+.sb-top input.sb-search{width:100%;border:1px solid var(--input-border);border-radius:3px;padding:5px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;margin-bottom:5px;background:var(--input-bg);color:var(--text);}
+.sb-top input.sb-search:focus{border-color:var(--input-focus);}
+.sb-new-row{display:flex;gap:4px;}
+.sb-new-row input{flex:1;border:1px solid var(--input-border);border-radius:3px;padding:4px 6px;font-size:12px;font-family:Arial,sans-serif;outline:none;min-width:0;background:var(--input-bg);color:var(--text);}
+.sb-new-row input:focus{border-color:var(--input-focus);}
+.btn-crear{background:#3f51b5;color:#fff;border:none;border-radius:3px;padding:4px 8px;font-size:11px;font-weight:bold;cursor:pointer;white-space:nowrap;}
+.btn-crear:hover{background:#303f9f;}
+.sb-folder-row{display:flex;gap:4px;margin-top:5px;}
+.sb-folder-row input{flex:1;border:1px solid var(--input-border);border-radius:3px;padding:4px 6px;font-size:11px;font-family:Arial,sans-serif;outline:none;min-width:0;background:var(--input-bg);color:var(--text);}
+.sb-folder-row input:focus{border-color:#f9a825;}
+.sb-folder-row button{background:#f57f17;color:#fff;border:none;border-radius:3px;padding:4px 7px;font-size:11px;cursor:pointer;white-space:nowrap;}
+.sb-folder-row button:hover{background:#e65100;}
+.sb-scroll{flex:1;overflow-y:auto;padding:4px 0;}
+.day-folder{border-bottom:1px solid var(--border3);}
+.day-header{display:flex;align-items:center;gap:4px;padding:5px 8px;cursor:pointer;user-select:none;background:var(--day-head);font-size:11px;font-weight:bold;color:var(--text);}
+.day-header:hover{background:var(--sb-hover);}
+.day-header i.fold-icon{font-size:12px;color:var(--text2);transition:transform .15s;flex-shrink:0;}
+.day-header.open i.fold-icon{transform:rotate(90deg);}
+.day-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.day-count{font-size:10px;color:var(--text3);font-weight:normal;background:var(--border3);padding:1px 4px;border-radius:8px;flex-shrink:0;}
+.fold-del{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:11px;padding:1px 2px;opacity:0;}
+.day-header:hover .fold-del{opacity:1;}.fold-del:hover{color:#c62828;}
+.day-tickets{padding:0 5px 3px 20px;display:none;}
+.day-tickets.open{display:block;}
+.day-tickets.drag-over{background:var(--sb-active);border-radius:3px;outline:2px dashed var(--tl-dot);}
+.tk-item{padding:4px 7px;border-radius:3px;border:1px solid var(--border2);cursor:pointer;font-size:12px;color:var(--text);background:var(--sb-item);margin-bottom:3px;user-select:none;display:flex;flex-direction:column;gap:1px;transition:background .1s,border-color .1s;}
+.tk-item:hover{background:var(--sb-hover);border-color:var(--sb-hover-border);}
+.tk-item.active{background:var(--sb-active);border-color:var(--input-focus);font-weight:bold;color:var(--sb-active-color);}
+.tk-item.archived{color:var(--text3);font-style:italic;}
+.tk-item.dragging{opacity:.4;border-style:dashed;}
+.tk-id-row{display:flex;align-items:center;gap:4px;}
+.tk-cnt{font-size:10px;color:var(--text3);}
+.arch-folder .day-header{background:var(--bg2);color:var(--text2);}
+.sb-empty{font-size:11px;color:var(--text3);text-align:center;padding:14px 10px;}
+/* MAIN */
+.main{flex:1;padding:14px 18px;background:var(--bg2);display:flex;flex-direction:column;gap:10px;overflow-y:auto;}
+.main-title{font-size:16px;font-weight:bold;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.main-title span.tid{color:#7c83d6;}
+.field-label{font-size:11px;font-weight:bold;color:var(--text2);text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;display:block;}
+.field-row{display:flex;flex-direction:column;gap:3px;}
+.field-row input,.field-row select,.field-row textarea{border:1px solid var(--input-border);border-radius:3px;padding:5px 7px;font-size:13px;font-family:Arial,sans-serif;background:var(--input-bg);color:var(--text);outline:none;}
+.field-row input:focus,.field-row select:focus,.field-row textarea:focus{border-color:var(--input-focus);}
+.dt-row{display:flex;gap:7px;align-items:center;}
+.dt-row input{flex:1;border:1px solid var(--input-border);border-radius:3px;padding:5px 7px;font-size:13px;font-family:Arial,sans-serif;background:var(--input-bg);color:var(--text);outline:none;}
+.dt-row input:focus{border-color:var(--input-focus);}
+.dt-lock{background:transparent;border:1px solid var(--input-border);border-radius:3px;padding:4px 7px;cursor:pointer;font-size:12px;color:var(--text2);white-space:nowrap;font-family:Arial,sans-serif;}
+.dt-lock.locked{background:#3d2800;color:#ffb74d;border-color:#6d4c00;}
+/* STATUS D&D */
+.status-chips{display:flex;gap:5px;flex-wrap:wrap;min-height:32px;padding:2px;border-radius:4px;transition:background .15s;}
+.s-chip{padding:4px 10px;border-radius:12px;border:1px solid var(--border2);font-size:11px;font-weight:bold;cursor:grab;background:var(--card2);color:var(--text2);transition:all .1s;user-select:none;}
+.s-chip:active{cursor:grabbing;}
+.s-chip.sel{color:#fff;border-color:transparent;}
+.s-chip.chip-dragging{opacity:.35;border-style:dashed;}
+.s-chip.chip-over{outline:2px solid #7c83d6;outline-offset:2px;}
+/* TEMPLATES */
+.tpl-chips{display:flex;gap:4px;flex-wrap:wrap;}
+.tpl-chip{padding:3px 9px;border-radius:2px;border:1px solid var(--chip-border);font-size:11px;cursor:pointer;background:var(--chip-bg);color:var(--chip-color);font-family:Arial,sans-serif;transition:background .1s;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tpl-chip:hover{filter:brightness(.9);}
+/* COMMENT WRAP */
+.comment-wrap{position:relative;}
+.comment-wrap textarea{width:100%;border:1px solid var(--input-border);border-radius:3px;padding:6px 34px 6px 8px;font-size:13px;font-family:Arial,sans-serif;background:var(--input-bg);color:var(--text);outline:none;resize:vertical;min-height:62px;}
+.comment-wrap textarea:focus{border-color:var(--input-focus);}
+.btn-send{position:absolute;right:6px;bottom:6px;background:#e65100;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;}
+.btn-send:hover{background:#bf360c;}
+#autocomplete-box{position:absolute;left:0;right:0;top:calc(100% + 2px);background:var(--card);border:1px solid var(--border2);border-radius:4px;max-height:160px;overflow-y:auto;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.3);display:none;}
+.ac-item{padding:7px 10px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;color:var(--text);}
+.ac-item:hover,.ac-item.ac-sel{background:var(--sb-active);color:var(--chip-color);}
+.ac-item .ac-tag{font-size:10px;background:var(--chip-bg);color:var(--chip-color);padding:1px 5px;border-radius:8px;white-space:nowrap;}
+/* PRIVATE NOTE */
+.private-note-wrap textarea{width:100%;border:1px solid #ce93d8;border-radius:3px;padding:6px 8px;font-size:13px;font-family:Arial,sans-serif;background:var(--private-bg);color:var(--text);outline:none;resize:vertical;min-height:52px;}
+.private-badge{display:inline-flex;align-items:center;gap:3px;background:var(--private-bg);color:#ce93d8;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:8px;border:1px solid #ce93d8;}
+/* RESOLUTION */
+.resolution-wrap textarea{width:100%;border:1px solid #a5d6a7;border-radius:3px;padding:6px 8px;font-size:13px;font-family:Arial,sans-serif;background:var(--res-bg);color:var(--text);outline:none;resize:vertical;min-height:58px;}
+.resolution-wrap textarea:focus{border-color:#2e7d32;}
+.section-toggle{background:transparent;border:none;cursor:pointer;color:var(--chip-color);font-size:11px;font-family:Arial,sans-serif;padding:0;display:flex;align-items:center;gap:3px;}
+.section-toggle:hover{text-decoration:underline;}
+/* BUTTONS */
+.action-row{display:flex;gap:5px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:3px;border:none;font-size:12px;font-family:Arial,sans-serif;font-weight:bold;cursor:pointer;transition:filter .12s;}
+.btn:hover{filter:brightness(1.1);}
+.btn-blue{background:#3f51b5;color:#fff;}.btn-gray{background:#607d8b;color:#fff;}
+.btn-teal{background:#00796b;color:#fff;}.btn-slate{background:#546e7a;color:#fff;}
+.btn-red{background:#c62828;color:#fff;}.btn-green{background:#2e7d32;color:#fff;}
+.btn-purple{background:#4527a0;color:#fff;}.btn-orange{background:#e65100;color:#fff;}
+.btn-ai{background:#6a1b9a;color:#fff;}
+/* HIST SEARCH */
+.hist-search-wrap{position:relative;}
+.hist-search-wrap input{width:100%;border:1px solid var(--input-border);border-radius:3px;padding:5px 28px 5px 8px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:var(--input-bg);color:var(--text);}
+.hist-search-wrap input:focus{border-color:var(--input-focus);}
+.hist-search-wrap .hs-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:14px;display:none;}
+.hist-search-wrap .hs-clear.show{display:block;}
+.hist-title{font-size:13px;font-weight:bold;color:var(--text);display:flex;align-items:center;gap:5px;}
+.hist-count{font-size:11px;color:var(--text3);font-weight:normal;}
+.hist-match{background:var(--hist-match);}
+/* TIMELINE */
+.timeline{position:relative;padding-left:18px;}
+.timeline::before{content:'';position:absolute;left:5px;top:5px;bottom:5px;width:2px;background:var(--tl-line);border-radius:2px;}
+.tl-entry{position:relative;margin-bottom:7px;}
+.tl-dot{position:absolute;left:-14px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--card);border:2px solid var(--tl-dot);}
+.tl-entry:first-child .tl-dot{background:#3f51b5;border-color:#3f51b5;}
+.tl-card{background:var(--card);border:1px solid var(--border2);border-left-width:3px;border-left-color:var(--tl-dot);border-radius:0 3px 3px 0;}
+.tl-card.is-private{background:var(--private-bg);border-left-color:#8e24aa;}
+.tl-inner{padding:5px 8px;}
+.tl-meta{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);margin-bottom:3px;flex-wrap:wrap;}
+.tl-meta b{color:var(--text);}
+.tl-sep{color:var(--border2);}
+.tl-new{font-size:10px;font-weight:bold;padding:1px 5px;border-radius:2px;background:var(--chip-bg);color:var(--chip-color);margin-left:auto;}
+.tl-spill{font-size:10px;font-weight:bold;padding:1px 6px;border-radius:8px;}
+.tl-comment{font-size:13px;color:var(--text);line-height:1.5;}
+.tl-del{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:11px;padding:1px 2px;margin-left:2px;opacity:0;transition:opacity .12s;}
+.tl-card:hover .tl-del{opacity:1;}.tl-del:hover{color:#c62828;}
+.empty-state{font-size:13px;color:var(--text3);padding:14px 0;}
+.no-ticket{font-size:14px;color:var(--text3);padding:28px 0;text-align:center;}
+/* INLINE DATE/TIME EDIT */
+.tl-dt-edit{background:transparent;border:none;border-bottom:1px dashed var(--tl-dot);font-size:11px;font-weight:bold;color:var(--text);font-family:Arial,sans-serif;padding:0 2px;cursor:pointer;outline:none;min-width:70px;}
+.tl-dt-edit:focus{background:var(--sb-active);border-bottom-color:var(--input-focus);border-radius:2px 2px 0 0;}
+.tl-dt-edit:hover{border-bottom-color:var(--input-focus);}
+/* COLLAPSIBLE ATTACHMENT */
+.tl-attach{margin-top:6px;border-top:1px solid var(--border3);}
+.tl-attach-toggle{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);cursor:pointer;padding:4px 0 2px;user-select:none;background:transparent;border:none;width:100%;text-align:left;}
+.tl-attach-toggle:hover{color:var(--text2);}
+.tl-attach-body{display:none;background:var(--attach-bg);border:1px solid var(--attach-border);border-radius:0 0 3px 3px;padding:8px 10px;font-size:12px;font-family:monospace;white-space:pre-wrap;word-break:break-word;color:var(--text2);max-height:200px;overflow-y:auto;line-height:1.5;}
+.tl-attach-body.open{display:block;}
+.tl-attach-editor{padding:6px 8px;border-top:1px solid var(--border3);background:var(--card2);display:none;}
+.tl-attach-editor.open{display:block;}
+.tl-attach-editor textarea{width:100%;min-height:90px;border:1px solid var(--input-border);border-radius:3px;padding:6px 8px;font-size:12px;font-family:monospace;resize:vertical;outline:none;background:var(--input-bg);color:var(--text);}
+.tl-attach-editor textarea:focus{border-color:var(--input-focus);}
+.tl-attach-editor-btns{display:flex;gap:6px;margin-top:5px;}
+.tl-attach-editor-btns button{padding:4px 10px;border-radius:3px;border:none;font-size:11px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;}
+.tl-attach-save{background:#3f51b5;color:#fff;}.tl-attach-save:hover{background:#303f9f;}
+.tl-attach-cancel{background:var(--border2);color:var(--text2);}.tl-attach-cancel:hover{filter:brightness(.9);}
+.tl-attach-del{background:#c62828;color:#fff;margin-left:auto;}.tl-attach-del:hover{background:#b71c1c;}
+.attach-textarea{width:100%;min-height:80px;border:1px solid var(--input-border);border-radius:3px;padding:6px 8px;font-size:12px;font-family:monospace;resize:vertical;outline:none;background:var(--card2);color:var(--text);}
+/* APP TABS */
+.app-tabs{background:var(--tabs);border-bottom:2px solid #1e2240;display:flex;gap:0;flex-shrink:0;}
+.app-tab{padding:10px 20px;font-size:12px;font-weight:bold;color:#6a7099;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:6px;transition:color .15s,border-color .15s;}
+.app-tab:hover{color:#fff;background:rgba(255,255,255,.05);}
+.app-tab.active{color:#fff;border-bottom-color:#7c83d6;}
+.tab-panel{display:none;flex:1;flex-direction:column;min-height:0;}
+.tab-panel.active{display:flex;}
+/* FOCUS MODE */
+.focus-overlay{position:fixed;inset:0;background:var(--focus-bg);z-index:500;display:none;flex-direction:column;overflow:hidden;}
+.focus-overlay.open{display:flex;}
+.focus-topbar{background:var(--topbar);color:#fff;padding:8px 18px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:bold;flex-shrink:0;}
+.focus-content{flex:1;overflow-y:auto;padding:24px 32px;max-width:860px;margin:0 auto;width:100%;}
+.focus-card{background:var(--card);border:1px solid var(--border2);border-left:3px solid var(--tl-dot);border-radius:0 4px 4px 0;padding:10px 14px;}
+.focus-meta{font-size:11px;color:var(--text3);margin-bottom:5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.focus-comment{font-size:14px;color:var(--text);line-height:1.6;}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:var(--modal-overlay);z-index:1000;display:none;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border-radius:6px;padding:20px 22px;min-width:340px;max-width:95vw;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.4);position:relative;border:1px solid var(--border2);}
+.modal-box h3{font-size:15px;font-weight:bold;color:var(--text);}
+.modal-close{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:18px;position:absolute;top:14px;right:16px;}
+.export-opts{display:flex;flex-direction:column;gap:8px;}
+.export-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:background .12s;color:var(--text);}
+.export-opt:hover{background:var(--bg2);}
+.export-opt-title{font-weight:bold;font-size:13px;color:var(--text);}
+.export-opt-desc{font-size:11px;color:var(--text3);margin-top:1px;}
+/* DASHBOARD */
+.dashboard{display:none;flex:1;flex-direction:column;gap:12px;padding:14px 18px;background:var(--bg2);overflow-y:auto;}
+.dashboard.open{display:flex;}
+.dash-title{font-size:16px;font-weight:bold;color:var(--text);display:flex;align-items:center;gap:8px;}
+.stat-pill{background:var(--card);border:1px solid var(--border2);border-radius:4px;padding:6px 12px;text-align:center;min-width:80px;}
+.stat-pill .sv{font-size:20px;font-weight:bold;color:#7c83d6;}
+.stat-pill .sl{font-size:10px;color:var(--text3);text-transform:uppercase;margin-top:1px;}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.dash-card{background:var(--card);border:1px solid var(--border2);border-radius:4px;padding:12px 14px;cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.dash-card:hover{box-shadow:0 2px 10px rgba(124,131,214,.15);border-color:var(--tl-dot);}
+.dash-card-id{font-size:14px;font-weight:bold;color:var(--text);}
+.dash-last-comment{font-size:12px;color:var(--text2);line-height:1.45;margin-bottom:6px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.dash-meta{font-size:10px;color:var(--text3);display:flex;gap:8px;flex-wrap:wrap;}
+/* PANELS */
+.panel-card{background:var(--panel-card);border:1px solid var(--border2);border-radius:4px;padding:12px 14px;display:none;flex-direction:column;gap:10px;}
+.panel-card.open{display:flex;}
+.settings-section h4{font-size:12px;font-weight:bold;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;}
+.editable-item input{flex:1;border:1px solid var(--border2);border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:var(--input-bg);color:var(--text);}
+.editable-item input:focus{border-color:var(--input-focus);}
+.add-item-row input{flex:1;border:1px solid var(--border2);border-radius:3px;padding:3px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:var(--card2);color:var(--text);}
+.add-item-row input:focus{border-color:var(--input-focus);background:var(--input-bg);}
+.turno-info{background:var(--sb-active);border-radius:3px;padding:8px 10px;font-size:12px;color:var(--chip-color);line-height:1.7;}
+.arch-badge{font-size:10px;background:var(--bg2);color:var(--text2);padding:2px 6px;border-radius:2px;font-weight:normal;vertical-align:middle;margin-left:6px;}
+.divider{border:none;border-top:1px solid var(--border3);margin:2px 0;}
+/* GENERADOR */
+.gen-wrap{font-family:"Segoe UI",Arial,sans-serif;flex:1;display:flex;flex-direction:column;overflow-y:auto;background:var(--gen-bg);padding:16px;}
+.gen-card{background:var(--gen-card);border:1px solid var(--gen-border);border-radius:6px;padding:14px 16px;margin-bottom:12px;}
+.gen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.gen-label{font-weight:700;font-size:12px;margin-bottom:4px;display:block;color:var(--text2);text-transform:uppercase;letter-spacing:.03em;}
+.gen-input,.gen-select{width:100%;padding:7px 9px;border-radius:4px;border:1px solid var(--input-border);background:var(--input-bg);color:var(--text);font-size:13px;font-family:Arial,sans-serif;outline:none;}
+.gen-input:focus,.gen-select:focus{border-color:var(--input-focus);}
+.gen-textarea{width:100%;padding:7px 9px;border-radius:4px;border:1px solid var(--input-border);background:var(--input-bg);color:var(--text);font-size:13px;font-family:Arial,sans-serif;resize:vertical;min-height:60px;outline:none;}
+.gen-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;transition:filter .12s;}
+.gen-btn:hover{filter:brightness(1.1);}
+.gen-btn-green{background:#2e7d32;color:#fff;}.gen-btn-blue{background:#3f51b5;color:#fff;}
+.gen-btn-gray{background:#607d8b;color:#fff;}.gen-btn-red{background:#c62828;color:#fff;}.gen-btn-teal{background:#00796b;color:#fff;}
+.gen-btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.gen-registro{font-size:12px;padding:5px 0;border-bottom:1px dashed var(--gen-registro-border);color:var(--text);}
+.gen-historial h3{font-size:13px;font-weight:bold;color:var(--text2);margin-bottom:6px;}
+/* SNOW / AI */
+.snow-copy-btn{background:#00796b;color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;}
+.ai-panel{border:1px solid #6a1b9a;border-radius:4px;background:var(--private-bg);padding:12px 14px;display:none;flex-direction:column;gap:10px;}
+.ai-panel.open{display:flex;}
+.ai-header{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:bold;color:#ce93d8;}
+.ai-response{background:var(--input-bg);border:1px solid #6a1b9a;border-radius:4px;padding:10px;font-size:13px;line-height:1.6;white-space:pre-wrap;min-height:60px;max-height:300px;overflow-y:auto;color:var(--text);}
+.ai-spinner{display:none;align-items:center;gap:8px;font-size:12px;color:#ce93d8;}
+.ai-spinner.show{display:flex;}
+.ai-provider-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ai-provider-card{border:2px solid var(--border2);border-radius:6px;padding:8px 10px;cursor:pointer;transition:all .12s;background:var(--card);display:flex;flex-direction:column;gap:3px;}
+.ai-provider-card:hover{border-color:#8e24aa;}
+.ai-provider-card.selected{border-color:#6a1b9a;background:var(--private-bg);}
+.ai-provider-card .pv-name{font-size:12px;font-weight:bold;color:var(--text);display:flex;align-items:center;gap:5px;}
+.ai-provider-card .pv-desc{font-size:10px;color:var(--text3);}
+.ai-config-row{display:flex;flex-direction:column;gap:6px;}
+.ai-config-row label{font-size:11px;font-weight:bold;color:#ce93d8;text-transform:uppercase;letter-spacing:.03em;}
+.ai-config-row input,.ai-config-row select{border:1px solid #6a1b9a;border-radius:3px;padding:5px 7px;font-size:12px;font-family:Arial,sans-serif;background:var(--input-bg);color:var(--text);outline:none;width:100%;}
+.ai-cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ai-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.ai-action-btn{padding:5px 11px;border-radius:3px;border:1px solid #6a1b9a;font-size:11px;font-weight:bold;cursor:pointer;background:var(--card);color:#ce93d8;font-family:Arial,sans-serif;display:flex;align-items:center;gap:4px;transition:background .12s;}
+.ai-action-btn:hover{background:var(--private-bg);}
+.ai-action-btn.primary{background:#6a1b9a;color:#fff;border-color:#6a1b9a;}.ai-action-btn.primary:hover{background:#4a148c;}
+.ai-provider-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:8px;background:var(--private-bg);color:#ce93d8;border:1px solid #6a1b9a;}
+/* IMPORT / SESIONES */
+.import-tabs{display:flex;gap:0;border-bottom:2px solid var(--border2);margin-bottom:12px;}
+.import-tab{padding:6px 14px;font-size:12px;font-weight:bold;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-2px;}
+.import-tab.active{color:#7c83d6;border-bottom-color:#7c83d6;}
+.import-zone{border:2px dashed var(--border2);border-radius:4px;padding:20px;text-align:center;color:var(--text3);cursor:pointer;transition:background .15s;}
+.import-zone:hover,.import-zone.dragover{background:var(--sb-active);border-color:#7c83d6;}
+.import-preview{background:var(--bg2);border-radius:3px;padding:8px;font-size:11px;font-family:monospace;max-height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;color:var(--text2);}
+.map-row select{border:1px solid var(--input-border);border-radius:3px;padding:3px 5px;font-size:11px;font-family:Arial,sans-serif;outline:none;background:var(--input-bg);color:var(--text);}
+/* SESSIONS TAB */
+.ses-sidebar{width:232px;min-width:200px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.ses-sb-top{padding:8px 9px 6px;border-bottom:1px solid var(--border3);flex-shrink:0;display:flex;flex-direction:column;gap:5px;}
+.ses-item{padding:7px 10px;border-bottom:1px solid var(--border3);cursor:pointer;transition:background .1s;border-left:3px solid transparent;}
+.ses-item:hover{background:var(--sb-hover);}
+.ses-item.active{background:var(--sb-active);border-left-color:#f57f17;}
+.ses-item-title{font-size:12px;font-weight:bold;color:var(--text);display:flex;align-items:center;gap:4px;}
+.ses-item-meta{font-size:10px;color:var(--text3);margin-top:2px;}
+.ses-type-chip{font-size:10px;font-weight:bold;padding:1px 7px;border-radius:8px;}
+.ses-entry-card{background:var(--card);border:1px solid var(--border2);border-left-width:3px;border-radius:0 3px 3px 0;margin-bottom:8px;}
+.ses-entry-inner{padding:7px 10px;}
+.ses-entry-meta{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);margin-bottom:4px;flex-wrap:wrap;}
+.ses-entry-text{font-size:13px;color:var(--text);line-height:1.5;}
+.ses-entry-del{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:11px;padding:1px 2px;margin-left:auto;opacity:0;transition:opacity .12s;}
+.ses-entry-card:hover .ses-entry-del{opacity:1;}
+.ses-quick-chip{padding:2px 8px;border-radius:2px;border:1px solid var(--chip-border);font-size:11px;cursor:pointer;background:var(--chip-bg);color:var(--chip-color);font-family:Arial,sans-serif;transition:filter .1s;}
+.ses-quick-chip:hover{filter:brightness(.9);}
+.ses-input{border:1px solid var(--input-border);border-radius:3px;padding:4px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:var(--input-bg);color:var(--text);}
+.ses-input:focus{border-color:var(--input-focus);}
+.ses-select{border:1px solid var(--input-border);border-radius:3px;padding:4px 7px;font-size:11px;font-family:Arial,sans-serif;background:var(--input-bg);color:var(--text);outline:none;}
+.ses-select:focus{border-color:var(--input-focus);}
+.ses-textarea{width:100%;min-height:56px;border:1px solid var(--input-border);border-radius:3px;padding:7px 36px 7px 9px;font-size:13px;font-family:Arial,sans-serif;resize:vertical;outline:none;background:var(--input-bg);color:var(--text);}
+.ses-textarea:focus{border-color:var(--input-focus);}
+.ses-section-bg{background:var(--card);border-bottom:1px solid var(--border3);}
+.ses-stat-bar{background:var(--card);border-top:1px solid var(--border2);padding:7px 14px;font-size:11px;color:var(--text2);flex-shrink:0;display:none;}
+.ses-empty{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--text3);background:var(--bg2);}
+/* FOOTER */
+.footer{text-align:center;font-size:10px;color:var(--text3);padding:5px 0;border-top:1px solid var(--footer-border);background:var(--footer-bg);flex-shrink:0;}
+.kbd{background:var(--kbd-bg);border:1px solid var(--kbd-border);border-radius:2px;padding:1px 4px;font-size:10px;font-family:monospace;color:var(--text2);}
+/* DARK MODE LOGIN */
+.dark #suite-login{background:#060810;}
+.dark #suite-login>div{background:#161b2e;border:1px solid #2a3050;color:#e0e4ff;}
+
+/* ══ GLOBAL SEARCH ══ */
+.gs-wrap{position:relative;display:flex;align-items:center;}
+.gs-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:4px 10px 4px 28px;font-size:12px;font-family:Arial,sans-serif;color:#fff;width:200px;outline:none;transition:width .2s,background .15s;}
+.gs-input::placeholder{color:rgba(255,255,255,.45);}
+.gs-input:focus{width:280px;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4);}
+.gs-icon{position:absolute;left:8px;font-size:13px;color:rgba(255,255,255,.5);pointer-events:none;}
+.gs-clear{position:absolute;right:7px;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:14px;display:none;padding:0;}
+.gs-clear.show{display:block;}
+.gs-clear:hover{color:#fff;}
+.gs-panel{position:fixed;top:88px;left:50%;transform:translateX(-50%);width:680px;max-width:96vw;background:var(--card);border:1px solid var(--border2);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:800;display:none;max-height:72vh;overflow-y:auto;}
+.gs-panel.open{display:block;}
+.gs-section{padding:8px 14px 4px;border-bottom:1px solid var(--border3);}
+.gs-section-title{font-size:10px;font-weight:bold;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.gs-result{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:4px;cursor:pointer;transition:background .1s;}
+.gs-result:hover{background:var(--sb-active);}
+.gs-result-main{flex:1;min-width:0;}
+.gs-result-id{font-size:12px;font-weight:bold;color:var(--chip-color);}
+.gs-result-text{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.gs-result-text mark{background:var(--hist-match);color:inherit;border-radius:2px;padding:0 2px;}
+.gs-result-meta{font-size:10px;color:var(--text3);white-space:nowrap;margin-top:1px;}
+.gs-empty{padding:24px;text-align:center;font-size:13px;color:var(--text3);}
+.gs-badge{font-size:10px;font-weight:bold;padding:1px 6px;border-radius:8px;}
+.gs-badge-ticket{background:var(--chip-bg);color:var(--chip-color);}
+.gs-badge-session{background:#fff3e0;color:#e65100;}
+.gs-badge-entry{background:var(--bg2);color:var(--text2);}
+/* ══ SESSIONS MODULE CSS ══ */
+.ses-tpl-btn{padding:3px 8px;font-size:10px;border-radius:2px;border:1px solid var(--chip-border);background:var(--chip-bg);color:var(--chip-color);cursor:pointer;font-family:Arial,sans-serif;transition:filter .1s;}
+.ses-tpl-btn:hover{filter:brightness(.9);}
+.ses-input{border:1px solid var(--input-border);border-radius:3px;padding:4px 7px;font-size:12px;font-family:Arial,sans-serif;outline:none;background:var(--input-bg);color:var(--text);}
+.ses-input:focus{border-color:var(--input-focus);}
+.ses-select{border:1px solid var(--input-border);border-radius:3px;padding:4px 7px;font-size:11px;font-family:Arial,sans-serif;background:var(--input-bg);color:var(--text);outline:none;}
+.ses-select:focus{border-color:var(--input-focus);}
+.ses-textarea{width:100%;min-height:56px;border:1px solid var(--input-border);border-radius:3px;padding:7px 36px 7px 9px;font-size:13px;font-family:Arial,sans-serif;resize:vertical;outline:none;background:var(--input-bg);color:var(--text);}
+.ses-textarea:focus{border-color:var(--input-focus);}
+.ses-sidebar{width:232px;min-width:200px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.ses-sb-top{padding:8px 9px 6px;border-bottom:1px solid var(--border3);flex-shrink:0;display:flex;flex-direction:column;gap:5px;}
+.ses-empty{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--text3);background:var(--bg2);}
+.ses-section-bg{background:var(--card);border-bottom:1px solid var(--border3);}
+.ses-stat-bar{display:flex;}
+/* Session list items */
+.ses-item{padding:7px 10px;border-bottom:1px solid var(--border3);cursor:pointer;border-left:3px solid transparent;transition:background .1s;}
+.ses-item:hover{background:var(--sb-hover);}
+.ses-item.active{background:var(--sb-active);border-left-color:#f57f17;}
+.ses-item.crisis{border-left-color:#c62828;background:#1a0808;}
+.ses-item-title{font-size:12px;font-weight:bold;color:var(--text);display:flex;align-items:center;gap:4px;}
+.ses-item-meta{font-size:10px;color:var(--text3);margin-top:2px;}
+/* Participant badges */
+.par-badge{display:inline-flex;align-items:center;gap:5px;background:var(--chip-bg);color:var(--chip-color);font-size:11px;font-weight:bold;padding:3px 8px;border-radius:10px;border:1px solid var(--chip-border);}
+.par-badge-rm{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:12px;padding:0 2px;margin-left:2px;}
+.par-badge-rm:hover{color:#c62828;}
+/* Linked ticket badges */
+.tk-badge-link{display:inline-flex;align-items:center;gap:4px;background:var(--sb-active);color:var(--chip-color);font-size:11px;font-weight:bold;padding:2px 7px;border-radius:8px;border:1px solid var(--chip-border);cursor:pointer;}
+.tk-badge-link:hover{background:var(--chip-bg);}
+.tk-badge-rm{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:11px;padding:0 1px;margin-left:2px;}
+.tk-badge-rm:hover{color:#c62828;}
+/* Entry cards */
+.ses-entry-card{background:var(--card);border:1px solid var(--border2);border-left-width:3px;border-radius:0 3px 3px 0;margin-bottom:7px;}
+.ses-entry-card.type-critico{background:linear-gradient(90deg,rgba(198,40,40,.06),transparent);border-left-color:#c62828 !important;}
+.ses-entry-inner{padding:6px 9px;}
+.ses-entry-meta{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);margin-bottom:3px;flex-wrap:wrap;}
+.ses-entry-text{font-size:13px;color:var(--text);line-height:1.5;}
+.ses-entry-text .mention{background:var(--chip-bg);color:var(--chip-color);border-radius:3px;padding:0 3px;font-weight:bold;}
+.ses-entry-text .crossref{background:#e8f5e9;color:#2e7d32;border-radius:3px;padding:0 3px;font-size:11px;cursor:pointer;font-weight:bold;}
+.ses-entry-del{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:11px;padding:1px 2px;margin-left:auto;opacity:0;transition:opacity .12s;}
+.ses-entry-card:hover .ses-entry-del{opacity:1;}
+.ses-entry-del:hover{color:#c62828;}
+.ses-push-badge{font-size:9px;background:#e8f5e9;color:#2e7d32;padding:1px 5px;border-radius:4px;font-weight:bold;border:1px solid #a5d6a7;}
+/* Crisis mode */
+.crisis-mode .topbar{background:#3a0000 !important;}
+.crisis-mode #ses-input-area{background:#1a0505 !important;border-bottom-color:#5a0000 !important;}
+.crisis-mode #ses-header{background:#1a0505 !important;border-bottom-color:#5a0000 !important;}
+@keyframes crisis-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+/* Mention dropdown */
+.mention-item{padding:6px 10px;cursor:pointer;font-size:12px;color:var(--text);display:flex;align-items:center;gap:6px;}
+.mention-item:hover{background:var(--sb-active);color:var(--chip-color);}
+/* Cross-ref note in timeline */
+.crossref-note{font-size:11px;color:var(--text3);margin-top:4px;padding-top:4px;border-top:1px solid var(--border3);display:flex;align-items:center;gap:4px;}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══ OT TRACKER CSS ══ */
+
+400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+.ot-app {--bg:#0d1117;--surface:#161b22;--border:#21262d;--border2:#30363d;--text:#e6edf3;--muted:#7d8590;--accent:#f78166;--accent2:#ff9500;--green:#3fb950;--blue:#58a6ff;--purple:#bc8cff;--red:#f85149;--yellow:#d29922;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--header-h:56px}
+
+
+
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:var(--header-h);flex-shrink:0;position:relative;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-tabs{display:flex;gap:2px}
+.nav-tab{padding:6px 16px;border-radius:6px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;transition:all .15s}
+.nav-tab:hover{color:var(--text);background:var(--border)}
+.nav-tab.active{color:var(--text);background:var(--border2)}
+main{flex:1;overflow-y:auto;padding:16px 20px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section{display:none}.section.active{display:block}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.card-title{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.grid{display:grid;gap:8px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.field label .req{color:var(--accent);margin-left:2px}
+input,select,textarea{background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--sans);font-size:12px;padding:6px 9px;width:100%;transition:border-color .15s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,.12)}
+textarea{resize:vertical;min-height:48px}
+select option{background:var(--surface)}
+/* TIME WRAP */
+.time-wrap{position:relative}
+.time-wrap input{font-family:var(--mono);letter-spacing:.05em;padding-right:32px}
+.clock-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:2px;line-height:1}
+.clock-btn:hover{color:var(--blue)}
+.clock-popup{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px;z-index:300;box-shadow:0 8px 32px rgba(0,0,0,.5);width:200px}
+.clock-popup.open{display:block}
+.clock-face{width:130px;height:130px;border-radius:50%;background:var(--bg);border:2px solid var(--border2);margin:0 auto 10px;position:relative;cursor:pointer}
+.clock-center{position:absolute;width:6px;height:6px;background:var(--blue);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2}
+.clock-hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom center;border-radius:3px;transition:transform .15s}
+.hand-h{width:3px;height:34px;background:var(--text);margin-left:-1.5px}
+.hand-m{width:2px;height:44px;background:var(--blue);margin-left:-1px}
+.clock-nums{position:absolute;inset:0}
+.clock-num{position:absolute;font-size:9px;font-family:var(--mono);color:var(--muted);transform:translate(-50%,-50%)}
+.clock-controls{display:flex;align-items:center;justify-content:center;gap:6px}
+.clock-controls input[type=number]{width:44px;text-align:center;font-family:var(--mono);font-size:18px;font-weight:600;padding:4px 2px}
+.clock-sep{font-size:20px;font-weight:700;color:var(--muted)}
+.clock-ok{display:block;width:100%;margin-top:8px;background:var(--blue);color:#fff;border:none;border-radius:6px;padding:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+.clock-ok:hover{background:#79b9ff}
+/* TOGGLES */
+.toggle-group{display:flex;gap:4px;flex-wrap:wrap}
+.toggle-btn{padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.toggle-btn:hover{border-color:var(--blue);color:var(--text)}
+.toggle-btn.selected{font-weight:600}
+.sel-blue{background:var(--blue);border-color:var(--blue);color:#fff!important}
+.sel-green{background:var(--green);border-color:var(--green);color:#000!important}
+.sel-yellow{background:var(--yellow);border-color:var(--yellow);color:#000!important}
+.sel-red{background:var(--red);border-color:var(--red);color:#fff!important}
+.sel-purple{background:var(--purple);border-color:var(--purple);color:#000!important}
+/* CHECK */
+.check-field{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:border-color .15s}
+.check-field:hover{border-color:var(--blue)}
+.check-field input[type=checkbox]{width:14px;height:14px;accent-color:var(--blue)}
+.check-field span{font-size:12px;color:var(--text);user-select:none}
+/* OT FLAG */
+.ot-flag{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;font-family:var(--mono)}
+.ot-flag.inside{background:rgba(63,185,80,.12);color:var(--green);border:1px solid rgba(63,185,80,.3)}
+.ot-flag.outside{background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+/* DURATION */
+.duration-display{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--accent2);padding:8px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;min-height:38px;display:flex;align-items:center}
+/* BUTTONS */
+.btn{padding:8px 18px;border-radius:6px;border:none;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#ff6b52}
+.btn-secondary{background:var(--border2);color:var(--text)}.btn-secondary:hover{background:var(--border)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}.btn-ghost:hover{color:var(--text);border-color:var(--border)}
+.btn-danger{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}.btn-danger:hover{background:rgba(248,81,73,.25)}
+.btn-sm{padding:5px 10px;font-size:11px}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:4px;padding-top:10px;border-top:1px solid var(--border)}
+/* MANUAL CONTACT */
+.manual-contact{margin-top:6px;display:none;gap:6px}
+.manual-contact.show{display:flex}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stat-value{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.stat-accent{color:var(--accent)}.stat-green{color:var(--green)}.stat-blue{color:var(--blue)}.stat-purple{color:var(--purple)}
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead th{padding:8px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody td{padding:10px 12px;vertical-align:middle}
+.mono{font-family:var(--mono)}
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.badge-red{background:rgba(248,81,73,.15);color:var(--red)}
+.badge-yellow{background:rgba(210,153,34,.15);color:var(--yellow)}
+.badge-blue{background:rgba(88,166,255,.15);color:var(--blue)}
+.badge-green{background:rgba(63,185,80,.15);color:var(--green)}
+.badge-purple{background:rgba(188,140,255,.15);color:var(--purple)}
+.badge-gray{background:rgba(125,133,144,.15);color:var(--muted)}
+.badge-orange{background:rgba(247,129,102,.15);color:var(--accent)}
+/* FILTER */
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-bar input,.filter-bar select{width:auto;font-size:12px;padding:6px 10px}
+/* CHARTS */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.bar-chart{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:flex;align-items:center;gap:8px}
+.bar-label{width:110px;font-size:11px;color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;background:var(--border);border-radius:3px;height:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .4s}
+.bar-count{font-family:var(--mono);font-size:10px;color:var(--muted);width:28px;text-align:right}
+/* EMPTY */
+.empty{text-align:center;padding:48px 24px;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:12px}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:12px;width:90%;max-width:860px;max-height:90vh;overflow-y:auto;padding:24px;position:relative}
+.modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--text)}
+.export-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media(max-width:1024px){
+  .grid-4{grid-template-columns:1fr 1fr 1fr}
+  .span-4{grid-column:span 3}
+}
+@media(max-width:768px){
+  
+  main{overflow-y:unset}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .charts-grid{grid-template-columns:1fr}
+  .span-3,.span-4{grid-column:span 2}
+  header{padding:0 12px}
+  .nav-tab{padding:5px 10px;font-size:12px}
+}
+@media(max-width:480px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .span-2,.span-3,.span-4{grid-column:span 1}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+
 </style>
+</head>
+<body>
+<!-- FOCUS MODE OVERLAY -->
+<div class="focus-overlay" id="focus-overlay">
+  <div class="focus-topbar">
+    <i class="ti ti-timeline" style="color:#7c83d6;font-size:18px;"></i>
+    <span>Modo Lectura —</span><span class="focus-tid" id="focus-tid"></span>
+    <button onclick="closeFocusMode()" style="margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:3px;padding:4px 10px;font-size:11px;font-weight:bold;cursor:pointer;">✕ Salir</button>
+  </div>
+  <div class="focus-content" id="focus-content"></div>
+</div>
+
+<div class="app">
+
+<!-- ══ UNIFIED LOGIN ══ -->
+<div id="suite-login" style="position:fixed;inset:0;background:#1a1a2e;z-index:2000;display:flex;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border-radius:10px;padding:32px 36px;min-width:320px;text-align:center;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px;">
+      <i class="ti ti-activity" style="font-size:26px;color:#3f51b5;"></i>
+      <div style="text-align:left;">
+        <div style="font-size:17px;font-weight:bold;color:#1a1a2e;">NOC Suite</div>
+        <div style="font-size:11px;color:var(--text3);">Ticket Tracker · Generador de Cierre</div>
+      </div>
+    </div>
+    <input class="gen-input" id="suite-login-user" placeholder="Usuario" onkeydown="if(event.key==='Enter'){const p=document.getElementById('suite-login-pass');if(p.value.trim())suiteLogin();else p.focus();}" style="text-align:left;">
+    <input class="gen-input" type="password" id="suite-login-pass" placeholder="Contraseña" onkeydown="if(event.key==='Enter')suiteLogin()">
+    <button onclick="suiteLogin()" style="background:#3f51b5;color:#fff;border:none;border-radius:4px;padding:9px;font-size:13px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+      <i class="ti ti-arrow-right"></i> Ingresar
+    </button>
+    <div id="suite-login-err" style="font-size:12px;color:#c62828;display:none;">❌ Usuario o contraseña incorrectos</div>
+    <div style="font-size:10px;color:#bdbdbd;margin-top:4px;">GMELENDEZ — NOC Suite V.7.2</div>
+  </div>
+</div>
+<!-- APP TAB BAR -->
+<div class="app-tabs">
+  <i class="ti ti-activity" style="color:#7c83d6;font-size:16px;margin:auto 6px auto 10px;"></i>
+  <span style="color:#fff;font-size:13px;font-weight:bold;margin-right:16px;">NOC Suite</span>
+  <div class="app-tab active" id="tab-tracker" onclick="switchTab('tracker')">
+    <i class="ti ti-timeline"></i> Ticket Tracker
+  </div>
+  <div class="app-tab" id="tab-generador" onclick="switchTab('generador')">
+    <i class="ti ti-file-text"></i> Generador de Cierre
+  </div>
+  <div class="app-tab" id="tab-ot" onclick="switchTab('ot')">
+    <i class="ti ti-clock-bolt"></i> OT Tracker
+  </div>
+  <div class="app-tab" id="tab-sesiones" onclick="switchTab('sesiones')" style="position:relative;">
+    <i class="ti ti-notes"></i> Sesiones
+    <span style="font-size:9px;background:#f57f17;color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px;font-weight:bold;letter-spacing:.03em;">BETA</span>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:10px;padding:0 10px;">
+    <!-- Global Search -->
+    <div class="gs-wrap">
+      <i class="ti ti-search gs-icon"></i>
+      <input type="text" class="gs-input" id="gs-input" placeholder="Buscar en toda la Suite..." oninput="gsSearch(this.value)" onfocus="gsSearch(this.value)" onkeydown="gsKeydown(event)" autocomplete="off">
+      <button class="gs-clear" id="gs-clear" onclick="gsClear()" title="Limpiar"><i class="ti ti-x"></i></button>
+    </div>
+    <button id="dark-toggle-btn" onclick="toggleDarkMode()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--text3);border-radius:3px;padding:4px 9px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:Arial,sans-serif;transition:background .15s;" title="Modo oscuro/claro">
+      <i class="ti ti-moon" id="dark-toggle-icon"></i> Oscuro
+    </button>
+  </div>
+</div>
+
+<!-- GLOBAL SEARCH PANEL -->
+<div class="gs-panel" id="gs-panel">
+  <div id="gs-results"></div>
+</div>
+<div id="gs-backdrop" style="position:fixed;inset:0;z-index:799;display:none;" onclick="gsClose()"></div>
+
+<!-- ══ TAB 1: TRACKER ══ -->
+<div class="tab-panel active" id="panel-tab-tracker">
+<div class="topbar">
+  <i class="ti ti-activity"></i> Tracker
+  <div class="topbar-right">
+    <div class="turno-badge" id="turno-badge" style="display:none;">
+      <i class="ti ti-clock"></i>
+      <span id="turno-nombre-badge"></span> — <span id="turno-time-badge"></span>
+    </div>
+    <button class="tb-btn" id="btn-focus" onclick="openFocusMode()" title="Modo lectura (solo timeline)">
+      <i class="ti ti-maximize"></i> Foco
+    </button>
+    <button class="tb-btn" id="btn-dashboard" onclick="toggleDashboard()" title="Vista de turno">
+      <i class="ti ti-layout-dashboard"></i> Dashboard
+    </button>
+    <button class="tb-btn green" id="btn-turno" onclick="toggleTurnoModal()">
+      <i class="ti ti-player-play"></i> Iniciar turno
+    </button>
+    <button class="tb-btn ai" onclick="toggleAI()" title="Asistente IA">
+      <i class="ti ti-sparkles"></i> IA
+    </button>
+    <button class="tb-btn purple" onclick="openExportModal()">
+      <i class="ti ti-file-export"></i> Exportar
+    </button>
+    <button class="tb-btn" onclick="openImportModal()">
+      <i class="ti ti-file-import"></i> Importar
+    </button>
+    <button class="tb-btn" onclick="toggleSettings()">
+      <i class="ti ti-settings"></i> Config
+    </button>
+    <button class="tb-btn" onclick="openBackupModal()" title="Backup/Restore">
+      <i class="ti ti-database"></i>
+    </button>
+    <button class="tb-btn" onclick="toggleHelp()" title="Atajos">
+      <i class="ti ti-keyboard"></i>
+    </button>
+    <button class="tb-btn amber" onclick="suiteLogout()" title="Cerrar sesión"><i class="ti ti-logout"></i></button>
+  </div>
+</div>
+
+<!-- SEL BAR -->
+<div class="sel-bar" id="sb-sel-bar">
+  <i class="ti ti-check"></i><span id="sel-count-lbl">0 seleccionados</span>
+  <button onclick="exportSelected('txt')">TXT combinado</button>
+  <button onclick="exportSelected('html')" style="background:#4527a0;">HTML combinado</button>
+  <button class="clr-btn" onclick="clearSelection()">Cancelar</button>
+</div>
+
+<div class="body">
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sb-top">
+    <input type="text" class="sb-search" id="sb-search" placeholder="Buscar ticket..." oninput="renderSidebar()">
+    <div class="sb-new-row">
+      <input type="text" id="sb-new-id" placeholder="ID ticket..." value="INC-">
+      <button class="btn-crear" onclick="createTicket()">+ Crear</button>
+    </div>
+    <div class="sb-folder-row">
+      <input type="text" id="sb-new-folder" placeholder="Nueva carpeta...">
+      <button onclick="createCustomFolder()"><i class="ti ti-folder-plus"></i> +</button>
+    </div>
+  </div>
+  <div class="sb-scroll" id="sb-scroll"></div>
+</div>
+
+<!-- DASHBOARD VIEW -->
+<div class="dashboard" id="dashboard-view">
+  <div class="dash-header">
+    <div class="dash-title"><i class="ti ti-layout-dashboard" style="color:#3f51b5;"></i> Vista de Turno</div>
+    <div class="dash-stats" id="dash-stats"></div>
+    <button class="btn btn-gray" onclick="toggleDashboard()"><i class="ti ti-x"></i> Cerrar</button>
+  </div>
+  <div id="dash-filter-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <span style="font-size:11px;color:var(--text3);">Filtrar por estado:</span>
+    <div id="dash-filter-chips" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+    <button class="btn btn-gray" style="font-size:11px;padding:3px 8px;" onclick="clearDashFilter()">Ver todos</button>
+  </div>
+  <div class="dash-grid" id="dash-grid"></div>
+</div>
+
+<!-- MAIN PANEL -->
+<div class="main" id="main-panel">
+
+  <!-- TURNO -->
+  <div id="panel-turno-modal" class="panel-card" style="border-color:#c5cae9;">
+    <h3 id="turno-modal-title">Iniciar turno</h3>
+    <div id="turno-modal-body" style="display:flex;flex-direction:column;gap:8px;">
+      <div class="field-row">
+        <span class="field-label">Tu nombre</span>
+        <input type="text" id="turno-nombre-input" placeholder="Ej: Guillermo Melendez">
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-green" onclick="iniciarTurno()"><i class="ti ti-player-play"></i> Confirmar inicio</button>
+        <button class="btn btn-gray" onclick="closeTurnoModal()">Cancelar</button>
+      </div>
+    </div>
+    <div id="turno-cierre-body" style="display:none;flex-direction:column;gap:8px;">
+      <div class="turno-info" id="turno-cierre-info"></div>
+      <div class="field-row">
+        <span class="field-label">Notas de handoff</span>
+        <textarea id="turno-handoff" style="min-height:48px;border:1px solid #bbb;border-radius:3px;padding:5px 7px;font-size:13px;font-family:Arial,sans-serif;outline:none;resize:vertical;" placeholder="Pendientes, observaciones para el siguiente turno..."></textarea>
+      </div>
+      <div style="font-size:11px;color:var(--text2);background:#fff9c4;border-radius:3px;padding:5px 8px;">
+        <i class="ti ti-bulb" style="color:#f57f17;"></i> <strong>Handoff automático:</strong> incluirá todos los tickets trabajados con último estado y resolución.
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-orange" onclick="cerrarTurno()"><i class="ti ti-player-stop"></i> Cerrar turno y exportar</button>
+        <button class="btn btn-gray" onclick="closeTurnoModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="panel-settings" class="panel-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:13px;font-weight:bold;color:#1a237e;"><i class="ti ti-settings"></i> Configuración</span>
+      <button class="btn btn-gray" onclick="toggleSettings()" style="padding:3px 8px;font-size:11px;"><i class="ti ti-x"></i> Cerrar</button>
+    </div>
+    <hr class="divider">
+    <div class="settings-section">
+      <h4><i class="ti ti-drag-drop"></i> Estados — arrastra para reordenar</h4>
+      <div id="status-edit-list" class="editable-list"></div>
+      <div class="add-item-row"><input type="text" id="new-status-input" placeholder="Nuevo estado..."><button onclick="addStatus()">+ Agregar</button></div>
+    </div>
+    <hr class="divider">
+    <div class="settings-section">
+      <h4><i class="ti ti-template"></i> Plantillas rápidas</h4>
+      <div id="tpl-edit-list" class="editable-list"></div>
+      <div class="add-item-row"><input type="text" id="new-tpl-input" placeholder="Nueva plantilla..."><button onclick="addTemplate()">+ Agregar</button></div>
+    </div>
+    <hr class="divider">
+    <div class="settings-section">
+      <h4><i class="ti ti-robot"></i> Frases de autocompletado</h4>
+      <div id="ac-edit-list" class="editable-list"></div>
+      <div class="add-item-row"><input type="text" id="new-ac-input" placeholder="Nueva frase..."><button onclick="addAcPhrase()">+ Agregar</button></div>
+    </div>
+  </div>
+
+  <!-- HELP -->
+  <div id="panel-help" class="panel-card" style="border-color:#c5cae9;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:13px;font-weight:bold;color:#1a237e;"><i class="ti ti-keyboard"></i> Atajos de teclado</span>
+      <button class="btn btn-gray" onclick="toggleHelp()" style="padding:3px 8px;font-size:11px;"><i class="ti ti-x"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:12px;">
+      <div><span class="kbd">Ctrl+Enter</span> Agregar comentario</div>
+      <div><span class="kbd">Ctrl+N</span> Nuevo ticket</div>
+      <div><span class="kbd">Ctrl+F</span> Buscar en histórico</div>
+      <div><span class="kbd">Ctrl+Shift+C</span> Copiar histórico</div>
+      <div><span class="kbd">Ctrl+E</span> Exportar bitácora</div>
+      <div><span class="kbd">Ctrl+,</span> Configuración</div>
+      <div><span class="kbd">Ctrl+D</span> Dashboard turno</div>
+      <div><span class="kbd">Ctrl+I</span> Importar</div>
+      <div><span class="kbd">Ctrl+K</span> Búsqueda global</div>
+    </div>
+  </div>
+
+  <!-- AI PANEL -->
+  <div id="ai-panel" class="ai-panel">
+    <div class="ai-header">
+      <i class="ti ti-sparkles"></i> Asistente IA
+      <span class="ai-provider-badge" id="ai-active-badge"><i class="ti ti-robot"></i> Sin configurar</span>
+      <button class="btn btn-gray" onclick="toggleAI()" style="margin-left:auto;padding:2px 7px;font-size:11px;"><i class="ti ti-x"></i></button>
+    </div>
+
+    <div style="font-size:11px;color:#6a1b9a;background:#f3e5f5;border-radius:3px;padding:6px 8px;">
+      <i class="ti ti-lock"></i> Tu API key se guarda solo en este navegador (localStorage). Nunca sale del dispositivo.
+    </div>
+
+    <!-- PROVIDER SELECTOR -->
+    <div>
+      <div style="font-size:11px;font-weight:bold;color:#6a1b9a;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Proveedor de IA</div>
+      <div class="ai-provider-grid" id="ai-provider-grid">
+        <div class="ai-provider-card selected" onclick="selectProvider('claude')" id="pv-claude">
+          <div class="pv-name"><i class="ti ti-brand-anthropic" style="font-size:14px;color:#d97706;"></i> Claude (Anthropic)</div>
+          <div class="pv-desc">claude-sonnet-4 · Recomendado</div>
+        </div>
+        <div class="ai-provider-card" onclick="selectProvider('openai')" id="pv-openai">
+          <div class="pv-name"><i class="ti ti-brand-openai" style="font-size:14px;color:#10a37f;"></i> ChatGPT (OpenAI)</div>
+          <div class="pv-desc">gpt-4o · gpt-4-turbo</div>
+        </div>
+        <div class="ai-provider-card" onclick="selectProvider('copilot')" id="pv-copilot">
+          <div class="pv-name"><i class="ti ti-brand-windows" style="font-size:14px;color:#0078d4;"></i> Microsoft Copilot</div>
+          <div class="pv-desc">Azure OpenAI · Copilot Studio</div>
+        </div>
+        <div class="ai-provider-card" onclick="selectProvider('custom')" id="pv-custom">
+          <div class="pv-name"><i class="ti ti-plug" style="font-size:14px;color:#7c3aed;"></i> Custom / Ollama</div>
+          <div class="pv-desc">Cualquier API compatible</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIG FIELDS -->
+    <div class="ai-cfg-grid">
+      <div class="ai-config-row">
+        <label>API Key</label>
+        <div style="display:flex;gap:4px;">
+          <input type="password" id="ai-key-input" placeholder="sk-..." oninput="saveAiConfig()" style="flex:1;">
+          <button class="btn btn-ai" onclick="testApiKey()" style="white-space:nowrap;font-size:11px;padding:4px 8px;">Probar</button>
+        </div>
+      </div>
+      <div class="ai-config-row">
+        <label>Modelo</label>
+        <select id="ai-model-select" onchange="saveAiConfig()">
+          <option value="claude-sonnet-4-20250514">claude-sonnet-4 (recomendado)</option>
+          <option value="claude-opus-4-5">claude-opus-4</option>
+          <option value="claude-haiku-4-5-20251001">claude-haiku-4 (rápido)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- CUSTOM ENDPOINT (solo visible en modo custom) -->
+    <div id="ai-custom-endpoint-row" style="display:none;" class="ai-config-row">
+      <label><i class="ti ti-link"></i> URL del endpoint</label>
+      <input type="text" id="ai-endpoint-input" placeholder="http://localhost:11434/v1/chat/completions" oninput="saveAiConfig()">
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="ai-actions" id="ai-actions">
+      <button class="ai-action-btn primary" onclick="aiAction('summary')"><i class="ti ti-file-description"></i> Resumen para ServiceNow</button>
+      <button class="ai-action-btn" onclick="aiAction('resolution')"><i class="ti ti-bulb"></i> Sugerir resolución</button>
+      <button class="ai-action-btn" onclick="aiAction('handoff')"><i class="ti ti-arrow-right"></i> Redactar handoff</button>
+      <button class="ai-action-btn" onclick="aiAction('timeline')"><i class="ti ti-timeline"></i> Narrativa de línea de tiempo</button>
+      <button class="ai-action-btn" onclick="aiAction('custom')"><i class="ti ti-message"></i> Pregunta personalizada</button>
+    </div>
+
+    <div id="ai-custom-row" style="display:none;">
+      <input type="text" id="ai-custom-input" placeholder="¿Qué quieres preguntarle a la IA sobre este ticket?" style="width:100%;border:1px solid #ce93d8;border-radius:3px;padding:5px 8px;font-size:13px;font-family:Arial,sans-serif;background:var(--card);outline:none;">
+    </div>
+
+    <div class="ai-spinner" id="ai-spinner">
+      <i class="ti ti-loader" style="animation:spin 1s linear infinite;"></i>
+      <span id="ai-spinner-label">Procesando...</span>
+    </div>
+    <div id="ai-response" class="ai-response" style="display:none;"></div>
+    <div id="ai-response-actions" style="display:none;gap:6px;flex-wrap:wrap;">
+      <button class="ai-action-btn" onclick="copyAiResponse()"><i class="ti ti-copy"></i> Copiar respuesta</button>
+      <button class="ai-action-btn" onclick="applyAiToResolution()"><i class="ti ti-check"></i> Aplicar a Resolución</button>
+    </div>
+  </div>
+
+  <!-- EMPTY -->
+  <div id="panel-empty" class="no-ticket">
+    <i class="ti ti-ticket" style="font-size:30px;display:block;margin-bottom:8px;opacity:.2;"></i>
+    Selecciona o crea un ticket para comenzar.
+  </div>
+
+  <!-- TICKET PANEL -->
+  <div id="panel-main" style="display:none;flex-direction:column;gap:10px;">
+    <div class="main-title" id="panel-title">Ticket</div>
+
+    <div class="field-row">
+      <span class="field-label"><i class="ti ti-calendar" style="font-size:11px;"></i> Fecha y hora</span>
+      <div class="dt-row">
+        <input type="date" id="tk-date">
+        <input type="time" id="tk-time">
+        <button class="dt-lock" id="dt-lock-btn" onclick="toggleTimeLock()">
+          <i class="ti ti-lock-open" id="dt-lock-icon"></i> Auto
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <span class="field-label" style="display:flex;align-items:center;gap:4px;">
+        <i class="ti ti-drag-drop" style="font-size:11px;color:var(--text3);"></i>
+        Estado del comentario
+        <span style="font-size:10px;color:var(--text3);font-weight:normal;">(arrastra para reordenar)</span>
+      </span>
+      <div class="status-chips" id="status-chips-row"></div>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+        <span class="field-label" style="margin:0;">Plantillas rápidas</span>
+        <span id="smart-tpl-hint" style="font-size:10px;color:#00796b;display:none;"><i class="ti ti-sparkles"></i> sugerencias activas</span>
+      </div>
+      <div class="tpl-chips" id="tpl-chips-row"></div>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+        <span class="field-label" style="margin:0;">Comentario</span>
+        <label style="font-size:11px;color:#6a1b9a;cursor:pointer;display:flex;align-items:center;gap:4px;">
+          <input type="checkbox" id="is-private-cb" style="accent-color:#8e24aa;"> <span class="private-badge"><i class="ti ti-eye-off" style="font-size:11px;"></i> Nota privada</span>
+        </label>
+      </div>
+      <div class="comment-wrap" style="position:relative;">
+        <textarea id="tk-comment" placeholder="Escribe o espera sugerencias..."></textarea>
+        <div id="autocomplete-box"></div>
+        <button class="btn-send" onclick="addEntry()" title="Ctrl+Enter" aria-label="Enviar">
+          <i class="ti ti-arrow-up"></i>
+        </button>
+      </div>
+      <div id="private-note-hint" style="display:none;font-size:10px;color:#8e24aa;margin-top:3px;"><i class="ti ti-eye-off"></i> Esta nota solo aparecerá en tu bitácora personal, no en exportaciones para ServiceNow.</div>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+        <span class="field-label" style="margin:0;">Resolución / Causa raíz</span>
+        <button class="section-toggle" onclick="toggleResolucion()">
+          <i class="ti ti-chevron-down" id="res-toggle-icon"></i> <span id="res-toggle-lbl">Mostrar</span>
+        </button>
+      </div>
+      <div id="res-wrap" class="resolution-wrap" style="display:none;">
+        <textarea id="tk-resolution" placeholder="Causa raíz, solución aplicada... (listo para copiar a ServiceNow)" oninput="saveResolution()"></textarea>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn btn-blue" onclick="addEntry()"><i class="ti ti-pencil"></i> Agregar</button>
+      <button class="btn btn-gray" onclick="copyHistorico()"><i class="ti ti-copy"></i> Copiar</button>
+      <button class="btn btn-teal" onclick="openExportModal()"><i class="ti ti-file-export"></i> Exportar</button>
+      <button class="btn btn-ai" onclick="toggleAI()"><i class="ti ti-sparkles"></i> IA</button>
+      <button class="btn btn-slate" onclick="toggleArchive()"><i class="ti ti-archive"></i> <span id="lbl-archive">Archivar</span></button>
+      <button class="btn btn-red" onclick="deleteTicket()"><i class="ti ti-trash"></i> Eliminar</button>
+    </div>
+
+    <div class="hist-title">
+      Histórico <span class="hist-count" id="hist-count"></span>
+      <label style="margin-left:auto;font-size:11px;display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:normal;">
+        <input type="checkbox" id="show-private-cb" checked style="accent-color:#8e24aa;" onchange="renderTimeline()"> Mostrar notas privadas
+      </label>
+    </div>
+    <div class="hist-search-wrap">
+      <input type="text" id="hist-search" placeholder="Buscar en el histórico... (Ctrl+F)" oninput="onHistSearch()">
+      <button class="hs-clear" id="hs-clear-btn" onclick="clearHistSearch()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="timeline" id="tk-timeline"></div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /body -->
+
+<!-- EXPORT MODAL -->
+<div class="modal-overlay" id="export-modal">
+  <div class="modal-box" style="position:relative;">
+    <button class="modal-close" onclick="closeExportModal()"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-file-export" style="color:#3f51b5;"></i> Exportar</h3>
+    <div id="export-scope-label" style="font-size:12px;color:var(--text2);background:var(--bg2);padding:5px 8px;border-radius:3px;"></div>
+    <label style="font-size:12px;display:flex;align-items:center;gap:5px;cursor:pointer;">
+      <input type="checkbox" id="export-include-private"> Incluir notas privadas en la exportación
+    </label>
+    <div class="export-opts">
+      <div class="export-opt" onclick="doExport('txt')"><i class="ti ti-file-text" style="color:#607d8b;"></i><div class="export-opt-info"><div class="export-opt-title">Texto plano (.txt)</div><div class="export-opt-desc">Listo para pegar en ServiceNow</div></div></div>
+      <div class="export-opt" onclick="doExport('html')"><i class="ti ti-brand-html5" style="color:#e65100;"></i><div class="export-opt-info"><div class="export-opt-title">HTML visual (.html)</div><div class="export-opt-desc">Bitácora con colores y línea de tiempo</div></div></div>
+      <div class="export-opt" onclick="doExport('pdf')"><i class="ti ti-file-type-pdf" style="color:#c62828;"></i><div class="export-opt-info"><div class="export-opt-title">PDF (imprimir)</div><div class="export-opt-desc">Abre diálogo de impresión</div></div></div>
+      <div class="export-opt" onclick="doExport('clip')"><i class="ti ti-clipboard" style="color:#00796b;"></i><div class="export-opt-info"><div class="export-opt-title">Copiar al portapapeles</div><div class="export-opt-desc">Para pegar en cualquier campo</div></div></div>
+      <div class="export-opt" onclick="doExport('snow')" style="border-color:#00796b;"><i class="ti ti-brand-snowflake" style="color:#00796b;"></i><div class="export-opt-info"><div class="export-opt-title" style="color:#00796b;">ServiceNow — Work Notes</div><div class="export-opt-desc">Formato exacto SNOW: fecha, estado, notas separadas · Ctrl+V directo en el campo</div></div></div>
+      <div class="export-opt" onclick="doExport('md')"><i class="ti ti-brand-github" style="color:#333;font-size:20px;"></i><div class="export-opt-info"><div class="export-opt-title">Markdown (.md)</div><div class="export-opt-desc">Para Confluence, Notion, wikis, GitHub — tablas y formato</div></div></div>
+    </div>
+    <label style="font-size:12px;display:flex;align-items:center;gap:5px;cursor:pointer;">
+      <input type="checkbox" id="export-multi-cb" onchange="renderSidebar()"> Seleccionar múltiples tickets
+    </label>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal-box" style="position:relative;min-width:460px;">
+    <button class="modal-close" onclick="closeImportModal()"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-file-import" style="color:#00796b;"></i> Importar desde ServiceNow</h3>
+    <div class="import-tabs">
+      <div class="import-tab active" id="imp-tab-file" onclick="switchImportTab('file')"><i class="ti ti-upload"></i> Archivo CSV/JSON</div>
+      <div class="import-tab" id="imp-tab-paste" onclick="switchImportTab('paste')"><i class="ti ti-clipboard"></i> Pegar texto/JSON</div>
+    </div>
+    <!-- FILE TAB -->
+    <div id="imp-file-tab">
+      <div class="import-zone" id="imp-drop-zone" onclick="document.getElementById('imp-file-input').click()" ondragover="impDragOver(event)" ondragleave="impDragLeave(event)" ondrop="impDrop(event)">
+        <i class="ti ti-cloud-upload"></i>
+        <div style="font-size:13px;font-weight:bold;color:var(--text2);margin-bottom:4px;">Arrastra tu archivo aquí o haz clic</div>
+        <div style="font-size:11px;">CSV o JSON exportado de ServiceNow</div>
+      </div>
+      <input type="file" id="imp-file-input" accept=".csv,.json" style="display:none;" onchange="handleImportFile(this.files[0])">
+    </div>
+    <!-- PASTE TAB -->
+    <div id="imp-paste-tab" style="display:none;">
+      <textarea id="imp-paste-area" placeholder='Pega aquí el contenido CSV o JSON de ServiceNow...
+Ejemplos CSV: number,opened_at,state,short_description
+Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress","short_description":"Falla en red"}]' style="width:100%;min-height:100px;border:1px solid #bbb;border-radius:3px;padding:7px;font-size:12px;font-family:monospace;resize:vertical;outline:none;"></textarea>
+      <button class="btn btn-teal" onclick="parseImportPaste()" style="margin-top:6px;"><i class="ti ti-search"></i> Analizar contenido</button>
+    </div>
+    <!-- PREVIEW -->
+    <div id="imp-preview-section" style="display:none;flex-direction:column;gap:8px;">
+      <div style="font-size:12px;font-weight:bold;color:var(--text2);">Vista previa de datos detectados:</div>
+      <div class="import-preview" id="imp-preview-text"></div>
+      <div style="font-size:12px;font-weight:bold;color:var(--text2);">Mapeo de columnas → campos del tracker:</div>
+      <div class="import-mapping" id="imp-mapping"></div>
+      <div class="field-row">
+        <span class="field-label">Ticket destino (ID en el tracker)</span>
+        <input type="text" id="imp-target-id" placeholder="Ej: INC-2025 — déjalo vacío para usar el número del archivo">
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-green" onclick="executeImport()"><i class="ti ti-download"></i> Importar al tracker</button>
+        <button class="btn btn-gray" onclick="resetImport()">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP / RESTORE MODAL -->
+<div class="modal-overlay" id="backup-modal">
+  <div class="modal-box" style="position:relative;min-width:420px;">
+    <button class="modal-close" onclick="closeBackupModal()"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-database" style="color:#3f51b5;"></i> Backup / Restore</h3>
+    <div style="font-size:12px;color:var(--text2);background:var(--sb-active);border-radius:3px;padding:8px 10px;line-height:1.6;border:1px solid var(--border2);">
+      <b>Backup:</b> Descarga un JSON con todos tus tickets, sesiones, carpetas, configuración y estados.<br>
+      <b>Restore:</b> Carga ese JSON para restaurar en otra computadora o recuperar datos.
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-blue" onclick="doBackup()"><i class="ti ti-download"></i> Descargar backup (.json)</button>
+      <button class="btn btn-teal" onclick="document.getElementById('restore-file-input').click()"><i class="ti ti-upload"></i> Cargar backup</button>
+      <input type="file" id="restore-file-input" accept=".json" style="display:none;" onchange="doRestore(this.files[0])">
+    </div>
+    <div id="backup-status" style="font-size:12px;color:#2e7d32;display:none;background:#e8f5e9;border-radius:3px;padding:6px 10px;"></div>
+    <div style="margin-top:4px;">
+      <div style="font-size:11px;font-weight:bold;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;">Estadísticas actuales</div>
+      <div id="backup-stats" style="font-size:12px;color:var(--text2);line-height:1.8;"></div>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--border2);">
+    <div>
+      <div style="font-size:11px;font-weight:bold;color:#c62828;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;"><i class="ti ti-alert-triangle"></i> Zona de peligro</div>
+      <button class="btn btn-red" onclick="clearAllData()" style="font-size:11px;"><i class="ti ti-trash"></i> Borrar todos los datos</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /tab-panel-tracker -->
+
+<!-- ══ TAB 2: GENERADOR DE CIERRE ══ -->
+<div class="tab-panel" id="panel-tab-generador">
+<div class="topbar">
+  <i class="ti ti-file-check" style="color:#a5d6a7;"></i> Generador de Cierre de Tickets
+  <div class="topbar-right">
+    <span id="gen-user-badge" style="font-size:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:3px 10px;"></span>
+    <button class="tb-btn amber" onclick="suiteLogout()"><i class="ti ti-logout"></i> Cerrar sesión</button>
+  </div>
+</div>
+
+<!-- GEN APP -->
+<div id="gen-app" style="display:flex;flex:1;flex-direction:column;overflow:hidden;">
+<div class="gen-wrap" id="gen-wrap">
+
+  <div class="gen-card gen-grid">
+    <div><span class="gen-label">Quien cierra</span><input class="gen-input" id="g-quien"></div>
+    <div><span class="gen-label">Área resolutor</span>
+      <select class="gen-select" id="g-area">
+        <option></option><option>HELPDESK B2B</option><option>PLEX</option><option>OYM</option>
+        <option>ITX</option><option>IT</option><option>TX</option><option>CSCORE</option>
+        <option>PSCORE</option><option>COMERCIAL</option><option>BITWORKS</option>
+        <option>VAS</option><option>TTC</option><option>PLANNING</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Producto</span>
+      <select class="gen-select" id="g-producto">
+        <option></option><option>SDWAN</option><option>INTERNET</option><option>DATOS</option>
+        <option>M2M</option><option>SMS</option><option>E1</option><option>SIPTRUNK</option>
+        <option>CLOUD</option><option>FWaaS</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Medio transporte</span>
+      <select class="gen-select" id="g-transporte">
+        <option></option><option>IPRAN</option><option>TRADICIONAL</option>
+        <option>GPON</option><option>ANTENA</option><option>STARLINK</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Reporte</span>
+      <select class="gen-select" id="g-reporte" onchange="genActualizarCausas()">
+        <option></option><option>FALLA</option><option>SOLICITUD</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Departamento</span>
+      <select class="gen-select" id="g-depto">
+        <option></option><option>AHUACHAPAN</option><option>CABAÑAS</option>
+        <option>CHALATENANGO</option><option>CUSCATLÁN</option><option>LA LIBERTAD</option>
+        <option>LA PAZ</option><option>LA UNIÓN</option><option>MORAZAN</option>
+        <option>SAN MIGUEL</option><option>SAN SALVADOR</option><option>SAN VICENTE</option>
+        <option>SANTA ANA</option><option>SONSONATE</option><option>USULUTÁN</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Medio reporte</span>
+      <select class="gen-select" id="g-medio">
+        <option></option><option>CORREO</option><option>TELEFONO</option>
+        <option>ALERTA</option><option>PROACTIVO</option><option>FIEL SERVICE</option>
+      </select>
+    </div>
+    <div><span class="gen-label">Causa de falla</span><select class="gen-select" id="g-causa"></select></div>
+    <div><span class="gen-label">Solución predefinida</span>
+      <select class="gen-select" id="g-preset" onchange="genUsarPreset()"></select>
+    </div>
+    <div><span class="gen-label">Solución</span><input class="gen-input" id="g-solucion"></div>
+    <div><span class="gen-label">Hora restablecimiento</span>
+      <input class="gen-input" type="datetime-local" id="g-hora">
+    </div>
+  </div>
+
+  <div class="gen-card">
+    <div class="gen-btn-row">
+      <button class="gen-btn gen-btn-green" onclick="genGenerar()"><i class="ti ti-pencil"></i> Escribir</button>
+      <button class="gen-btn gen-btn-blue" onclick="genCopiar()"><i class="ti ti-copy"></i> Copiar</button>
+      <button class="gen-btn gen-btn-teal" onclick="genGuardarPreset()"><i class="ti ti-device-floppy"></i> Guardar preset</button>
+      <button class="gen-btn gen-btn-gray" onclick="genEditarPreset()"><i class="ti ti-edit"></i> Editar preset</button>
+      <button class="gen-btn gen-btn-red" onclick="genEliminarPreset()"><i class="ti ti-trash"></i> Eliminar preset</button>
+    </div>
+    <textarea class="gen-textarea" id="g-resultado" style="min-height:70px;" readonly></textarea>
+  </div>
+
+  <div class="gen-card" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <input class="gen-input" id="g-search" placeholder="🔍 Buscar historial..." oninput="genBuscar(this.value)" style="flex:1;min-width:160px;">
+    <button class="gen-btn gen-btn-teal" onclick="genExportarCSV()"><i class="ti ti-file-spreadsheet"></i> Exportar CSV</button>
+    <button class="gen-btn gen-btn-red" onclick="genLimpiarHistorial()"><i class="ti ti-eraser"></i> Limpiar historial</button>
+  </div>
+
+  <div class="gen-card gen-historial" id="g-historial"></div>
+</div>
+</div><!-- /gen-app -->
+</div><!-- /tab-panel-generador -->
+
+<!-- ══ TAB 3: SESIONES — War Room / Crisis Management ══ -->
+<div class="tab-panel" id="panel-tab-sesiones">
+
+<!-- TOPBAR -->
+<div class="topbar" id="ses-topbar">
+  <i class="ti ti-notes" style="color:#ffd54f;"></i>
+  <span id="ses-topbar-title">Sesiones</span>
+  <span style="font-size:9px;background:#f57f17;color:#fff;padding:2px 7px;border-radius:8px;font-weight:bold;margin-left:4px;">BETA</span>
+  <span id="ses-crisis-badge" style="display:none;background:#c62828;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;margin-left:8px;">
+    &#x1F6A8; CRISIS ROOM &mdash; <span id="ses-crisis-timer">00:00:00</span>
+  </span>
+  <div class="topbar-right">
+    <button class="tb-btn" id="ses-crisis-btn" onclick="sesCrisisToggle()" style="background:#c62828;border-color:#c62828;">
+      <i class="ti ti-alert-triangle"></i> Crisis Room
+    </button>
+    <button class="tb-btn" onclick="sesOpenFocus()"><i class="ti ti-maximize"></i> Foco</button>
+    <button class="tb-btn ai" onclick="sesOpenAiModal()"><i class="ti ti-sparkles"></i> IA</button>
+    <button class="tb-btn purple" onclick="sesOpenExport()"><i class="ti ti-file-export"></i> Exportar</button>
+    <button class="tb-btn" onclick="sesOpenImport()"><i class="ti ti-file-import"></i> Importar</button>
+    <button class="tb-btn amber" onclick="suiteLogout()"><i class="ti ti-logout"></i></button>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="ses-focus-overlay" style="position:fixed;inset:0;background:var(--focus-bg);z-index:600;display:none;flex-direction:column;">
+  <div class="focus-topbar">
+    <i class="ti ti-notes" style="color:#ffd54f;"></i>
+    <span id="ses-focus-title" style="color:#ffd54f;font-size:15px;margin-left:6px;"></span>
+    <button onclick="sesCloseFocus()" style="margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:3px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:Arial,sans-serif;">&#x2715; Salir</button>
+  </div>
+  <div id="ses-focus-content" style="flex:1;overflow-y:auto;padding:24px 32px;max-width:900px;margin:0 auto;width:100%;"></div>
+</div>
+
+<div id="ses-import-modal" class="modal-overlay">
+  <div class="modal-box" style="min-width:480px;">
+    <button class="modal-close" onclick="document.getElementById('ses-import-modal').className='modal-overlay'"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-file-import" style="color:#f57f17;"></i> Importar transcripci&#xF3;n</h3>
+    <div style="font-size:11px;color:var(--text2);background:var(--bg2);border-radius:3px;padding:7px 10px;line-height:1.6;border:1px solid var(--border2);"><b>Formatos:</b> texto plano, Teams/Zoom (.txt, .vtt), JSON de sesi&#xF3;n exportada.</div>
+    <div class="field-row"><span class="field-label">Destino</span><select id="ses-import-dest" style="width:100%;border:1px solid var(--input-border);border-radius:3px;padding:5px 7px;font-size:12px;background:var(--input-bg);color:var(--text);outline:none;font-family:Arial,sans-serif;"></select></div>
+    <div class="import-zone" id="ses-drop-zone" onclick="document.getElementById('ses-file-input').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="sesHandleDrop(event)">
+      <i class="ti ti-cloud-upload" style="font-size:26px;display:block;margin-bottom:7px;opacity:.5;"></i>
+      <div style="font-size:13px;font-weight:bold;color:var(--text2);margin-bottom:3px;">Arrastra el archivo o haz clic</div>
+      <div style="font-size:11px;">.txt &middot; .vtt &middot; .json</div>
+    </div>
+    <input type="file" id="ses-file-input" accept=".txt,.vtt,.json" style="display:none;" onchange="sesHandleFile(this.files[0])">
+    <div class="field-row"><span class="field-label">O pega el texto directamente</span>
+      <textarea id="ses-import-text" style="width:100%;min-height:90px;border:1px solid var(--input-border);border-radius:3px;padding:7px;font-size:12px;font-family:monospace;resize:vertical;outline:none;background:var(--input-bg);color:var(--text);" placeholder="Pega aqu&#xED; la transcripci&#xF3;n, acta o notas..."></textarea>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <button onclick="sesProcessImport()" style="background:#f57f17;color:#fff;border:none;border-radius:3px;padding:7px 14px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:Arial,sans-serif;"><i class="ti ti-wand"></i> Procesar</button>
+      <button onclick="document.getElementById('ses-import-modal').className='modal-overlay'" class="btn btn-gray">Cancelar</button>
+    </div>
+    <div id="ses-import-status" style="display:none;font-size:12px;padding:6px 9px;border-radius:3px;margin-top:4px;"></div>
+  </div>
+</div>
+
+<div id="ses-export-modal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('ses-export-modal').className='modal-overlay'"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-file-export" style="color:#4527a0;"></i> Exportar sesi&#xF3;n</h3>
+    <div id="ses-export-scope" style="font-size:12px;color:var(--text2);background:var(--bg2);padding:5px 8px;border-radius:3px;border:1px solid var(--border2);margin-bottom:4px;"></div>
+    <div class="export-opts">
+      <div class="export-opt" onclick="sesDoExport('txt')"><i class="ti ti-file-text" style="font-size:20px;color:#607d8b;"></i><div><div class="export-opt-title">Texto plano (.txt)</div><div class="export-opt-desc">Acta cronol&#xF3;gica con acciones y decisiones</div></div></div>
+      <div class="export-opt" onclick="sesDoExport('html')"><i class="ti ti-brand-html5" style="font-size:20px;color:#e65100;"></i><div><div class="export-opt-title">HTML visual</div><div class="export-opt-desc">Con l&#xED;nea de tiempo y participantes</div></div></div>
+      <div class="export-opt" onclick="sesDoExport('snow')"><i class="ti ti-brand-snowflake" style="font-size:20px;color:#00796b;"></i><div><div class="export-opt-title">ServiceNow Work Notes</div><div class="export-opt-desc">Formato para pegar en SNOW</div></div></div>
+      <div class="export-opt" onclick="sesDoExport('clip')"><i class="ti ti-clipboard" style="font-size:20px;color:#3f51b5;"></i><div><div class="export-opt-title">Copiar al portapapeles</div><div class="export-opt-desc">Solo l&#xED;neas cronol&#xF3;gicas</div></div></div>
+      <div class="export-opt" onclick="sesDoExport('md')"><i class="ti ti-brand-github" style="font-size:20px;color:#333;"></i><div><div class="export-opt-title">Markdown (.md)</div><div class="export-opt-desc">Para Confluence, Notion, wikis</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="ses-ai-modal" class="modal-overlay">
+  <div class="modal-box" style="min-width:520px;max-width:700px;">
+    <button class="modal-close" onclick="document.getElementById('ses-ai-modal').className='modal-overlay'"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-sparkles" style="color:#6a1b9a;"></i> Resumen Ejecutivo IA</h3>
+    <div style="font-size:11px;color:var(--text2);background:var(--bg2);border-radius:3px;padding:7px 10px;line-height:1.5;border:1px solid var(--border2);">Genera un acta ejecutiva a partir de todas las notas, decisiones, acciones y tickets relacionados.<br>Si no tienes API configurada, usa <b>"Copiar prompt"</b> para pegar en Claude.ai, ChatGPT u otro chat.</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <span class="field-label" style="margin:0;">Formato:</span>
+      <select id="ses-ai-format" style="border:1px solid var(--input-border);border-radius:3px;padding:4px 8px;font-size:12px;background:var(--input-bg);color:var(--text);outline:none;font-family:Arial,sans-serif;">
+        <option value="ejecutivo">Resumen ejecutivo</option>
+        <option value="cliente">Para cliente</option>
+        <option value="snow">Para ServiceNow</option>
+        <option value="correo">Para correo</option>
+        <option value="handoff">Para handoff de turno</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button onclick="sesAiSummarize()" class="btn btn-ai"><i class="ti ti-sparkles"></i> Generar con IA (API)</button>
+      <button onclick="sesAiCopyPrompt()" class="btn btn-purple"><i class="ti ti-copy"></i> Copiar prompt para ChatGPT/Claude</button>
+    </div>
+    <div id="ses-ai-spinner" style="display:none;align-items:center;gap:8px;font-size:12px;color:#ce93d8;"><i class="ti ti-loader" style="animation:spin 1s linear infinite;"></i> Procesando...</div>
+    <div id="ses-ai-response" style="display:none;background:var(--input-bg);border:1px solid var(--border2);border-radius:4px;padding:10px;font-size:13px;line-height:1.6;white-space:pre-wrap;max-height:320px;overflow-y:auto;color:var(--text);font-family:Arial,sans-serif;"></div>
+    <div id="ses-ai-resp-btns" style="display:none;gap:6px;"><button onclick="navigator.clipboard.writeText(document.getElementById('ses-ai-response').textContent)" class="btn btn-gray"><i class="ti ti-copy"></i> Copiar respuesta</button></div>
+    <div id="ses-ai-prompt-area" style="display:none;flex-direction:column;gap:6px;">
+      <div style="font-size:11px;color:var(--text2);font-weight:bold;">Prompt generado &mdash; pega en tu IA preferida:</div>
+      <textarea id="ses-ai-prompt-text" style="width:100%;min-height:120px;border:1px solid var(--border2);border-radius:3px;padding:7px;font-size:11px;font-family:monospace;resize:vertical;outline:none;background:var(--bg2);color:var(--text);" readonly></textarea>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('ses-ai-prompt-text').value)" class="btn btn-purple"><i class="ti ti-copy"></i> Copiar prompt</button>
+    </div>
+  </div>
+</div>
+
+<div id="ses-participants-modal" class="modal-overlay">
+  <div class="modal-box" style="min-width:480px;">
+    <button class="modal-close" onclick="document.getElementById('ses-participants-modal').className='modal-overlay'"><i class="ti ti-x"></i></button>
+    <h3><i class="ti ti-users" style="color:#3f51b5;"></i> Participantes de la sesi&#xF3;n</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+      <div class="field-row"><span class="field-label">Nombre</span><input class="ses-input" id="par-nombre" placeholder="Nombre completo"></div>
+      <div class="field-row"><span class="field-label">Rol</span><input class="ses-input" id="par-rol" placeholder="NOC L2, Manager..."></div>
+      <div class="field-row"><span class="field-label">Empresa</span><input class="ses-input" id="par-empresa" placeholder="Empresa"></div>
+      <div class="field-row"><span class="field-label">&#xC1;rea</span><input class="ses-input" id="par-area" placeholder="&#xC1;rea / Equipo"></div>
+    </div>
+    <button onclick="sesAddParticipant()" class="btn btn-blue" style="width:100%;justify-content:center;"><i class="ti ti-user-plus"></i> Agregar participante</button>
+    <div id="ses-participants-list" style="margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:250px;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<div id="ses-crisis-close-modal" class="modal-overlay">
+  <div class="modal-box" style="min-width:460px;border:2px solid #c62828;">
+    <h3 style="color:#c62828;"><i class="ti ti-alert-triangle"></i> Cerrar Crisis Room</h3>
+    <div id="ses-crisis-summary" style="background:var(--bg2);border-radius:3px;padding:8px 10px;font-size:12px;line-height:1.8;border:1px solid var(--border2);"></div>
+    <div class="field-row"><span class="field-label">Resoluci&#xF3;n final</span>
+      <textarea id="ses-crisis-resolution" style="width:100%;min-height:60px;border:1px solid var(--input-border);border-radius:3px;padding:6px 8px;font-size:13px;font-family:Arial,sans-serif;resize:vertical;outline:none;background:var(--input-bg);color:var(--text);" placeholder="Describe la resoluci&#xF3;n final, causa ra&#xED;z y acciones tomadas..."></textarea>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <button onclick="sesCrisisClose()" style="background:#c62828;color:#fff;border:none;border-radius:3px;padding:7px 14px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:Arial,sans-serif;"><i class="ti ti-player-stop"></i> Cerrar y exportar handoff</button>
+      <button onclick="document.getElementById('ses-crisis-close-modal').className='modal-overlay'" class="btn btn-gray">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div style="display:flex;flex:1;min-height:0;overflow:hidden;">
+
+  <!-- SIDEBAR -->
+  <div class="ses-sidebar" id="ses-sidebar">
+    <div class="ses-sb-top">
+      <input class="ses-input" id="ses-search" placeholder="&#x1F50D; Buscar sesi&#xF3;n..." style="width:100%;" oninput="sesRenderList()">
+      <div style="display:flex;gap:4px;margin-top:5px;">
+        <input class="ses-input" id="ses-new-title" placeholder="Nueva sesi&#xF3;n..." style="flex:1;min-width:0;">
+        <button onclick="sesCreate()" style="background:#3f51b5;color:#fff;border:none;border-radius:3px;padding:4px 9px;font-size:11px;font-weight:bold;cursor:pointer;white-space:nowrap;font-family:Arial,sans-serif;">+ Nueva</button>
+      </div>
+      <div style="margin-top:6px;padding-top:5px;border-top:1px solid var(--border3);">
+        <div style="font-size:10px;font-weight:bold;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">Plantillas</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;">
+          <button onclick="sesCreateFromTemplate('bridge')" class="ses-tpl-btn">&#x1F309; Bridge</button>
+          <button onclick="sesCreateFromTemplate('handoff')" class="ses-tpl-btn">&#x1F91D; Handoff</button>
+          <button onclick="sesCreateFromTemplate('reunion')" class="ses-tpl-btn">&#x1F4C5; Reuni&#xF3;n</button>
+          <button onclick="sesCreateFromTemplate('incidente')" class="ses-tpl-btn">&#x1F6A8; Incidente</button>
+          <button onclick="sesCreateFromTemplate('postmortem')" class="ses-tpl-btn">&#x1F50D; Post-mortem</button>
+        </div>
+      </div>
+    </div>
+    <div id="ses-list" style="flex:1;overflow-y:auto;"></div>
+  </div>
+
+  <!-- MAIN AREA -->
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;">
+
+    <div id="ses-empty" class="ses-empty">
+      <i class="ti ti-notes" style="font-size:40px;opacity:.15;"></i>
+      <div style="font-size:14px;color:var(--text2);">Selecciona o crea una sesi&#xF3;n</div>
+      <div style="font-size:12px;color:var(--text3);">Usa las plantillas del sidebar para empezar r&#xE1;pido</div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+        <button onclick="sesCreateFromTemplate('bridge')" class="btn btn-red"><i class="ti ti-alert-triangle"></i> Nuevo Bridge</button>
+        <button onclick="sesCreate()" class="btn btn-blue"><i class="ti ti-plus"></i> Sesi&#xF3;n en blanco</button>
+      </div>
+    </div>
+
+    <div id="ses-panel" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
+
+      <!-- Header -->
+      <div id="ses-header" style="background:var(--card);border-bottom:1px solid var(--border2);padding:8px 14px;flex-shrink:0;">
+        <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+          <input type="text" id="ses-title-edit" class="ses-input" style="font-size:15px;font-weight:bold;border:none;background:transparent;flex:1;min-width:140px;padding:2px 0;" oninput="sesUpdateTitle()" placeholder="T&#xED;tulo...">
+          <select id="ses-tag-select" class="ses-select" onchange="sesUpdateMeta()">
+            <option value="">&#x1F4CC; Sin tipo</option>
+            <option value="reunion">&#x1F4C5; Reuni&#xF3;n</option>
+            <option value="incidente">&#x1F6A8; Incidente</option>
+            <option value="capacitacion">&#x1F4DA; Capacitaci&#xF3;n</option>
+            <option value="bridge">&#x1F309; Bridge</option>
+            <option value="handoff">&#x1F91D; Handoff</option>
+            <option value="postmortem">&#x1F50D; Post-mortem</option>
+            <option value="otro">&#x1F4CC; Otro</option>
+          </select>
+          <input type="date" id="ses-date" class="ses-select" onchange="sesUpdateMeta()">
+          <button onclick="sesOpenParticipants()" class="btn btn-gray" style="font-size:11px;padding:4px 9px;">
+            <i class="ti ti-users"></i> <span id="ses-part-count">Participantes</span>
+          </button>
+          <div style="position:relative;">
+            <button onclick="sesToggleTicketLink()" id="ses-link-btn" class="btn btn-slate" style="font-size:11px;padding:4px 9px;">
+              <i class="ti ti-link"></i> <span id="ses-link-count">Tickets</span>
+            </button>
+            <div id="ses-ticket-dropdown" style="display:none;position:absolute;top:calc(100% + 4px);right:0;background:var(--card);border:1px solid var(--border2);border-radius:4px;min-width:220px;z-index:200;box-shadow:0 4px 14px rgba(0,0,0,.2);padding:10px;flex-direction:column;gap:5px;max-height:280px;overflow-y:auto;">
+              <div style="font-size:11px;font-weight:bold;color:var(--text2);margin-bottom:4px;">Tickets del Tracker</div>
+              <div id="ses-ticket-link-list"></div>
+              <div style="font-size:10px;color:var(--text3);margin-top:4px;padding-top:4px;border-top:1px solid var(--border3);">Clic en ID para abrir ticket</div>
+            </div>
+          </div>
+          <button onclick="sesDeleteSession()" class="btn btn-red" style="padding:4px 8px;font-size:11px;"><i class="ti ti-trash"></i></button>
+        </div>
+        <div id="ses-part-badges" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;min-height:0;"></div>
+        <div id="ses-linked-badges" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;min-height:0;"></div>
+      </div>
+
+      <!-- Entry input -->
+      <div id="ses-input-area" style="background:var(--card);border-bottom:1px solid var(--border2);padding:8px 14px;flex-shrink:0;">
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:5px;">
+          <input type="date" id="ses-entry-date" class="ses-input" style="width:auto;">
+          <input type="time" id="ses-entry-time" class="ses-input" style="width:auto;">
+          <button class="dt-lock" id="ses-time-lock" onclick="sesToggleTimeLock()" style="font-size:11px;padding:3px 7px;"><i class="ti ti-lock-open" id="ses-lock-icon"></i> Auto</button>
+          <select id="ses-entry-type" class="ses-select">
+            <option value="nota">&#x1F4DD; Nota</option>
+            <option value="accion">&#x2705; Acci&#xF3;n</option>
+            <option value="decision">&#x26A1; Decisi&#xF3;n</option>
+            <option value="pregunta">&#x2753; Pregunta</option>
+            <option value="riesgo">&#x26A0;&#xFE0F; Riesgo</option>
+            <option value="critico">&#x1F534; Evento cr&#xED;tico</option>
+            <option value="seguimiento">&#x1F504; Seguimiento</option>
+          </select>
+          <select id="ses-entry-speaker-sel" class="ses-select" onchange="document.getElementById('ses-entry-speaker').value=this.value;this.value='';">
+            <option value="">&#x1F464; Participante...</option>
+          </select>
+          <input type="text" id="ses-entry-speaker" class="ses-input" placeholder="O escribe..." style="width:100px;">
+          <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text2);cursor:pointer;white-space:nowrap;">
+            <input type="checkbox" id="ses-push-ticket" style="accent-color:#3f51b5;"> Empujar a tickets
+          </label>
+        </div>
+        <div style="position:relative;">
+          <textarea id="ses-entry-text" class="ses-textarea" placeholder="Escribe la nota... (Ctrl+Enter para agregar)" oninput="sesHandleMention(this)"></textarea>
+          <button onclick="sesAddEntry()" class="btn-send" title="Ctrl+Enter"><i class="ti ti-arrow-up"></i></button>
+          <div id="ses-mention-box" style="position:absolute;left:0;bottom:calc(100%+2px);background:var(--card);border:1px solid var(--border2);border-radius:4px;min-width:180px;z-index:300;box-shadow:0 4px 12px rgba(0,0,0,.15);display:none;"></div>
+        </div>
+        <div id="ses-quick-chips" style="display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;"></div>
+      </div>
+
+      <!-- Search bar -->
+      <div style="background:var(--bg2);padding:5px 14px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <i class="ti ti-search" style="color:var(--text3);font-size:13px;"></i>
+        <input type="text" id="ses-hist-search" class="ses-input" style="flex:1;border:none;background:transparent;padding:2px 0;font-size:12px;" placeholder="Buscar en la sesi&#xF3;n..." oninput="sesRenderTimeline()">
+        <span id="ses-hist-count" style="font-size:11px;color:var(--text3);white-space:nowrap;"></span>
+        <select id="ses-filter-type" class="ses-select" onchange="sesRenderTimeline()">
+          <option value="">Todos</option>
+          <option value="nota">Notas</option>
+          <option value="accion">Acciones</option>
+          <option value="decision">Decisiones</option>
+          <option value="pregunta">Preguntas</option>
+          <option value="riesgo">Riesgos</option>
+          <option value="critico">Cr&#xED;ticos</option>
+        </select>
+        <span id="ses-entry-count" style="font-size:11px;color:var(--text3);white-space:nowrap;"></span>
+      </div>
+
+      <!-- Timeline -->
+      <div id="ses-timeline-wrap" style="flex:1;overflow-y:auto;padding:12px 14px;background:var(--bg2);">
+        <div id="ses-timeline" style="position:relative;padding-left:20px;">
+          <div id="ses-tl-ruler" style="position:absolute;left:6px;top:5px;bottom:5px;width:2px;background:var(--tl-line);border-radius:2px;display:none;"></div>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div id="ses-stat-bar" style="background:var(--card);border-top:1px solid var(--border2);padding:5px 14px;font-size:11px;color:var(--text2);flex-shrink:0;display:none;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span><b style="color:#2e7d32;">&#x2705; Acciones:</b> <span id="ses-actions-count">0</span></span>
+        <span><b style="color:#c62828;">&#x26A0;&#xFE0F; Riesgos:</b> <span id="ses-risks-count">0</span></span>
+        <span><b style="color:#1565c0;">&#x26A1; Decisiones:</b> <span id="ses-decisions-count">0</span></span>
+        <span><b style="color:#c62828;">&#x1F534; Cr&#xED;ticos:</b> <span id="ses-critical-count">0</span></span>
+        <span style="color:var(--text3);">&#x1F4AC; Total: <span id="ses-total-count">0</span></span>
+        <span id="ses-crisis-elapsed" style="display:none;color:#c62828;font-weight:bold;margin-left:auto;">&#x23F1; <span id="ses-crisis-elapsed-val">00:00</span></span>
+      </div>
+
+    </div><!-- /ses-panel -->
+  </div><!-- /main area -->
+</div><!-- /layout flex -->
+</div><!-- /tab-panel-sesiones -->
+
+<!-- ══ TAB: OT TRACKER ══ -->
+<div class="tab-panel" id="panel-tab-ot">
+<div class="ot-app" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
+
+  <!-- OT sub-navbar (matches suite style) -->
+  <div style="background:var(--topbar);border-bottom:2px solid #1e2240;padding:0 12px;display:flex;align-items:center;gap:0;flex-shrink:0;">
+    <button class="ot-nav-btn" id="otnav-nuevo" onclick="otNav('nuevo',this)"
+      style="padding:10px 18px;border:none;border-bottom:2px solid #7c83d6;background:transparent;color:#fff;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s,border-color .15s;margin-bottom:-2px;">
+      <i class="ti ti-plus"></i> Nuevo Registro
+    </button>
+    <button class="ot-nav-btn" id="otnav-registros" onclick="otNav('registros',this)"
+      style="padding:10px 18px;border:none;border-bottom:2px solid transparent;background:transparent;color:#6a7099;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s,border-color .15s;margin-bottom:-2px;">
+      <i class="ti ti-list"></i> Registros
+    </button>
+    <button class="ot-nav-btn" id="otnav-dashboard" onclick="otNav('dashboard',this)"
+      style="padding:10px 18px;border:none;border-bottom:2px solid transparent;background:transparent;color:#6a7099;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s,border-color .15s;margin-bottom:-2px;">
+      <i class="ti ti-chart-bar"></i> Dashboard
+    </button>
+    <div style="margin-left:auto;padding-right:4px;">
+      <button onclick="otOpenExport()"
+        style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#9ea8cc;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:inherit;">
+        <i class="ti ti-download"></i> Exportar
+      </button>
+    </div>
+  </div>
+
+  <!-- OT scrollable content -->
+  <div style="flex:1;overflow-y:auto;padding:14px 18px;">
+    <div class="ot-app">
+
+
+
+
+<!-- NUEVO REGISTRO -->
+<div id="ot-sec-nuevo" class="ot-section active">
+
+  <div class="card">
+    <div class="card-title">Identificación del Contacto</div>
+    <div class="grid grid-4">
+
+      <div class="field">
+        <label>Fecha <span class="req">*</span></label>
+        <input type="date" id="f-fecha">
+      </div>
+
+      <div class="field span-2">
+        <label>Canal de Entrada <span class="req">*</span></label>
+        <div class="toggle-group" id="tg-canal">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">📞 Llamada</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">💬 Mensaje</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">📧 Correo</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-canal','sel-blue')">🎟 Ticket</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hora de Escalamiento</label>
+        <div class="time-wrap">
+          <input type="text" id="f-hora-contacto" placeholder="HH:MM" maxlength="5"
+            oninput="otFmtTime(this)" onblur="otSyncContactTime()">
+          <button class="clock-btn" onclick="otToggleClock('ck-contacto',event)">🕐</button>
+          <div class="clock-popup" id="ck-contacto"></div>
+        </div>
+      </div>
+
+      <div class="field span-2">
+        <label>Quién Contactó <span class="req">*</span></label>
+        <select id="f-contacto-sel" onchange="onContactChange()">
+          <option value="">— Seleccionar —</option>
+          <optgroup label="L1">
+            <option value="Luis Melara|L1">Luis Melara — L1</option>
+            <option value="Yanira Hernández|L1">Yanira Hernández — L1</option>
+            <option value="Ingrid Cerón|L1">Ingrid Cerón — L1</option>
+            <option value="Cruz Casco|L1">Cruz Casco — L1</option>
+            <option value="Fredis Bran|L1">Fredis Bran — L1</option>
+            <option value="Blanca Ibarra|L1">Blanca Ibarra — L1</option>
+            <option value="Christian Avalos|L1">Christian Avalos — L1</option>
+            <option value="Jaime Lemus|L1">Jaime Lemus — L1</option>
+            <option value="Walter Garcia|L1">Walter Garcia — L1</option>
+          </optgroup>
+          <optgroup label="L2">
+            <option value="Jose Santos|L2">Jose Santos — L2</option>
+            <option value="Octavio Torres|L2">Octavio Torres — L2</option>
+          </optgroup>
+          <optgroup label="Jefatura">
+            <option value="Carlos Diaz|Jefatura">Carlos Diaz — Jefatura</option>
+            <option value="Cesar Martinez|Jefatura">Cesar Martinez — Jefatura</option>
+            <option value="Robin Aguilar|Jefatura">Robin Aguilar — Jefatura</option>
+            <option value="Marco Cienfuegos|Jefatura">Marco Cienfuegos — Jefatura</option>
+            <option value="Vanessa Blanco|Jefatura">Vanessa Blanco — Jefatura</option>
+          </optgroup>
+          <option value="__manual__">✏ Ingresar manualmente…</option>
+        </select>
+        <div class="manual-contact" id="manual-wrap">
+          <input type="text" id="f-manual" placeholder="Nombre — Cargo">
+        </div>
+      </div>
+
+      <div class="field span-2">
+        <label>Cliente / Sitio <span class="req">*</span></label>
+        <input type="text" id="f-cliente" placeholder="Nombre del cliente o sitio" list="cli-list">
+        <datalist id="cli-list"></datalist>
+      </div>
+
+      <div class="field">
+        <label>Número de Ticket</label>
+        <input type="text" id="f-ticket" placeholder="INC-0000 / REQ-0000" style="font-family:var(--mono)">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Control de Tiempo</div>
+    <div class="grid grid-4">
+
+      <div class="field">
+        <label>Fecha Inicio <span class="req">*</span></label>
+        <input type="date" id="f-fecha-inicio" onchange="calcDuration()">
+      </div>
+
+      <div class="field">
+        <label>Hora Inicio <span class="req">*</span></label>
+        <div class="time-wrap">
+          <input type="text" id="f-inicio" placeholder="HH:MM" maxlength="5"
+            oninput="otFmtTime(this);calcDuration()">
+          <button class="clock-btn" onclick="otToggleClock('ck-inicio',event)">🕐</button>
+          <div class="clock-popup" id="ck-inicio"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Fecha Fin <span class="req">*</span></label>
+        <input type="date" id="f-fecha-fin" onchange="calcDuration()">
+      </div>
+
+      <div class="field">
+        <label>Hora Fin <span class="req">*</span></label>
+        <div class="time-wrap">
+          <input type="text" id="f-fin" placeholder="HH:MM" maxlength="5"
+            oninput="otFmtTime(this);calcDuration()">
+          <button class="clock-btn" onclick="otToggleClock('ck-fin',event)">🕐</button>
+          <div class="clock-popup" id="ck-fin"></div>
+        </div>
+      </div>
+
+      <div class="field span-2">
+        <label>Duración Total</label>
+        <div class="duration-display" id="dur-display">— : —</div>
+      </div>
+
+      <div class="field span-2">
+        <label>Horario Laboral</label>
+        <div style="display:flex;gap:4px;align-items:center">
+          <input type="text" id="f-hl-i" value="08:00" maxlength="5"
+            style="flex:1;font-family:var(--mono)" oninput="otFmtTime(this);calcDuration()">
+          <span style="color:var(--muted);font-size:12px">–</span>
+          <input type="text" id="f-hl-f" value="17:00" maxlength="5"
+            style="flex:1;font-family:var(--mono)" oninput="otFmtTime(this);calcDuration()">
+        </div>
+      </div>
+
+      <div class="field span-4">
+        <label>Estado de Horario</label>
+        <div id="ot-flag" class="ot-flag inside">✓ Dentro de horario</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Clasificación del Escalamiento</div>
+    <div class="grid grid-4">
+
+      <div class="field">
+        <label>Categoría <span class="req">*</span></label>
+        <div class="toggle-group" id="tg-cat">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Firewall</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">VERSA</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Conectividad</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">MPLS</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Orientación</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">DNS</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">VPN</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-cat','sel-blue')">Otro</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Severidad</label>
+        <div class="toggle-group" id="tg-sev">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-red')">🔴 Crítico</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-yellow')">🟠 Alto</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-green')">🟡 Medio</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-sev','sel-purple')">🟢 Bajo</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿El escalamiento era evitable?</label>
+        <div class="toggle-group" id="tg-evitable">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-evitable','sel-red')">Sí</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-evitable','sel-yellow')">Parcialmente</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-evitable','sel-green')">No</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Documentación Antes del Escalamiento?</label>
+        <div class="toggle-group" id="tg-doc">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-doc','sel-green')">Sí</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-doc','sel-red')">No</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-doc','sel-purple')">N/A</button>
+        </div>
+      </div>
+
+      <div class="field span-4">
+        <label>Motivo del Contacto <span class="req">*</span></label>
+        <textarea id="f-motivo" placeholder="Descripción breve del problema reportado…"></textarea>
+      </div>
+
+      <div class="field span-4">
+        <label>Actividad Realizada <span class="req">*</span></label>
+        <textarea id="f-actividad" placeholder="Qué se hizo para resolver o atender el caso…"></textarea>
+      </div>
+
+      <div class="field span-2">
+        <label>Causa Raíz</label>
+        <input type="text" id="f-causa" list="causa-list" placeholder="Seleccionar o escribir…">
+        <datalist id="causa-list">
+          <option value="Configuración incorrecta">
+          <option value="Falla de hardware">
+          <option value="Error de usuario">
+          <option value="Proveedor externo">
+          <option value="Cambio no controlado">
+          <option value="Falla de software/firmware">
+          <option value="Problema de red externa">
+          <option value="En investigación">
+        </datalist>
+      </div>
+
+      <div class="field span-2">
+        <label>Estado de Resolución <span class="req">*</span></label>
+
+        <div class="toggle-group" id="tg-estado">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-green')">✅ Resuelto</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-blue')">🔄 En Seguimiento</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-yellow')">⬆ Escalado</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'tg-estado','sel-red')">⏳ Pend. Cliente</button>
+        </div>
+      </div>
+
+      <div class="field span-4">
+        <label>Notas de Cierre</label>
+        <textarea id="f-notas" placeholder="Observaciones, pasos pendientes, contexto para seguimiento…"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  
+
+  <!-- CLASIFICACIÓN DEL ESCALAMIENTO -->
+  
+
+  <!-- CONTROL DE TIEMPO -->
+  
+
+  <div class="form-actions">
+    <button class="btn btn-ghost" onclick="otClearForm()">Limpiar</button>
+    <button class="btn btn-primary" onclick="otSaveRecord()">Guardar Registro</button>
+  </div>
+</div>
+
+<!-- REGISTROS -->
+<div id="ot-sec-registros" class="ot-section">
+  <div class="filter-bar">
+    <input type="text" id="flt-q" placeholder="🔍 Buscar…" oninput="otRenderTable()" style="width:200px">
+    <select id="flt-cli" onchange="otRenderTable()"><option value="">Todos los clientes</option></select>
+    <select id="flt-cat" onchange="otRenderTable()">
+      <option value="">Todas las categorías</option>
+      <option>Firewall</option><option>VERSA</option><option>Conectividad</option>
+      <option>MPLS</option><option>Orientación</option><option>DNS</option><option>VPN</option><option>Otro</option>
+    </select>
+    <select id="flt-per" onchange="otRenderTable()">
+      <option value="">Todos</option><option value="hoy">Hoy</option>
+      <option value="semana">Esta semana</option><option value="mes">Este mes</option>
+    </select>
+    <label><input type="checkbox" id="flt-ot" onchange="otRenderTable()"> Solo OT</label>
+  </div>
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Fecha</th><th>Hora</th><th>Contacto</th><th>Cliente</th><th>Ticket</th>
+          <th>Categoría</th><th>Sev.</th><th>Duración</th><th>OT</th><th>Estado</th><th></th>
+        </tr></thead>
+        <tbody id="rec-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="ot-sec-dashboard" class="ot-section">
+  <div class="filter-bar">
+    <label>Período:</label>
+    <select id="dash-per" onchange="otRenderDash()">
+      <option value="hoy">Hoy</option><option value="semana" selected>Esta semana</option>
+      <option value="mes">Este mes</option><option value="todo">Todo</option>
+    </select>
+  </div>
+  <div class="stats-grid" id="dash-stats"></div>
+  <div class="charts-grid">
+    <div class="card"><div class="card-title">Por Categoría</div><div class="bar-chart" id="ch-cat"></div></div>
+    <div class="card"><div class="card-title">Por Cliente</div><div class="bar-chart" id="ch-cli"></div></div>
+    <div class="card"><div class="card-title">Por Severidad</div><div class="bar-chart" id="ch-sev"></div></div>
+    <div class="card"><div class="card-title">Por Estado</div><div class="bar-chart" id="ch-est"></div></div>
+  </div>
+  <div class="card"><div class="card-title">Pendientes</div><div id="dash-pend"></div></div>
+</div>
+
+
+
+<!-- MODAL DETALLE -->
+<div class="modal-overlay" id="mod-det">
+  <div class="modal">
+    <button class="modal-close" onclick="otCloseModal('mod-det')">✕</button>
+    <div id="mod-content"></div>
+  </div>
+</div>
+
+<!-- MODAL EXPORT -->
+<div class="modal-overlay" id="mod-exp">
+  <div class="modal" style="max-width:360px">
+    <button class="modal-close" onclick="otCloseModal('mod-exp')">✕</button>
+    <div class="card-title" style="margin-bottom:16px">Exportar</div>
+    <div class="field">
+      <label>Período</label>
+      <select id="exp-per">
+        <option value="todo">Todos</option><option value="hoy">Hoy</option>
+        <option value="semana">Esta semana</option><option value="mes">Este mes</option>
+      </select>
+    </div>
+    <div class="export-btns">
+      <button class="btn btn-secondary" onclick="otExpCSV()">📊 CSV</button>
+      <button class="btn btn-secondary" onclick="otExpHTML()">🖨 HTML</button>
+      <button class="btn btn-secondary" onclick="otExpPDF()">📄 PDF</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ══════════════════════════════════════════════
-   CONSTANTS & STATE
-══════════════════════════════════════════════ */
 const SK='noc_v7';
 const DEF_STATUS=[
   {label:'Investigando',bg:'#fff3e0',color:'#e65100',sel_bg:'#ff6d00'},
@@ -2590,12 +4914,13 @@ function closeFocusMode(){
 let activeTab='tracker';
 function switchTab(tab){
   activeTab=tab;
-  ['tracker','generador','sesiones'].forEach(t=>{
+  ['tracker','generador','sesiones','ot'].forEach(t=>{
     document.getElementById('panel-tab-'+t)?.classList.toggle('active',t===tab);
     document.getElementById('tab-'+t)?.classList.toggle('active',t===tab);
   });
   if(tab==='generador') genIniciar();
   if(tab==='sesiones') sesRenderList();
+  if(tab==='ot') otInit();
 }
 
 /* ══════════════════════════════════════════════
@@ -4331,6 +6656,626 @@ if(suiteUser&&SUITE_USERS[suiteUser]){
 /* FIX-10: Both login fields respond to Enter */
 document.getElementById('suite-login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')suiteLogin();});
 /* username already handles Enter inline */
+
+
+/* ══════════════════════════════════════════
+   OT TRACKER — Logic
+══════════════════════════════════════════ */
+
+const OT_SK='ot_v3';
+const otLoad=()=>{try{return JSON.parse(localStorage.getItem(OT_SK))||[]}catch{return[]}};
+const otSave=r=>localStorage.setItem(OT_SK,JSON.stringify(r));
+
+function otNav(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('ot-sec-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='registros'){otPopulateCli();otRenderTable()}
+  if(id==='dashboard')otRenderDash();
+}
+
+function otToggleSelect(btn,gid,cls){
+  document.querySelectorAll('#'+gid+' .toggle-btn').forEach(b=>
+    b.classList.remove('selected','sel-blue','sel-green','sel-yellow','sel-red','sel-purple'));
+  btn.classList.add('selected',cls);
+}
+function otGetTV(gid){const b=document.querySelector('#'+gid+' .toggle-btn.selected');return b?b.textContent.trim():''}
+
+function otOnContactChange(){
+  const v=document.getElementById('f-contacto-sel').value;
+  document.getElementById('manual-wrap').classList.toggle('show',v==='__manual__');
+  if(v==='__manual__')document.getElementById('f-manual').focus();
+}
+function otGetContacto(){
+  const v=document.getElementById('f-contacto-sel').value;
+  if(v==='__manual__')return document.getElementById('f-manual').value.trim();
+  return v?v.split('|')[0]:'';
+}
+function otGetCargo(){
+  const v=document.getElementById('f-contacto-sel').value;
+  if(v==='__manual__'){const p=document.getElementById('f-manual').value.split('—');return p.length>1?p[1].trim():''}
+  return v?v.split('|')[1]:'';
+}
+
+function otFmtTime(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length>=3)v=v.slice(0,2)+':'+v.slice(2,4);
+  el.value=v;
+}
+function otParseT(s){if(!s||!s.includes(':'))return null;const[h,m]=s.split(':').map(Number);if(isNaN(h)||isNaN(m))return null;return h*60+m}
+
+function otSyncContactTime(){
+  const ct=document.getElementById('f-hora-contacto').value;
+  const ini=document.getElementById('f-inicio');
+  // Sync fecha-inicio from escalamiento date
+  const fecha=document.getElementById('f-fecha').value;
+  if(fecha) document.getElementById('f-fecha-inicio').value=fecha;
+  // Sync hora-inicio only if still empty
+  if(ct&&!ini.value){ini.value=ct;calcDuration();otUpdateHands('ck-inicio',ct)}
+}
+
+function calcDuration(){
+  const tI=document.getElementById('f-inicio').value;
+  const tF=document.getElementById('f-fin').value;
+  const dI=document.getElementById('f-fecha-inicio').value;
+  const dF=document.getElementById('f-fecha-fin').value;
+  const disp=document.getElementById('dur-display');
+  const flag=document.getElementById('ot-flag');
+  if(!tI||!tF||!dI){disp.textContent='— : —';return}
+  const dtI=new Date(dI+'T'+tI+':00');
+  const dtF=new Date(dF+'T'+tF+':00');
+  if(isNaN(dtI)||isNaN(dtF)){disp.textContent='— : —';return}
+  let d=Math.round((dtF-dtI)/60000);
+  if(d<0){disp.textContent='⚠ Fin anterior al inicio';return}
+  const dias=Math.floor(d/1440);
+  const hrs=Math.floor((d%1440)/60);
+  const min=d%60;
+  let label='';
+  if(dias>0)label+=dias+'d ';
+  label+=hrs+'h '+String(min).padStart(2,'0')+'m';
+  if(dias>0)label+=' <span style="font-size:10px;color:var(--muted)">(+'+dias+' día'+(dias>1?'s':'')+')</span>';
+  disp.innerHTML=label;
+  // OT flag: outside if inicio before hl-start OR fin after hl-end (same-day ref)
+  const hi=otParseT(document.getElementById('f-hl-i').value);
+  const hf=otParseT(document.getElementById('f-hl-f').value);
+  if(hi!==null&&hf!==null){
+    const tImin=otParseT(tI);
+    const tFmin=otParseT(tF);
+    const crossDay=dF!==dI;
+    const ot=crossDay||tImin<hi||tFmin>hf;
+    flag.className='ot-flag '+(ot?'outside':'inside');
+    flag.textContent=ot?'⚡ FUERA de horario laboral':'✓ Dentro de horario';
+  }
+}
+
+// CLOCK
+const CK_MAP={'ck-contacto':'f-hora-contacto','ck-inicio':'f-inicio','ck-fin':'f-fin'};
+let otActiveCK=null;
+
+function otBuildClock(id){
+  const p=document.getElementById(id);
+  if(p.dataset.built)return;
+  p.dataset.built='1';
+  const inp=CK_MAP[id];
+  p.innerHTML=`
+    <div class="clock-face" id="${id}-face">
+      <div class="clock-nums" id="${id}-nums"></div>
+      <div class="clock-center"></div>
+      <div class="clock-hand hand-h" id="${id}-hh"></div>
+      <div class="clock-hand hand-m" id="${id}-hm"></div>
+    </div>
+    <div class="clock-controls">
+      <input type="number" id="${id}-ch" min="0" max="23" value="0" oninput="otSyncHands('${id}')">
+      <span class="clock-sep">:</span>
+      <input type="number" id="${id}-cm" min="0" max="59" value="0" oninput="otSyncHands('${id}')">
+    </div>
+    <button class="clock-ok" onclick="otClockOK('${id}','${inp}')">Confirmar</button>`;
+  const nums=document.getElementById(id+'-nums');
+  for(let n=1;n<=12;n++){
+    const a=(n/12)*2*Math.PI-Math.PI/2;
+    const s=document.createElement('span');
+    s.className='clock-num';
+    s.style.left=(50+40*Math.cos(a))+'%';
+    s.style.top=(50+40*Math.sin(a))+'%';
+    s.textContent=n;
+    nums.appendChild(s);
+  }
+  document.getElementById(id+'-face').addEventListener('click',e=>{
+    const r=e.currentTarget.getBoundingClientRect();
+    const a=Math.atan2(e.clientY-(r.top+r.height/2),e.clientX-(r.left+r.width/2))+Math.PI/2;
+    document.getElementById(id+'-cm').value=Math.round(((a/(2*Math.PI)*60)+60)%60);
+    otSyncHands(id);
+  });
+}
+
+function otSyncHands(id){
+  const h=parseInt(document.getElementById(id+'-ch').value)||0;
+  const m=parseInt(document.getElementById(id+'-cm').value)||0;
+  document.getElementById(id+'-hh').style.transform=`translateX(-50%) rotate(${(h%12)/12*360+m/60*30}deg)`;
+  document.getElementById(id+'-hm').style.transform=`translateX(-50%) rotate(${m/60*360}deg)`;
+}
+
+function otUpdateHands(id,ts){
+  if(!document.getElementById(id+'-ch'))return;
+  const[h,m]=ts.split(':').map(Number);
+  if(!isNaN(h)&&!isNaN(m)){document.getElementById(id+'-ch').value=h;document.getElementById(id+'-cm').value=m;otSyncHands(id)}
+}
+
+function otClockOK(id,inp){
+  const h=String(parseInt(document.getElementById(id+'-ch').value)||0).padStart(2,'0');
+  const m=String(parseInt(document.getElementById(id+'-cm').value)||0).padStart(2,'0');
+  document.getElementById(inp).value=h+':'+m;
+  otCloseAllClocks();
+  if(inp==='f-hora-contacto')otSyncContactTime();
+  if(inp==='f-inicio'||inp==='f-fin')calcDuration();
+}
+
+function otToggleClock(id,e){
+  e.stopPropagation();
+  otBuildClock(id);
+  const p=document.getElementById(id);
+  const open=p.classList.contains('open');
+  otCloseAllClocks();
+  if(!open){
+    p.classList.add('open');
+    const v=document.getElementById(CK_MAP[id]).value;
+    if(v&&v.includes(':'))otUpdateHands(id,v);
+    otActiveCK=id;
+  }
+}
+function otCloseAllClocks(){document.querySelectorAll('.clock-popup').forEach(p=>p.classList.remove('open'));activeCK=null}
+document.addEventListener('click',e=>{if(otActiveCK&&!e.target.closest('.ot-app .time-wrap'))otCloseAllClocks()});
+
+function otSaveRecord(){
+  const fecha=document.getElementById('f-fecha').value;
+  const contacto=otGetContacto();
+  const cliente=document.getElementById('f-cliente').value.trim();
+  const motivo=document.getElementById('f-motivo').value.trim();
+  const actividad=document.getElementById('f-actividad').value.trim();
+  const inicio=document.getElementById('f-inicio').value;
+  const fin=document.getElementById('f-fin').value;
+  const estado=otGetTV('tg-estado');
+  if(!fecha||!contacto||!cliente||!motivo||!actividad||!inicio||!fin||!estado){
+    alert('Completa los campos obligatorios: fecha, contacto, cliente, motivo, actividad, hora inicio/fin y estado.');return;
+  }
+  const fechaInicio=document.getElementById('f-fecha-inicio').value||fecha;
+  const fechaFin=document.getElementById('f-fecha-fin').value||fechaInicio;
+  const dtI=new Date(fechaInicio+'T'+inicio+':00');
+  const dtF=new Date(fechaFin+'T'+fin+':00');
+  if(isNaN(dtI)||isNaN(dtF)){alert('Fechas u horas inválidas');return}
+  let d=Math.round((dtF-dtI)/60000);
+  if(d<0){alert('La hora/fecha de fin es anterior al inicio. Verifica los datos.');return}
+  const crossDay=fechaFin!==fechaInicio;
+  const tImin=otParseT(inicio),tFmin=otParseT(fin);
+  const hi=otParseT(document.getElementById('f-hl-i').value);
+  const hf=otParseT(document.getElementById('f-hl-f').value);
+  const isOT=(hi!==null&&hf!==null)?(crossDay||tImin<hi||tFmin>hf):false;
+  const r={
+    id:Date.now(),fecha,
+    canal:otGetTV('tg-canal'),
+    horaContacto:document.getElementById('f-hora-contacto').value,
+    contacto,cargo:otGetCargo(),
+    cliente,ticket:document.getElementById('f-ticket').value.trim(),
+    categoria:otGetTV('tg-cat'),severidad:otGetTV('tg-sev'),
+    motivo,actividad,
+    causaRaiz:document.getElementById('f-causa').value.trim(),
+    evitable:otGetTV('tg-evitable'),documentacion:otGetTV('tg-doc'),
+    estado,
+    notas:document.getElementById('f-notas').value.trim(),
+    inicio,fin,fechaInicio,fechaFin,durMin:d,
+    horario:document.getElementById('f-hl-i').value+'-'+document.getElementById('f-hl-f').value,
+    isOT
+  };
+  const recs=otLoad();recs.unshift(r);otSave(recs);
+  otUpdateCliList();otClearForm();otToast('Registro guardado ✓');
+}
+
+function otClearForm(){
+  ['f-hora-contacto','f-inicio','f-fin','f-ticket','f-motivo','f-actividad','f-causa','f-notas','f-manual','f-cliente']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
+  const _n=new Date();
+  const _today=_n.toISOString().split('T')[0];
+  const _nowT=String(_n.getHours()).padStart(2,'0')+':'+String(_n.getMinutes()).padStart(2,'0');
+  document.getElementById('f-fecha').value=_today;
+  document.getElementById('f-fecha-inicio').value=_today;
+  document.getElementById('f-fecha-fin').value=_today;
+  document.getElementById('f-fin').value=_nowT;
+  if(document.getElementById('ck-fin').dataset.built)otUpdateHands('ck-fin',_nowT);
+  document.getElementById('f-hl-i').value='08:00';
+  document.getElementById('f-hl-f').value='17:00';
+  document.getElementById('f-contacto-sel').value='';
+  document.getElementById('manual-wrap').classList.remove('show');
+  document.querySelectorAll('.toggle-btn').forEach(b=>
+    b.classList.remove('selected','sel-blue','sel-green','sel-yellow','sel-red','sel-purple'));
+  
+  document.getElementById('dur-display').textContent='— : —';
+  document.getElementById('ot-flag').className='ot-flag inside';
+  document.getElementById('ot-flag').textContent='✓ Dentro de horario';
+}
+
+function otInPeriod(f,p){
+  const d=new Date(f+'T12:00:00'),n=new Date();
+  if(p==='hoy')return f===n.toISOString().split('T')[0];
+  if(p==='semana'){const s=new Date(n);s.setDate(n.getDate()-n.getDay());return d>=s}
+  if(p==='mes')return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear();
+  return true;
+}
+
+function otFmtD(m){return Math.floor(m/60)+'h '+String(m%60).padStart(2,'0')+'m'}
+
+const SEV_C={'🔴 Crítico':'badge-red','🟠 Alto':'badge-yellow','🟡 Medio':'badge-blue','🟢 Bajo':'badge-green'};
+const EST_C={'✅ Resuelto':'badge-green','🔄 En Seguimiento':'badge-blue','⬆ Escalado':'badge-yellow','⏳ Pend. Cliente':'badge-orange'};
+
+function otPopulateCli(){
+  const s=document.getElementById('flt-cli'),cur=s.value;
+  const c=[...new Set(otLoad().map(r=>r.cliente))].sort();
+  s.innerHTML='<option value="">Todos los clientes</option>'+c.map(x=>`<option ${x===cur?'selected':''}>${x}</option>`).join('');
+}
+
+function otFilterRecs(){
+  let r=otLoad();
+  const q=document.getElementById('flt-q').value.toLowerCase();
+  const c=document.getElementById('flt-cli').value;
+  const cat=document.getElementById('flt-cat').value;
+  const per=document.getElementById('flt-per').value;
+  const ot=document.getElementById('flt-ot').checked;
+  if(q)r=r.filter(x=>[x.contacto,x.cliente,x.ticket,x.motivo,x.categoria].some(v=>v&&v.toLowerCase().includes(q)));
+  if(c)r=r.filter(x=>x.cliente===c);
+  if(cat)r=r.filter(x=>x.categoria===cat);
+  if(ot)r=r.filter(x=>x.isOT);
+  if(per)r=r.filter(x=>otInPeriod(x.fecha,per));
+  return r;
+}
+
+function otRenderTable(){
+  const r=otFilterRecs();
+  const tb=document.getElementById('rec-body');
+  if(!r.length){tb.innerHTML='<tr><td colspan="11"><div class="empty"><div class="empty-icon">📭</div><p>Sin registros.</p></div></td></tr>';return}
+  tb.innerHTML=r.map(x=>`<tr>
+    <td class="mono">${x.fecha}</td>
+    <td class="mono">${x.inicio||''}–${x.fin||''}${x.fechaFin&&x.fechaFin!==x.fechaInicio?'<br><span style="font-size:9px;color:var(--red)">+1 día ('+x.fechaFin+')</span>':''}</td>
+    <td><strong>${x.contacto}</strong>${x.cargo?`<br><span style="color:var(--muted);font-size:10px">${x.cargo}</span>`:''}</td>
+    <td>${x.cliente}</td>
+    <td class="mono" style="color:var(--blue)">${x.ticket||'—'}</td>
+    <td><span class="badge badge-gray">${x.categoria||'—'}</span></td>
+    <td>${x.severidad?`<span class="badge ${SEV_C[x.severidad]||'badge-gray'}">${x.severidad.replace(/[🔴🟠🟡🟢]/g,'').trim()}</span>`:'—'}</td>
+    <td class="mono" style="color:var(--accent2)">${otFmtD(x.durMin)}</td>
+    <td>${x.isOT?'<span class="badge badge-red">OT</span>':'<span class="badge badge-green">—</span>'}</td>
+    <td>${x.estado?`<span class="badge ${EST_C[x.estado]||'badge-gray'}">${x.estado.replace(/[✅🔄⬆⏳]/g,'').trim()}</span>`:'—'}</td>
+    <td>
+      <button class="btn btn-ghost btn-sm" onclick="otViewRec(${x.id})" title="Ver detalle">👁</button>
+      <button class="btn btn-secondary btn-sm" onclick="otEditRec(${x.id})" title="Editar">✏</button>
+      <button class="btn btn-danger btn-sm" onclick="otDelRec(${x.id})" title="Eliminar">✕</button>
+    </td>
+  </tr>`).join('');
+}
+
+function otViewRec(id){
+  const x=otLoad().find(r=>r.id===id);if(!x)return;
+  const rows=[
+    ['Fecha',x.fecha],['Canal',x.canal],['Hora Escalamiento',x.horaContacto],
+    ['Contacto',x.contacto],['Cargo',x.cargo],['Cliente',x.cliente],['Ticket',x.ticket],
+    ['Categoría',x.categoria],['Severidad',x.severidad],
+    ['¿Evitable?',x.evitable],['Documentación',x.documentacion],
+    ['Motivo',x.motivo],['Actividad',x.actividad],['Causa Raíz',x.causaRaiz],
+    ['Estado',x.estado],
+    ['Fecha Inicio',x.fechaInicio||x.fecha],['Hora Inicio',x.inicio],
+    ['Fecha Fin',x.fechaFin||x.fecha],['Hora Fin',x.fin],
+    ['Duración',otFmtD(x.durMin)],['Horario Laboral',x.horario],
+    ['Fuera de Horario',x.isOT?'⚡ SÍ':'✓ No'],
+    ['Notas',x.notas]
+  ].filter(([,v])=>v);
+  document.getElementById('mod-content').innerHTML=`
+    <div class="card-title" style="margin-bottom:16px">Detalle del Registro</div>
+    <table style="width:100%">${rows.map(([k,v])=>`
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px 12px;color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;width:160px;white-space:nowrap">${k}</td>
+        <td style="padding:8px 12px;font-size:13px">${v}</td>
+      </tr>`).join('')}</table>`;
+  document.getElementById('mod-det').classList.add('open');
+}
+
+// ── EDIT RECORD ───────────────────────────────────────
+function otEditRec(id){
+  const x=otLoad().find(r=>r.id===id);if(!x)return;
+  const f=document.getElementById('edit-form');
+
+  // Populate all fields
+  f.querySelector('#e-fecha').value=x.fecha||'';
+  f.querySelector('#e-hora-contacto').value=x.horaContacto||'';
+  f.querySelector('#e-contacto').value=x.contacto||'';
+  f.querySelector('#e-cargo').value=x.cargo||'';
+  f.querySelector('#e-cliente').value=x.cliente||'';
+  f.querySelector('#e-ticket').value=x.ticket||'';
+  f.querySelector('#e-motivo').value=x.motivo||'';
+  f.querySelector('#e-actividad').value=x.actividad||'';
+  f.querySelector('#e-causa').value=x.causaRaiz||'';
+  f.querySelector('#e-notas').value=x.notas||'';
+  f.querySelector('#e-fecha-inicio').value=x.fechaInicio||x.fecha||'';
+  f.querySelector('#e-inicio').value=x.inicio||'';
+  f.querySelector('#e-fecha-fin').value=x.fechaFin||x.fecha||'';
+  f.querySelector('#e-fin').value=x.fin||'';
+  f.querySelector('#e-hl-i').value=(x.horario||'08:00-17:00').split('-')[0];
+  f.querySelector('#e-hl-f').value=(x.horario||'08:00-17:00').split('-')[1]||'17:00';
+
+  // Toggles
+  otSetEditToggle('etg-canal', x.canal);
+  otSetEditToggle('etg-cat', x.categoria);
+  otSetEditToggle('etg-sev', x.severidad);
+  otSetEditToggle('etg-evitable', x.evitable);
+  otSetEditToggle('etg-doc', x.documentacion);
+  otSetEditToggle('etg-estado', x.estado);
+
+  document.getElementById('edit-rec-id').value=id;
+  document.getElementById('mod-edit').classList.add('open');
+  calcEditDuration();
+}
+
+function otSetEditToggle(gid, val){
+  document.querySelectorAll('#'+gid+' .toggle-btn').forEach(b=>{
+    b.classList.remove('selected','sel-blue','sel-green','sel-yellow','sel-red','sel-purple');
+    if(b.textContent.trim()===val){
+      b.classList.add('selected');
+      const c=b.getAttribute('data-cls');
+      if(c)b.classList.add(c);
+    }
+  });
+}
+
+
+function otEditToggle(btn,gid,cls){
+  document.querySelectorAll('#'+gid+' .toggle-btn').forEach(b=>
+    b.classList.remove('selected','sel-blue','sel-green','sel-yellow','sel-red','sel-purple'));
+  btn.classList.add('selected',cls);
+}
+function calcEditDuration(){
+  const tI=document.getElementById('e-inicio').value;
+  const tF=document.getElementById('e-fin').value;
+  const dI=document.getElementById('e-fecha-inicio').value;
+  const dF=document.getElementById('e-fecha-fin').value;
+  const disp=document.getElementById('e-dur-display');
+  if(!tI||!tF||!dI||!dF){disp.textContent='— : —';return}
+  const dtI=new Date(dI+'T'+tI+':00');
+  const dtF=new Date(dF+'T'+tF+':00');
+  if(isNaN(dtI)||isNaN(dtF)){disp.textContent='— : —';return}
+  const d=Math.round((dtF-dtI)/60000);
+  if(d<0){disp.textContent='⚠ Fin anterior al inicio';return}
+  const dias=Math.floor(d/1440),hrs=Math.floor((d%1440)/60),min=d%60;
+  disp.textContent=(dias>0?dias+'d ':'')+hrs+'h '+String(min).padStart(2,'0')+'m';
+}
+
+function otSaveEdit(){
+  const id=parseInt(document.getElementById('edit-rec-id').value);
+  const records=otLoad();
+  const idx=records.findIndex(r=>r.id===id);
+  if(idx===-1)return;
+  const x=records[idx];
+
+  const inicio=document.getElementById('e-inicio').value;
+  const fin=document.getElementById('e-fin').value;
+  const fechaInicio=document.getElementById('e-fecha-inicio').value;
+  const fechaFin=document.getElementById('e-fecha-fin').value;
+  const hlI=document.getElementById('e-hl-i').value;
+  const hlF=document.getElementById('e-hl-f').value;
+
+  let durMin=x.durMin;
+  let isOT=x.isOT;
+  if(inicio&&fin&&fechaInicio&&fechaFin){
+    const dtI=new Date(fechaInicio+'T'+inicio+':00');
+    const dtF=new Date(fechaFin+'T'+fin+':00');
+    durMin=Math.round((dtF-dtI)/60000);
+    if(durMin<0){alert('La hora/fecha de fin es anterior al inicio.');return}
+    const tIm=otParseT(inicio),tFm=otParseT(fin);
+    const hiM=otParseT(hlI),hfM=otParseT(hlF);
+    const crossDay=fechaFin!==fechaInicio;
+    isOT=crossDay||(hiM!==null&&hfM!==null&&(tIm<hiM||tFm>hfM));
+  }
+
+  records[idx]={
+    ...x,
+    fecha:document.getElementById('e-fecha').value||x.fecha,
+    horaContacto:document.getElementById('e-hora-contacto').value,
+    contacto:document.getElementById('e-contacto').value.trim()||x.contacto,
+    cargo:document.getElementById('e-cargo').value.trim(),
+    cliente:document.getElementById('e-cliente').value.trim()||x.cliente,
+    ticket:document.getElementById('e-ticket').value.trim(),
+    canal:otGetEditToggle('etg-canal')||x.canal,
+    categoria:otGetEditToggle('etg-cat')||x.categoria,
+    severidad:otGetEditToggle('etg-sev')||x.severidad,
+    evitable:otGetEditToggle('etg-evitable'),
+    documentacion:otGetEditToggle('etg-doc'),
+    motivo:document.getElementById('e-motivo').value.trim()||x.motivo,
+    actividad:document.getElementById('e-actividad').value.trim()||x.actividad,
+    causaRaiz:document.getElementById('e-causa').value.trim(),
+    estado:otGetEditToggle('etg-estado')||x.estado,
+    notas:document.getElementById('e-notas').value.trim(),
+    inicio,fin,fechaInicio,fechaFin,durMin,isOT,
+    horario:hlI+'-'+hlF,
+  };
+  otSave(records);
+  otCloseModal('mod-edit');
+  otRenderTable();
+  otToast('Registro actualizado ✓');
+}
+
+function otGetEditToggle(gid){
+  const b=document.querySelector('#'+gid+' .toggle-btn.selected');
+  return b?b.textContent.trim():'';
+}
+
+function otDelRec(id){
+  if(!confirm('¿Eliminar este registro?'))return;
+  otSave(otLoad().filter(r=>r.id!==id));otRenderTable();otToast('Eliminado');
+}
+function otCloseModal(id){document.getElementById(id).classList.remove('open')}
+
+function otRenderDash(){
+  const per=document.getElementById('dash-per').value;
+  let r=otLoad();if(per!=='todo')r=r.filter(x=>otInPeriod(x.fecha,per));
+  const tot=r.reduce((s,x)=>s+x.durMin,0);
+  const otR=r.filter(x=>x.isOT);
+  const otT=otR.reduce((s,x)=>s+x.durMin,0);
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Registros</div><div class="stat-value stat-blue">${r.length}</div><div class="stat-sub">intervenciones</div></div>
+    <div class="stat-card"><div class="stat-label">Total Horas</div><div class="stat-value stat-accent">${otFmtD(tot)}</div><div class="stat-sub">tiempo trabajado</div></div>
+    <div class="stat-card"><div class="stat-label">Horas Extra (OT)</div><div class="stat-value stat-green">${otFmtD(otT)}</div><div class="stat-sub">${otR.length} eventos OT</div></div>
+    <div class="stat-card"><div class="stat-label">Pendientes</div><div class="stat-value stat-purple">${r.filter(x=>x.estado==='⏳ Pend. Cliente'||x.estado==='🔄 En Seguimiento').length}</div><div class="stat-sub">en seguimiento</div></div>`;
+  const CL=['#58a6ff','#3fb950','#f78166','#bc8cff','#d29922','#ff9500','#f85149','#7d8590'];
+  function barChart(cid,data){
+    const max=Math.max(...Object.values(data),1);
+    document.getElementById(cid).innerHTML=Object.entries(data).sort((a,b)=>b[1]-a[1])
+      .map(([k,v],i)=>`<div class="bar-row">
+        <div class="bar-label" title="${k}">${k.replace(/[🔴🟠🟡🟢✅🔄⬆⏳]/g,'').trim()}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(v/max*100).toFixed(1)}%;background:${CL[i%CL.length]}"></div></div>
+        <div class="bar-count">${v}</div></div>`).join('')||'<div style="color:var(--muted);font-size:12px;padding:8px">Sin datos</div>';
+  }
+  const cnt=(arr,k)=>arr.reduce((a,x)=>{if(x[k])a[x[k]]=(a[x[k]]||0)+1;return a},{});
+  barChart('ch-cat',cnt(r,'categoria'));
+  barChart('ch-cli',cnt(r,'cliente'));
+  barChart('ch-sev',cnt(r,'severidad'));
+  barChart('ch-est',cnt(r,'estado'));
+  const pend=r.filter(x=>x.estado&&x.estado!=='✅ Resuelto');
+  document.getElementById('dash-pend').innerHTML=pend.length?`<div class="table-wrap"><table>
+    <thead><tr><th>Fecha</th><th>Cliente</th><th>Contacto</th><th>Ticket</th><th>Cat.</th><th>Estado</th></tr></thead>
+    <tbody>${pend.map(x=>`<tr>
+      <td class="mono">${x.fecha}</td><td>${x.cliente}</td><td>${x.contacto}</td>
+      <td class="mono" style="color:var(--blue)">${x.ticket||'—'}</td>
+      <td><span class="badge badge-gray">${x.categoria||'—'}</span></td>
+      <td>${x.estado?`<span class="badge ${EST_C[x.estado]||'badge-gray'}">${x.estado.replace(/[✅🔄⬆⏳]/g,'').trim()}</span>`:'—'}</td>
+    </tr>`).join('')}</tbody></table></div>`
+  :'<div class="empty"><div class="empty-icon">✅</div><p>Sin pendientes.</p></div>';
+}
+
+function otOpenExport(){document.getElementById('mod-exp').classList.add('open')}
+function otGetExpR(){const p=document.getElementById('exp-per').value;let r=otLoad();return p==='todo'?r:r.filter(x=>otInPeriod(x.fecha,p))}
+
+function otExpCSV(){
+  const r=otGetExpR();
+  const H=['Fecha','Canal','Hora Contacto','Contacto','Cargo','Cliente','Ticket','Categoría','Severidad','Motivo','Actividad','Causa Raíz','Evitable','Documentación','Estado','Fecha Inicio','Hora Inicio','Fecha Fin','Hora Fin','Duración (min)','Fuera Horario','Notas'];
+  const rows=r.map(x=>[x.fecha,x.canal,x.horaContacto,x.contacto,x.cargo,x.cliente,x.ticket,x.categoria,x.severidad,
+    `"${(x.motivo||'').replace(/"/g,'""')}"`,`"${(x.actividad||'').replace(/"/g,'""')}"`,
+    x.causaRaiz,x.evitable,x.documentacion,x.estado,
+    x.fecha,x.inicio,(x.fechaFin||x.fecha),x.fin,x.durMin,x.isOT?'Sí':'No',`"${(x.notas||'').replace(/"/g,'""')}"`].join(','));
+  otDl('ot_registros.csv','\uFEFF'+[H.join(','),...rows].join('\n'),'text/csv');
+  otCloseModal('mod-exp');
+}
+
+function otExpHTML(){
+  const r=otGetExpR();
+  const tot=r.reduce((s,x)=>s+x.durMin,0);
+  const h=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>OT Reporte</title>
+<style>body{font-family:system-ui,sans-serif;font-size:12px;padding:24px}h1{font-size:18px;margin-bottom:4px}
+.meta{color:#666;font-size:11px;margin-bottom:16px}.stats{display:flex;gap:12px;margin-bottom:16px}
+.stat{background:#f4f4f4;padding:8px 14px;border-radius:6px}.stat .v{font-size:18px;font-weight:700}
+.stat .l{font-size:10px;color:#888;text-transform:uppercase}table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:#1a1a2e;color:#fff;padding:6px 8px;text-align:left}td{padding:5px 8px;border-bottom:1px solid #eee}
+tr:nth-child(even){background:#fafafa}.ot{background:#fff0ee;font-weight:700}</style></head><body>
+<h1>OT Tracker — Reporte</h1>
+<div class="meta">Generado: ${new Date().toLocaleString('es')} · ${r.length} registros</div>
+<div class="stats">
+  <div class="stat"><div class="v">${r.length}</div><div class="l">Registros</div></div>
+  <div class="stat"><div class="v">${otFmtD(tot)}</div><div class="l">Total</div></div>
+  <div class="stat"><div class="v">${otFmtD(r.filter(x=>x.isOT).reduce((s,x)=>s+x.durMin,0))}</div><div class="l">OT</div></div>
+</div>
+<table><thead><tr><th>Fecha</th><th>Contacto</th><th>Cliente</th><th>Ticket</th><th>Categoría</th><th>Motivo</th><th>Inicio</th><th>Fin</th><th>Duración</th><th>OT</th><th>Estado</th></tr></thead>
+<tbody>${r.map(x=>`<tr class="${x.isOT?'ot':''}"><td>${x.fecha}</td><td>${x.contacto}${x.cargo?` (${x.cargo})`:''}</td>
+<td>${x.cliente}</td><td>${x.ticket||'—'}</td><td>${x.categoria||'—'}</td><td>${x.motivo}</td>
+<td>${x.inicio}</td><td>${x.fin}</td><td>${otFmtD(x.durMin)}</td>
+<td>${x.isOT?'⚡ OT':''}</td><td>${(x.estado||'—').replace(/[✅🔄⬆⏳]/g,'').trim()}</td></tr>`).join('')}
+</tbody></table></body></html>`;
+  otDl('ot_reporte.html',h,'text/html');otCloseModal('mod-exp');
+}
+
+function otExpPDF(){
+  const r=otGetExpR();
+  const tot=r.reduce((s,x)=>s+x.durMin,0);
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>@page{size:A4 landscape;margin:12mm}body{font-family:system-ui,sans-serif;font-size:9px}
+h1{font-size:14px;margin-bottom:2px}.meta{color:#666;font-size:8px;margin-bottom:10px}
+.stats{display:flex;gap:10px;margin-bottom:12px}.stat{background:#f4f4f4;padding:6px 10px;border-radius:4px}
+.stat .v{font-size:14px;font-weight:700}.stat .l{font-size:8px;color:#888;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;font-size:8px}
+th{background:#1a1a2e;color:#fff;padding:4px 5px;text-align:left}
+td{padding:3px 5px;border-bottom:1px solid #ddd}tr:nth-child(even){background:#f8f8f8}
+.ot{background:#fff0ee!important}</style></head><body>
+<h1>OT Tracker — Reporte</h1>
+<div class="meta">Generado: ${new Date().toLocaleString('es')} · ${r.length} registros</div>
+<div class="stats">
+  <div class="stat"><div class="v">${r.length}</div><div class="l">Registros</div></div>
+  <div class="stat"><div class="v">${otFmtD(tot)}</div><div class="l">Total</div></div>
+  <div class="stat"><div class="v">${otFmtD(r.filter(x=>x.isOT).reduce((s,x)=>s+x.durMin,0))}</div><div class="l">OT</div></div>
+</div>
+<table><thead><tr><th>Fecha</th><th>Contacto</th><th>Cargo</th><th>Cliente</th><th>Ticket</th><th>Cat.</th><th>Sev.</th><th>Motivo</th><th>Inicio</th><th>Fin</th><th>Dur.</th><th>OT</th><th>Estado</th><th>Evitable</th></tr></thead>
+<tbody>${r.map(x=>`<tr class="${x.isOT?'ot':''}"><td>${x.fecha}</td><td>${x.contacto}</td><td>${x.cargo||'—'}</td>
+<td>${x.cliente}</td><td>${x.ticket||'—'}</td><td>${x.categoria||'—'}</td>
+<td>${(x.severidad||'—').replace(/[🔴🟠🟡🟢]/g,'').trim()}</td>
+<td style="max-width:90px">${x.motivo}</td><td>${x.inicio}</td><td>${x.fin}</td>
+<td>${otFmtD(x.durMin)}</td><td>${x.isOT?'OT':''}</td>
+<td>${(x.estado||'—').replace(/[✅🔄⬆⏳]/g,'').trim()}</td><td>${x.evitable||'—'}</td></tr>`).join('')}
+</tbody></table><script>window.onload=()=>{window.print()}<\/script></body></html>`);
+  w.document.close();otCloseModal('mod-exp');
+}
+
+function otDl(name,content,type){
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([content],{type})),download:name});
+  a.click();
+}
+
+function otToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--green);color:var(--green);padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;z-index:999';
+  t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);
+}
+
+function otUpdateCliList(){
+  const c=[...new Set(otLoad().map(r=>r.cliente))].sort();
+  document.getElementById('cli-list').innerHTML=c.map(x=>`<option value="${x}">`).join('');
+}
+
+
+
+function otInit(){
+  const n=new Date();
+  const today=n.toISOString().split('T')[0];
+  const nowT=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('f-fecha').value=today;
+  document.getElementById('f-fecha-inicio').value=today;
+  document.getElementById('f-fecha-fin').value=today;
+  document.getElementById('f-fin').value=nowT;
+otUpdateCliList();
+
+function otInit(){
+  const n=new Date();
+  const today=n.toISOString().split('T')[0];
+  const nowT=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  const fd=document.getElementById('f-fecha');
+  if(fd&&!fd.value) fd.value=today;
+  const ffi=document.getElementById('f-fecha-inicio');
+  if(ffi&&!ffi.value) ffi.value=today;
+  const fff=document.getElementById('f-fecha-fin');
+  if(fff&&!fff.value) fff.value=today;
+  const ff=document.getElementById('f-fin');
+  if(ff&&!ff.value) ff.value=nowT;
+  otUpdateCliList();
+  document.querySelectorAll('.modal-overlay').forEach(m=>
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+}
+
+function otNav(id,el){
+  document.querySelectorAll('.ot-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ot-nav-btn').forEach(t=>{
+    t.style.color='#6a7099';
+    t.style.borderBottom='2px solid transparent';
+  });
+  const panel=document.getElementById('ot-sec-'+id);
+  if(panel) panel.classList.add('active');
+  if(el){el.style.color='#fff';el.style.borderBottom='2px solid #7c83d6';}
+  if(id==='registros'){otPopulateCli();otRenderTable();}
+  if(id==='dashboard') otRenderDash();
+}
+
 </script>
 </body>
 </html>
