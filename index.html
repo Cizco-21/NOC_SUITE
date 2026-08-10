@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOC Suite V7.2</title>
+<title>NOC Suite V7.4</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 /* ══ CSS VARIABLES — light & dark ══ */
@@ -515,11 +515,16 @@ select option{background:var(--surface)}
 .toggle-btn{padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;font-family:var(--sans)}
 .toggle-btn:hover{border-color:var(--blue);color:var(--text)}
 .toggle-btn.selected{font-weight:600}
-.sel-blue{background:var(--blue);border-color:var(--blue);color:#fff!important}
-.sel-green{background:var(--green);border-color:var(--green);color:#000!important}
-.sel-yellow{background:var(--yellow);border-color:var(--yellow);color:#000!important}
-.sel-red{background:var(--red);border-color:var(--red);color:#fff!important}
-.sel-purple{background:var(--purple);border-color:var(--purple);color:#000!important}
+.sel-blue{background:#3f51b5;border-color:#3f51b5;color:#fff!important}
+.sel-green{background:#2e7d32;border-color:#2e7d32;color:#fff!important}
+.sel-yellow{background:#e65100;border-color:#e65100;color:#fff!important}
+.sel-red{background:#c62828;border-color:#c62828;color:#fff!important}
+.sel-purple{background:#6a1b9a;border-color:#6a1b9a;color:#fff!important}
+.dark .ot-app .sel-blue,.dark .sel-blue{background:#58a6ff;border-color:#58a6ff;color:#000!important}
+.dark .ot-app .sel-green,.dark .sel-green{background:#3fb950;border-color:#3fb950;color:#000!important}
+.dark .ot-app .sel-yellow,.dark .sel-yellow{background:#d29922;border-color:#d29922;color:#000!important}
+.dark .ot-app .sel-red,.dark .sel-red{background:#f85149;border-color:#f85149;color:#fff!important}
+.dark .ot-app .sel-purple,.dark .sel-purple{background:#bc8cff;border-color:#bc8cff;color:#000!important}
 /* CHECK */
 .check-field{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:border-color .15s}
 .check-field:hover{border-color:var(--blue)}
@@ -533,10 +538,11 @@ select option{background:var(--surface)}
 .duration-display{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--accent2);padding:8px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;min-height:38px;display:flex;align-items:center}
 /* BUTTONS */
 .btn{padding:8px 18px;border-radius:6px;border:none;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#ff6b52}
-.btn-secondary{background:var(--border2);color:var(--text)}.btn-secondary:hover{background:var(--border)}
-.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}.btn-ghost:hover{color:var(--text);border-color:var(--border)}
-.btn-danger{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}.btn-danger:hover{background:rgba(248,81,73,.25)}
+.btn-primary{background:#f78166;color:#fff;border:none}.btn-primary:hover{background:#ff5533}
+.btn-secondary{background:var(--border2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{filter:brightness(.92)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}.btn-ghost:hover{color:var(--text);border-color:var(--border)}
+.btn-danger{background:rgba(198,40,40,.12);color:#c62828;border:1px solid rgba(198,40,40,.35)}.btn-danger:hover{background:rgba(198,40,40,.22)}
+.dark .btn-danger{color:#f85149;background:rgba(248,81,73,.15);border-color:rgba(248,81,73,.35)}.dark .btn-danger:hover{background:rgba(248,81,73,.25)}
 .btn-sm{padding:5px 10px;font-size:11px}
 .form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:4px;padding-top:10px;border-top:1px solid var(--border)}
 /* MANUAL CONTACT */
@@ -613,6 +619,37 @@ tbody td{padding:10px 12px;vertical-align:middle}
 
 .ot-app .ot-section{display:none}.ot-app .ot-section.active{display:block}
 
+
+/* OT section show/hide */
+.ot-section{display:none !important}
+.ot-section.active{display:block !important}
+
+/* OT clock popup simple style */
+.ot-app .clock-popup,.clock-popup{
+  background:#1a1a2e;border:1px solid #2a3050;
+}
+.dark .ot-app .clock-popup,.dark .clock-popup{
+  background:#0a0c18;
+}
+
+/* Crono modal toggle buttons */
+#mod-crono-start .toggle-btn,
+#mod-crono-stop .toggle-btn{
+  padding:5px 13px;border-radius:20px;
+  border:1px solid #30363d;
+  background:#161b22;
+  color:#8b949e;
+  font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;
+}
+#mod-crono-start .toggle-btn:hover,
+#mod-crono-stop .toggle-btn:hover{
+  border-color:#58a6ff;color:#e6edf3;
+}
+#mod-crono-start .sel-blue,#mod-crono-stop .sel-blue{background:#3f51b5;border-color:#3f51b5;color:#fff!important}
+#mod-crono-start .sel-green,#mod-crono-stop .sel-green{background:#2e7d32;border-color:#2e7d32;color:#fff!important}
+#mod-crono-start .sel-yellow,#mod-crono-stop .sel-yellow{background:#e65100;border-color:#e65100;color:#fff!important}
+#mod-crono-start .sel-red,#mod-crono-stop .sel-red{background:#c62828;border-color:#c62828;color:#fff!important}
+#mod-crono-start .sel-purple,#mod-crono-stop .sel-purple{background:#6a1b9a;border-color:#6a1b9a;color:#fff!important}
 </style>
 </head>
 <body>
@@ -660,9 +697,8 @@ tbody td{padding:10px 12px;vertical-align:middle}
   <div class="app-tab" id="tab-ot" onclick="switchTab('ot')">
     <i class="ti ti-clock-bolt"></i> OT Tracker
   </div>
-  <div class="app-tab" id="tab-sesiones" onclick="switchTab('sesiones')" style="position:relative;">
+  <div class="app-tab" id="tab-sesiones" onclick="switchTab('sesiones')">
     <i class="ti ti-notes"></i> Sesiones
-    <span style="font-size:9px;background:#f57f17;color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px;font-weight:bold;letter-spacing:.03em;">BETA</span>
   </div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:10px;padding:0 10px;">
     <!-- Global Search -->
@@ -1207,7 +1243,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
 <div class="topbar" id="ses-topbar">
   <i class="ti ti-notes" style="color:#ffd54f;"></i>
   <span id="ses-topbar-title">Sesiones</span>
-  <span style="font-size:9px;background:#f57f17;color:#fff;padding:2px 7px;border-radius:8px;font-weight:bold;margin-left:4px;">BETA</span>
   <span id="ses-crisis-badge" style="display:none;background:#c62828;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;margin-left:8px;">
     &#x1F6A8; CRISIS ROOM &mdash; <span id="ses-crisis-timer">00:00:00</span>
   </span>
@@ -1344,11 +1379,8 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
       <div style="margin-top:6px;padding-top:5px;border-top:1px solid var(--border3);">
         <div style="font-size:10px;font-weight:bold;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">Plantillas</div>
         <div style="display:flex;flex-wrap:wrap;gap:3px;">
-          <button onclick="sesCreateFromTemplate('bridge')" class="ses-tpl-btn">&#x1F309; Bridge</button>
-          <button onclick="sesCreateFromTemplate('handoff')" class="ses-tpl-btn">&#x1F91D; Handoff</button>
           <button onclick="sesCreateFromTemplate('reunion')" class="ses-tpl-btn">&#x1F4C5; Reuni&#xF3;n</button>
           <button onclick="sesCreateFromTemplate('incidente')" class="ses-tpl-btn">&#x1F6A8; Incidente</button>
-          <button onclick="sesCreateFromTemplate('postmortem')" class="ses-tpl-btn">&#x1F50D; Post-mortem</button>
         </div>
       </div>
     </div>
@@ -1363,7 +1395,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
       <div style="font-size:14px;color:var(--text2);">Selecciona o crea una sesi&#xF3;n</div>
       <div style="font-size:12px;color:var(--text3);">Usa las plantillas del sidebar para empezar r&#xE1;pido</div>
       <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
-        <button onclick="sesCreateFromTemplate('bridge')" class="btn btn-red"><i class="ti ti-alert-triangle"></i> Nuevo Bridge</button>
         <button onclick="sesCreate()" class="btn btn-blue"><i class="ti ti-plus"></i> Sesi&#xF3;n en blanco</button>
       </div>
     </div>
@@ -1379,9 +1410,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
             <option value="reunion">&#x1F4C5; Reuni&#xF3;n</option>
             <option value="incidente">&#x1F6A8; Incidente</option>
             <option value="capacitacion">&#x1F4DA; Capacitaci&#xF3;n</option>
-            <option value="bridge">&#x1F309; Bridge</option>
-            <option value="handoff">&#x1F91D; Handoff</option>
-            <option value="postmortem">&#x1F50D; Post-mortem</option>
             <option value="otro">&#x1F4CC; Otro</option>
           </select>
           <input type="date" id="ses-date" class="ses-select" onchange="sesUpdateMeta()">
@@ -1492,7 +1520,17 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
       style="padding:10px 18px;font-size:12px;font-weight:bold;color:#6a7099;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:6px;transition:color .15s,border-color .15s;user-select:none;">
       <i class="ti ti-chart-bar"></i> Dashboard
     </div>
-    <div style="margin-left:auto;">
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px;padding-right:4px;">
+      <div id="ot-crono-badge" style="display:none;align-items:center;gap:8px;background:rgba(198,40,40,.2);border:1px solid rgba(198,40,40,.5);border-radius:6px;padding:5px 12px;">
+        <span style="color:#f85149;font-size:11px;font-weight:700;">⏱ OT ACTIVO</span>
+        <span id="ot-crono-display" style="font-family:monospace;font-size:14px;font-weight:700;color:#fff;min-width:64px;">00:00:00</span>
+        <button onclick="otCronoStop()" style="background:#c62828;border:none;color:#fff;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;">
+          ⏹ Cerrar OT
+        </button>
+      </div>
+      <button id="ot-crono-start-btn" onclick="otCronoOpen()" style="background:rgba(46,125,80,.2);border:1px solid rgba(46,125,80,.5);color:#3fb950;border-radius:6px;padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;">
+        <i class="ti ti-player-play"></i> Iniciar OT
+      </button>
       <button onclick="otOpenExport()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#9ea8cc;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:inherit;">
         <i class="ti ti-download"></i> Exportar
       </button>
@@ -1570,11 +1608,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
         </div>
       </div>
 
-      <div class="field span-2">
-        <label>Cliente / Sitio <span class="req">*</span></label>
-        <input type="text" id="f-cliente" placeholder="Nombre del cliente o sitio" list="cli-list">
-        <datalist id="cli-list"></datalist>
-      </div>
 
       <div class="field">
         <label>Número de Ticket</label>
@@ -1698,20 +1731,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
         <textarea id="f-actividad" placeholder="Qué se hizo para resolver o atender el caso…"></textarea>
       </div>
 
-      <div class="field span-2">
-        <label>Causa Raíz</label>
-        <input type="text" id="f-causa" list="causa-list" placeholder="Seleccionar o escribir…">
-        <datalist id="causa-list">
-          <option value="Configuración incorrecta">
-          <option value="Falla de hardware">
-          <option value="Error de usuario">
-          <option value="Proveedor externo">
-          <option value="Cambio no controlado">
-          <option value="Falla de software/firmware">
-          <option value="Problema de red externa">
-          <option value="En investigación">
-        </datalist>
-      </div>
 
       <div class="field span-2">
         <label>Estado de Resolución <span class="req">*</span></label>
@@ -1724,10 +1743,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
         </div>
       </div>
 
-      <div class="field span-4">
-        <label>Notas de Cierre</label>
-        <textarea id="f-notas" placeholder="Observaciones, pasos pendientes, contexto para seguimiento…"></textarea>
-      </div>
 
     </div>
   </div>
@@ -1750,7 +1765,6 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
 <div id="ot-sec-registros" class="ot-section">
   <div class="filter-bar">
     <input type="text" id="flt-q" placeholder="🔍 Buscar…" oninput="otRenderTable()" style="width:200px">
-    <select id="flt-cli" onchange="otRenderTable()"><option value="">Todos los clientes</option></select>
     <select id="flt-cat" onchange="otRenderTable()">
       <option value="">Todas las categorías</option>
       <option>Firewall</option><option>VERSA</option><option>Conectividad</option>
@@ -1766,7 +1780,7 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>Fecha</th><th>Hora</th><th>Contacto</th><th>Cliente</th><th>Ticket</th>
+          <th>Fecha</th><th>Hora</th><th>Contacto</th><th>Ticket</th>
           <th>Categoría</th><th>Sev.</th><th>Duración</th><th>OT</th><th>Estado</th><th></th>
         </tr></thead>
         <tbody id="rec-body"></tbody>
@@ -1820,6 +1834,142 @@ Ejemplo JSON: [{"number":"INC001","opened_at":"2026-05-10","state":"In Progress"
       <button class="btn btn-secondary" onclick="otExpCSV()">📊 CSV</button>
       <button class="btn btn-secondary" onclick="otExpHTML()">🖨 HTML</button>
       <button class="btn btn-secondary" onclick="otExpPDF()">📄 PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL INICIAR OT -->
+<div class="modal-overlay" id="mod-crono-start" style="z-index:9999">
+  <div style="background:#1a1a2e;border:1px solid #2a3050;border-radius:12px;width:90%;max-width:460px;padding:24px;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="otCloseModal('mod-crono-start')" style="position:absolute;top:12px;right:12px;background:transparent;border:none;color:#9ea8cc;font-size:20px;cursor:pointer;line-height:1;">✕</button>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#3fb950;margin-bottom:12px;">⏱ Iniciar Registro de Hora Extra</div>
+    <p style="font-size:12px;color:#9ea8cc;margin-bottom:16px;">Completa lo esencial para arrancar. Al detener el cronómetro podrás llenar el resto.</p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Canal de Entrada <span style="color:#f78166">*</span></div>
+        <div id="crono-tg-canal" class="toggle-group">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-canal','sel-blue')">📞 Llamada</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-canal','sel-blue')">💬 Mensaje</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-canal','sel-blue')">📧 Correo</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-canal','sel-blue')">🎟 Ticket</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Quién Contactó <span style="color:#f78166">*</span></div>
+        <select id="crono-contacto-sel" onchange="otCronoContactChange()" style="background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;padding:7px 10px;width:100%;font-size:13px;">
+          <option value="">— Seleccionar —</option>
+          <optgroup label="L1">
+            <option value="Luis Melara|L1">Luis Melara — L1</option>
+            <option value="Yanira Hernández|L1">Yanira Hernández — L1</option>
+            <option value="Ingrid Cerón|L1">Ingrid Cerón — L1</option>
+            <option value="Cruz Casco|L1">Cruz Casco — L1</option>
+            <option value="Fredis Bran|L1">Fredis Bran — L1</option>
+            <option value="Blanca Ibarra|L1">Blanca Ibarra — L1</option>
+            <option value="Christian Avalos|L1">Christian Avalos — L1</option>
+            <option value="Jaime Lemus|L1">Jaime Lemus — L1</option>
+            <option value="Walter Garcia|L1">Walter Garcia — L1</option>
+          </optgroup>
+          <optgroup label="L2">
+            <option value="Jose Santos|L2">Jose Santos — L2</option>
+            <option value="Octavio Torres|L2">Octavio Torres — L2</option>
+          </optgroup>
+          <optgroup label="Jefatura">
+            <option value="Carlos Diaz|Jefatura">Carlos Diaz — Jefatura</option>
+            <option value="Cesar Martinez|Jefatura">Cesar Martinez — Jefatura</option>
+            <option value="Robin Aguilar|Jefatura">Robin Aguilar — Jefatura</option>
+            <option value="Marco Cienfuegos|Jefatura">Marco Cienfuegos — Jefatura</option>
+            <option value="Vanessa Blanco|Jefatura">Vanessa Blanco — Jefatura</option>
+          </optgroup>
+          <option value="__manual__">✏ Ingresar manualmente…</option>
+        </select>
+        <div id="crono-manual-wrap" style="display:none;margin-top:6px;">
+          <input type="text" id="crono-manual" placeholder="Nombre — Cargo" style="background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;padding:7px 10px;width:100%;font-size:13px;">
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Categoría <span style="color:#f78166">*</span></div>
+        <div id="crono-tg-cat" class="toggle-group">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">Firewall</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">VERSA</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">Conectividad</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">MPLS</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">Orientación</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">DNS</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">VPN</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-cat','sel-blue')">Otro</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:14px;border-top:1px solid #2a3050;">
+      <button onclick="otCloseModal('mod-crono-start')" style="background:transparent;border:1px solid #30363d;color:#9ea8cc;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;">Cancelar</button>
+      <button onclick="otCronoConfirmStart()" style="background:#3fb950;border:none;color:#000;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
+        <i class="ti ti-player-play"></i> Arrancar cronómetro
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CERRAR OT -->
+<div class="modal-overlay" id="mod-crono-stop" style="z-index:9999">
+  <div style="background:#1a1a2e;border:1px solid #2a3050;border-radius:12px;width:90%;max-width:640px;padding:24px;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="otCronoCancelStop()" style="position:absolute;top:12px;right:12px;background:transparent;border:none;color:#9ea8cc;font-size:20px;cursor:pointer;line-height:1;">✕</button>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f78166;margin-bottom:4px;">⏹ Cerrar Registro OT</div>
+    <p id="crono-stop-summary" style="font-size:12px;color:#9ea8cc;margin-bottom:16px;font-family:monospace;"></p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Número de Ticket</div>
+        <input type="text" id="crono-ticket" placeholder="INC-0000 / REQ-0000" style="background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;padding:7px 10px;width:100%;font-size:13px;font-family:monospace;">
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Severidad</div>
+        <div id="crono-tg-sev" class="toggle-group">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-sev','sel-red')">🔴 Crítico</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-sev','sel-yellow')">🟠 Alto</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-sev','sel-green')">🟡 Medio</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-sev','sel-purple')">🟢 Bajo</button>
+        </div>
+      </div>
+      <div style="grid-column:span 2">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Motivo del Contacto <span style="color:#f78166">*</span></div>
+        <textarea id="crono-motivo" placeholder="Descripción breve del problema…" style="background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;padding:7px 10px;width:100%;font-size:13px;min-height:54px;resize:vertical;"></textarea>
+      </div>
+      <div style="grid-column:span 2">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Actividad Realizada <span style="color:#f78166">*</span></div>
+        <textarea id="crono-actividad" placeholder="Qué se hizo para resolver…" style="background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;padding:7px 10px;width:100%;font-size:13px;min-height:54px;resize:vertical;"></textarea>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">¿El escalamiento era evitable?</div>
+        <div id="crono-tg-evitable" class="toggle-group">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-evitable','sel-red')">Sí</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-evitable','sel-yellow')">Parcialmente</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-evitable','sel-green')">No</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">¿Documentación Antes?</div>
+        <div id="crono-tg-doc" class="toggle-group">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-doc','sel-green')">Sí</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-doc','sel-red')">No</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-doc','sel-purple')">N/A</button>
+        </div>
+      </div>
+      <div style="grid-column:span 2">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#9ea8cc;margin-bottom:6px;">Estado de Resolución <span style="color:#f78166">*</span></div>
+        <div id="crono-tg-estado" class="toggle-group">
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-estado','sel-green')">✅ Resuelto</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-estado','sel-blue')">🔄 En Seguimiento</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-estado','sel-yellow')">⬆ Escalado</button>
+          <button class="toggle-btn" onclick="otToggleSelect(this,'crono-tg-estado','sel-red')">⏳ Pend. Cliente</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:14px;border-top:1px solid #2a3050;">
+      <button onclick="otCronoCancelStop()" style="background:transparent;border:1px solid #30363d;color:#9ea8cc;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;">← Seguir cronómetro</button>
+      <button onclick="otCronoSave()" style="background:#f78166;border:none;color:#fff;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
+        <i class="ti ti-device-floppy"></i> Guardar Registro
+      </button>
     </div>
   </div>
 </div>
@@ -3211,71 +3361,26 @@ const SES_TYPE = {
 
 /* ── Session templates ── */
 const SES_TEMPLATES = {
-  bridge: {
-    title: 'Bridge de Incidente', tag: 'bridge',
-    items: [
-      {type:'critico', text:'🌉 APERTURA DE BRIDGE — Incidente: [descripción]'},
-      {type:'nota',    text:'Participantes: [lista de participantes]'},
-      {type:'nota',    text:'Servicios afectados: [lista]'},
-      {type:'nota',    text:'Impacto estimado: [clientes / criticidad]'},
-      {type:'accion',  text:'[ACCIÓN] Identificar causa raíz'},
-      {type:'accion',  text:'[ACCIÓN] Notificar a clientes afectados'},
-      {type:'nota',    text:'— ACTUALIZACIONES —'},
-      {type:'nota',    text:'— CIERRE —'},
-      {type:'decision',text:'Resolución aplicada: [descripción]'},
-      {type:'nota',    text:'Servicio restablecido: ✅ [hora]'},
-    ]
-  },
-  handoff: {
-    title: 'Handoff de Turno', tag: 'handoff',
-    items: [
-      {type:'nota',    text:'🤝 INICIO DE HANDOFF'},
-      {type:'nota',    text:'Turno saliente: [nombre] | Turno entrante: [nombre]'},
-      {type:'nota',    text:'Tickets activos al momento del handoff:'},
-      {type:'nota',    text:'Tickets cerrados en el turno:'},
-      {type:'riesgo',  text:'Pendientes / Seguimiento requerido:'},
-      {type:'accion',  text:'[ACCIÓN] Monitorear ticket [ID]'},
-      {type:'decision',text:'Compromisos adquiridos:'},
-      {type:'nota',    text:'Notas adicionales para el siguiente turno:'},
-    ]
-  },
   reunion: {
     title: 'Reunión de Equipo', tag: 'reunion',
     items: [
-      {type:'nota',    text:'📅 APERTURA DE REUNIÓN — Objetivo: [objetivo]'},
+      {type:'nota',    text:'📅 REUNIÓN — [objetivo]  |  [fecha]'},
       {type:'nota',    text:'Asistentes: [nombres]'},
-      {type:'nota',    text:'Punto 1: [tema]'},
-      {type:'nota',    text:'Punto 2: [tema]'},
-      {type:'decision',text:'Decisiones tomadas:'},
-      {type:'accion',  text:'[ACCIÓN] Responsable: [nombre] — Fecha: [fecha]'},
-      {type:'nota',    text:'Próxima reunión: [fecha]'},
+      {type:'nota',    text:'──────────────────'},
+      {type:'nota',    text:'AGENDA:'},
+      {type:'nota',    text:'1. [tema]'},
+      {type:'nota',    text:'2. [tema]'},
+      {type:'nota',    text:'3. [tema]'},
     ]
   },
   incidente: {
     title: 'Seguimiento de Incidente', tag: 'incidente',
     items: [
-      {type:'critico', text:'🚨 INCIDENTE DETECTADO — Descripción: [descripción]'},
-      {type:'nota',    text:'Servicios afectados: [lista]'},
-      {type:'nota',    text:'Impacto: [clientes / criticidad]'},
-      {type:'accion',  text:'[ACCIÓN] Notificar al área resolutora'},
-      {type:'nota',    text:'— INVESTIGACIÓN —'},
-      {type:'decision',text:'Causa raíz identificada: [causa]'},
-      {type:'accion',  text:'[ACCIÓN] Aplicar solución: [descripción]'},
-      {type:'nota',    text:'Servicio restablecido: ✅'},
-    ]
-  },
-  postmortem: {
-    title: 'Post-mortem de Incidente', tag: 'postmortem',
-    items: [
-      {type:'nota',    text:'🔍 POST-MORTEM — Incidente: [ID / descripción]'},
-      {type:'nota',    text:'Duración del incidente: [inicio] → [fin]'},
-      {type:'nota',    text:'Impacto real: [clientes afectados / tiempo]'},
-      {type:'decision',text:'Causa raíz confirmada: [descripción]'},
-      {type:'nota',    text:'Línea de tiempo del incidente:'},
-      {type:'riesgo',  text:'Factores contribuyentes: [lista]'},
-      {type:'accion',  text:'[MEJORA] Acción preventiva 1: [descripción]'},
-      {type:'accion',  text:'[MEJORA] Acción preventiva 2: [descripción]'},
-      {type:'nota',    text:'Lecciones aprendidas: [descripción]'},
+      {type:'critico', text:'🚨 INCIDENTE — [descripción breve]'},
+      {type:'nota',    text:'Afectados: [clientes]  |  Severidad: [Alta/Media/Baja]'},
+      {type:'nota',    text:'Causa raíz: [pendiente]'},
+      {type:'accion',  text:'Acción tomada: [descripción]'},
+      {type:'nota',    text:'Estatus actual: [estatus]'},
     ]
   }
 };
@@ -3738,7 +3843,7 @@ function sesCrisisToggle() {
 function sesCrisisStart_() {
   if (!sesActiveSid || !sesData.sessions[sesActiveSid]) {
     // Auto-create an incident session
-    sesCreateFromTemplate('bridge');
+    sesCreateFromTemplate('incidente');
     setTimeout(sesCrisisStart_, 100);
     return;
   }
@@ -3941,7 +4046,7 @@ function sesRenderList() {
     el.innerHTML = '<div class="sb-empty">Sin sesiones. Crea una arriba.</div>';
     return;
   }
-  const tagIcons = {reunion:'📅',incidente:'🚨',capacitacion:'📚',bridge:'🌉',handoff:'🤝',postmortem:'🔍',otro:'📌','':'📋'};
+  const tagIcons = {reunion:'📅',incidente:'🚨',capacitacion:'📚',otro:'📌','':'📋'};
   el.innerHTML = filtered.map(s => {
     const isActive = s.id === sesActiveSid;
     const ec = s.entries.length;
@@ -4360,7 +4465,6 @@ function sesGetAiContext() {
     cliente: 'Genera una COMUNICACIÓN PARA CLIENTE en tono profesional y no técnico. Sin jerga técnica. Enfocado en impacto, resolución y próximos pasos.',
     snow: 'Genera notas para el campo "Work Notes" de ServiceNow. Formato directo, técnico, con timestamps. Máximo 500 palabras.',
     correo: 'Genera el cuerpo de un CORREO ELECTRÓNICO profesional con asunto sugerido, saludo, resumen del incidente/sesión, acciones y cierre.',
-    handoff: 'Genera un HANDOFF DE TURNO estructurado con: estado actual, tickets activos, pendientes críticos, acciones del siguiente turno, notas importantes.'
   };
 
   return { s, timeline, accs, decs, risks, pars, linked, ticketCtx, formatInst: formatInstructions[format] || formatInstructions.ejecutivo };
@@ -5002,18 +5106,40 @@ function otToggleClock(id,e){
 function otCloseAllClocks(){document.querySelectorAll('.clock-popup').forEach(p=>p.classList.remove('open'));otActiveCK=null}
 document.addEventListener('click',e=>{if(otActiveCK&&!e.target.closest('.time-wrap'))otCloseAllClocks()});
 
+function otMarkError(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.style.borderColor='#c62828';el.style.boxShadow='0 0 0 3px rgba(198,40,40,.2)';
+  function clr(){el.style.borderColor='';el.style.boxShadow='';el._otClr=null;}
+  el._otClr=clr;
+  el.addEventListener('input',clr,{once:true});
+  el.addEventListener('change',clr,{once:true});
+}
+function otMarkToggleError(gid){
+  const g=document.getElementById(gid);if(!g)return;
+  g.style.outline='2px solid #c62828';g.style.boxShadow='0 0 0 3px rgba(198,40,40,.2)';g.style.borderRadius='8px';
+  g.querySelectorAll('.toggle-btn').forEach(b=>b.addEventListener('click',function once(){
+    g.style.outline='';g.style.boxShadow='';g.style.borderRadius='';
+  },{once:true}));
+}
 function otSaveRecord(){
   const fecha=document.getElementById('f-fecha').value;
   const contacto=otGetContacto();
-  const cliente=document.getElementById('f-cliente').value.trim();
   const motivo=document.getElementById('f-motivo').value.trim();
   const actividad=document.getElementById('f-actividad').value.trim();
   const inicio=document.getElementById('f-inicio').value;
   const fin=document.getElementById('f-fin').value;
   const estado=otGetTV('tg-estado');
-  if(!fecha||!contacto||!cliente||!motivo||!actividad||!inicio||!fin||!estado){
-    alert('Completa los campos obligatorios: fecha, contacto, cliente, motivo, actividad, hora inicio/fin y estado.');return;
-  }
+  let hasError=false;
+  if(!fecha){otMarkError('f-fecha');hasError=true;}
+  if(!contacto){otMarkError('f-contacto-sel');hasError=true;}
+  if(!otGetTV('tg-canal')){otMarkToggleError('tg-canal');hasError=true;}
+  if(!otGetTV('tg-cat')){otMarkToggleError('tg-cat');hasError=true;}
+  if(!motivo){otMarkError('f-motivo');hasError=true;}
+  if(!actividad){otMarkError('f-actividad');hasError=true;}
+  if(!inicio){otMarkError('f-inicio');hasError=true;}
+  if(!fin){otMarkError('f-fin');hasError=true;}
+  if(!estado){otMarkToggleError('tg-estado');hasError=true;}
+  if(hasError)return;
   const fechaInicio=document.getElementById('f-fecha-inicio').value||fecha;
   const fechaFin=document.getElementById('f-fecha-fin').value||fechaInicio;
   const dtI=new Date(fechaInicio+'T'+inicio+':00');
@@ -5031,23 +5157,22 @@ function otSaveRecord(){
     canal:otGetTV('tg-canal'),
     horaContacto:document.getElementById('f-hora-contacto').value,
     contacto,cargo:otGetCargo(),
-    cliente,ticket:document.getElementById('f-ticket').value.trim(),
+    ticket:document.getElementById('f-ticket').value.trim(),
     categoria:otGetTV('tg-cat'),severidad:otGetTV('tg-sev'),
     motivo,actividad,
-    causaRaiz:document.getElementById('f-causa').value.trim(),
     evitable:otGetTV('tg-evitable'),documentacion:otGetTV('tg-doc'),
     estado,
-    notas:document.getElementById('f-notas').value.trim(),
     inicio,fin,fechaInicio,fechaFin,durMin:d,
     horario:document.getElementById('f-hl-i').value+'-'+document.getElementById('f-hl-f').value,
     isOT
   };
   const recs=otLoad();recs.unshift(r);otSave(recs);
-  otUpdateCliList();otClearForm();otToast('Registro guardado ✓');
+  otClearForm();otToast('Registro guardado ✓');
+  const rb=document.getElementById('otnav-registros');if(rb)otNav('registros',rb);
 }
 
 function otClearForm(){
-  ['f-hora-contacto','f-inicio','f-fin','f-ticket','f-motivo','f-actividad','f-causa','f-notas','f-manual','f-cliente']
+  ['f-hora-contacto','f-inicio','f-fin','f-ticket','f-motivo','f-actividad','f-manual']
     .forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
   const _n=new Date();
   const _today=_n.toISOString().split('T')[0];
@@ -5091,12 +5216,10 @@ function otPopulateCli(){
 function otFilterRecs(){
   let r=otLoad();
   const q=document.getElementById('flt-q').value.toLowerCase();
-  const c=document.getElementById('flt-cli').value;
   const cat=document.getElementById('flt-cat').value;
   const per=document.getElementById('flt-per').value;
   const ot=document.getElementById('flt-ot').checked;
   if(q)r=r.filter(x=>[x.contacto,x.cliente,x.ticket,x.motivo,x.categoria].some(v=>v&&v.toLowerCase().includes(q)));
-  if(c)r=r.filter(x=>x.cliente===c);
   if(cat)r=r.filter(x=>x.categoria===cat);
   if(ot)r=r.filter(x=>x.isOT);
   if(per)r=r.filter(x=>otInPeriod(x.fecha,per));
@@ -5106,12 +5229,11 @@ function otFilterRecs(){
 function otRenderTable(){
   const r=otFilterRecs();
   const tb=document.getElementById('rec-body');
-  if(!r.length){tb.innerHTML='<tr><td colspan="11"><div class="empty"><div class="empty-icon">📭</div><p>Sin registros.</p></div></td></tr>';return}
+  if(!r.length){tb.innerHTML='<tr><td colspan="10"><div class="empty"><div class="empty-icon">📭</div><p>Sin registros.</p></div></td></tr>';return}
   tb.innerHTML=r.map(x=>`<tr>
     <td class="mono">${x.fecha}</td>
     <td class="mono">${x.inicio||''}–${x.fin||''}${x.fechaFin&&x.fechaFin!==x.fechaInicio?'<br><span style="font-size:9px;color:var(--red)">+1 día ('+x.fechaFin+')</span>':''}</td>
     <td><strong>${x.contacto}</strong>${x.cargo?`<br><span style="color:var(--muted);font-size:10px">${x.cargo}</span>`:''}</td>
-    <td>${x.cliente}</td>
     <td class="mono" style="color:var(--blue)">${x.ticket||'—'}</td>
     <td><span class="badge badge-gray">${x.categoria||'—'}</span></td>
     <td>${x.severidad?`<span class="badge ${SEV_C[x.severidad]||'badge-gray'}">${x.severidad.replace(/[🔴🟠🟡🟢]/g,'').trim()}</span>`:'—'}</td>
@@ -5130,16 +5252,16 @@ function otViewRec(id){
   const x=otLoad().find(r=>r.id===id);if(!x)return;
   const rows=[
     ['Fecha',x.fecha],['Canal',x.canal],['Hora Escalamiento',x.horaContacto],
-    ['Contacto',x.contacto],['Cargo',x.cargo],['Cliente',x.cliente],['Ticket',x.ticket],
+    ['Contacto',x.contacto],['Cargo',x.cargo],['Ticket',x.ticket],
     ['Categoría',x.categoria],['Severidad',x.severidad],
     ['¿Evitable?',x.evitable],['Documentación',x.documentacion],
-    ['Motivo',x.motivo],['Actividad',x.actividad],['Causa Raíz',x.causaRaiz],
+    ['Motivo',x.motivo],['Actividad',x.actividad],
     ['Estado',x.estado],
     ['Fecha Inicio',x.fechaInicio||x.fecha],['Hora Inicio',x.inicio],
     ['Fecha Fin',x.fechaFin||x.fecha],['Hora Fin',x.fin],
     ['Duración',otFmtD(x.durMin)],['Horario Laboral',x.horario],
     ['Fuera de Horario',x.isOT?'⚡ SÍ':'✓ No'],
-    ['Notas',x.notas]
+
   ].filter(([,v])=>v);
   document.getElementById('mod-content').innerHTML=`
     <div class="card-title" style="margin-bottom:16px">Detalle del Registro</div>
@@ -5161,12 +5283,9 @@ function otEditRec(id){
   f.querySelector('#e-hora-contacto').value=x.horaContacto||'';
   f.querySelector('#e-contacto').value=x.contacto||'';
   f.querySelector('#e-cargo').value=x.cargo||'';
-  f.querySelector('#e-cliente').value=x.cliente||'';
   f.querySelector('#e-ticket').value=x.ticket||'';
   f.querySelector('#e-motivo').value=x.motivo||'';
   f.querySelector('#e-actividad').value=x.actividad||'';
-  f.querySelector('#e-causa').value=x.causaRaiz||'';
-  f.querySelector('#e-notas').value=x.notas||'';
   f.querySelector('#e-fecha-inicio').value=x.fechaInicio||x.fecha||'';
   f.querySelector('#e-inicio').value=x.inicio||'';
   f.querySelector('#e-fecha-fin').value=x.fechaFin||x.fecha||'';
@@ -5253,7 +5372,6 @@ function otSaveEdit(){
     horaContacto:document.getElementById('e-hora-contacto').value,
     contacto:document.getElementById('e-contacto').value.trim()||x.contacto,
     cargo:document.getElementById('e-cargo').value.trim(),
-    cliente:document.getElementById('e-cliente').value.trim()||x.cliente,
     ticket:document.getElementById('e-ticket').value.trim(),
     canal:otGetEditToggle('etg-canal')||x.canal,
     categoria:otGetEditToggle('etg-cat')||x.categoria,
@@ -5312,9 +5430,9 @@ function otRenderDash(){
   barChart('ch-est',cnt(r,'estado'));
   const pend=r.filter(x=>x.estado&&x.estado!=='✅ Resuelto');
   document.getElementById('dash-pend').innerHTML=pend.length?`<div class="table-wrap"><table>
-    <thead><tr><th>Fecha</th><th>Cliente</th><th>Contacto</th><th>Ticket</th><th>Cat.</th><th>Estado</th></tr></thead>
+    <thead><tr><th>Fecha</th><th>Contacto</th><th>Ticket</th><th>Cat.</th><th>Estado</th></tr></thead>
     <tbody>${pend.map(x=>`<tr>
-      <td class="mono">${x.fecha}</td><td>${x.cliente}</td><td>${x.contacto}</td>
+      <td class="mono">${x.fecha}</td><td>${x.contacto}</td>
       <td class="mono" style="color:var(--blue)">${x.ticket||'—'}</td>
       <td><span class="badge badge-gray">${x.categoria||'—'}</span></td>
       <td>${x.estado?`<span class="badge ${EST_C[x.estado]||'badge-gray'}">${x.estado.replace(/[✅🔄⬆⏳]/g,'').trim()}</span>`:'—'}</td>
@@ -5327,11 +5445,11 @@ function otGetExpR(){const p=document.getElementById('exp-per').value;let r=otLo
 
 function otExpCSV(){
   const r=otGetExpR();
-  const H=['Fecha','Canal','Hora Contacto','Contacto','Cargo','Cliente','Ticket','Categoría','Severidad','Motivo','Actividad','Causa Raíz','Evitable','Documentación','Estado','Fecha Inicio','Hora Inicio','Fecha Fin','Hora Fin','Duración (min)','Fuera Horario','Notas'];
-  const rows=r.map(x=>[x.fecha,x.canal,x.horaContacto,x.contacto,x.cargo,x.cliente,x.ticket,x.categoria,x.severidad,
+  const H=['Fecha','Canal','Hora Contacto','Contacto','Cargo','Ticket','Categoría','Severidad','Motivo','Actividad','Evitable','Documentación','Estado','Fecha Inicio','Hora Inicio','Fecha Fin','Hora Fin','Duración (min)','Fuera Horario'];
+  const rows=r.map(x=>[x.fecha,x.canal,x.horaContacto,x.contacto,x.cargo,x.ticket,x.categoria,x.severidad,
     `"${(x.motivo||'').replace(/"/g,'""')}"`,`"${(x.actividad||'').replace(/"/g,'""')}"`,
-    x.causaRaiz,x.evitable,x.documentacion,x.estado,
-    x.fecha,x.inicio,(x.fechaFin||x.fecha),x.fin,x.durMin,x.isOT?'Sí':'No',`"${(x.notas||'').replace(/"/g,'""')}"`].join(','));
+    x.evitable,x.documentacion,x.estado,
+    x.fechaInicio,x.inicio,(x.fechaFin||x.fechaInicio),x.fin,x.durMin,x.isOT?'Sí':'No'].join(','));
   otDl('ot_registros.csv','\uFEFF'+[H.join(','),...rows].join('\n'),'text/csv');
   otCloseModal('mod-exp');
 }
@@ -5353,9 +5471,9 @@ tr:nth-child(even){background:#fafafa}.ot{background:#fff0ee;font-weight:700}</s
   <div class="stat"><div class="v">${otFmtD(tot)}</div><div class="l">Total</div></div>
   <div class="stat"><div class="v">${otFmtD(r.filter(x=>x.isOT).reduce((s,x)=>s+x.durMin,0))}</div><div class="l">OT</div></div>
 </div>
-<table><thead><tr><th>Fecha</th><th>Contacto</th><th>Cliente</th><th>Ticket</th><th>Categoría</th><th>Motivo</th><th>Inicio</th><th>Fin</th><th>Duración</th><th>OT</th><th>Estado</th></tr></thead>
+<table><thead><tr><th>Fecha</th><th>Contacto</th><th>Ticket</th><th>Categoría</th><th>Motivo</th><th>Inicio</th><th>Fin</th><th>Duración</th><th>OT</th><th>Estado</th></tr></thead>
 <tbody>${r.map(x=>`<tr class="${x.isOT?'ot':''}"><td>${x.fecha}</td><td>${x.contacto}${x.cargo?` (${x.cargo})`:''}</td>
-<td>${x.cliente}</td><td>${x.ticket||'—'}</td><td>${x.categoria||'—'}</td><td>${x.motivo}</td>
+<td>${x.ticket||'—'}</td><td>${x.categoria||'—'}</td><td>${x.motivo}</td>
 <td>${x.inicio}</td><td>${x.fin}</td><td>${otFmtD(x.durMin)}</td>
 <td>${x.isOT?'⚡ OT':''}</td><td>${(x.estado||'—').replace(/[✅🔄⬆⏳]/g,'').trim()}</td></tr>`).join('')}
 </tbody></table></body></html>`;
@@ -5382,9 +5500,9 @@ td{padding:3px 5px;border-bottom:1px solid #ddd}tr:nth-child(even){background:#f
   <div class="stat"><div class="v">${otFmtD(tot)}</div><div class="l">Total</div></div>
   <div class="stat"><div class="v">${otFmtD(r.filter(x=>x.isOT).reduce((s,x)=>s+x.durMin,0))}</div><div class="l">OT</div></div>
 </div>
-<table><thead><tr><th>Fecha</th><th>Contacto</th><th>Cargo</th><th>Cliente</th><th>Ticket</th><th>Cat.</th><th>Sev.</th><th>Motivo</th><th>Inicio</th><th>Fin</th><th>Dur.</th><th>OT</th><th>Estado</th><th>Evitable</th></tr></thead>
+<table><thead><tr><th>Fecha</th><th>Contacto</th><th>Cargo</th><th>Ticket</th><th>Cat.</th><th>Sev.</th><th>Motivo</th><th>Inicio</th><th>Fin</th><th>Dur.</th><th>OT</th><th>Estado</th><th>Evitable</th></tr></thead>
 <tbody>${r.map(x=>`<tr class="${x.isOT?'ot':''}"><td>${x.fecha}</td><td>${x.contacto}</td><td>${x.cargo||'—'}</td>
-<td>${x.cliente}</td><td>${x.ticket||'—'}</td><td>${x.categoria||'—'}</td>
+<td>${x.ticket||'—'}</td><td>${x.categoria||'—'}</td>
 <td>${(x.severidad||'—').replace(/[🔴🟠🟡🟢]/g,'').trim()}</td>
 <td style="max-width:90px">${x.motivo}</td><td>${x.inicio}</td><td>${x.fin}</td>
 <td>${otFmtD(x.durMin)}</td><td>${x.isOT?'OT':''}</td>
@@ -5404,10 +5522,7 @@ function otToast(msg){
   t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);
 }
 
-function otUpdateCliList(){
-  const c=[...new Set(otLoad().map(r=>r.cliente))].sort();
-  document.getElementById('cli-list').innerHTML=c.map(x=>`<option value="${x}">`).join('');
-}
+function otUpdateCliList(){}
 
 document.querySelectorAll('.modal-overlay').forEach(m=>
   m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
@@ -5441,6 +5556,119 @@ function otInit(){
   document.querySelectorAll('#panel-tab-ot .modal-overlay').forEach(m =>
     m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); })
   );
+}
+
+
+/* ══ OT CRONÓMETRO ══ */
+let otCronoInterval=null,otCronoStartTime=null,otCronoData={};
+
+function otCronoOpen(){
+  document.querySelectorAll('#crono-tg-canal .toggle-btn,#crono-tg-cat .toggle-btn').forEach(b=>
+    b.classList.remove('selected','sel-blue','sel-green','sel-yellow','sel-red','sel-purple'));
+  document.getElementById('crono-contacto-sel').value='';
+  document.getElementById('crono-manual-wrap').style.display='none';
+  document.getElementById('crono-manual').value='';
+  document.getElementById('mod-crono-start').classList.add('open');
+}
+function otCronoContactChange(){
+  const v=document.getElementById('crono-contacto-sel').value;
+  document.getElementById('crono-manual-wrap').style.display=v==='__manual__'?'block':'none';
+}
+function otCronoConfirmStart(){
+  const canal=otGetTV('crono-tg-canal');
+  const categ=otGetTV('crono-tg-cat');
+  const selVal=document.getElementById('crono-contacto-sel').value;
+  let contacto='',cargo='';
+  if(selVal==='__manual__'){
+    const p=document.getElementById('crono-manual').value.trim().split('—');
+    contacto=p[0].trim();cargo=p[1]?p[1].trim():'';
+  }else if(selVal){const p=selVal.split('|');contacto=p[0];cargo=p[1]||'';}
+  let err=false;
+  if(!canal){const g=document.getElementById('crono-tg-canal');g.style.outline='2px solid #c62828';setTimeout(()=>g.style.outline='',2000);err=true;}
+  if(!contacto){const s=document.getElementById('crono-contacto-sel');s.style.borderColor='#c62828';setTimeout(()=>s.style.borderColor='',2000);err=true;}
+  if(!categ){const g=document.getElementById('crono-tg-cat');g.style.outline='2px solid #c62828';setTimeout(()=>g.style.outline='',2000);err=true;}
+  if(err)return;
+  otCronoData={canal,contacto,cargo,categoria:categ};
+  otCronoStartTime=new Date();
+  otCloseModal('mod-crono-start');
+  document.getElementById('ot-crono-start-btn').style.display='none';
+  document.getElementById('ot-crono-badge').style.display='flex';
+  otCronoInterval=setInterval(()=>{
+    const e=Math.floor((Date.now()-otCronoStartTime)/1000);
+    document.getElementById('ot-crono-display').textContent=
+      String(Math.floor(e/3600)).padStart(2,'0')+':'+
+      String(Math.floor((e%3600)/60)).padStart(2,'0')+':'+
+      String(e%60).padStart(2,'0');
+  },1000);
+}
+function otCronoStop(){
+  if(!otCronoInterval)return;
+  clearInterval(otCronoInterval);otCronoInterval=null;
+  const end=new Date(),start=otCronoStartTime;
+  const fmt=d=>String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  const dur=Math.round((end-start)/60000);
+  document.getElementById('crono-stop-summary').textContent=
+    'Inicio: '+fmt(start)+'  →  Fin: '+fmt(end)+'  ·  Duración: '+Math.floor(dur/60)+'h '+String(dur%60).padStart(2,'0')+'m  ·  '+otCronoData.contacto+' ('+otCronoData.categoria+')';
+  document.getElementById('crono-ticket').value='';
+  document.getElementById('crono-motivo').value='';
+  document.getElementById('crono-actividad').value='';
+  ['crono-tg-sev','crono-tg-evitable','crono-tg-doc','crono-tg-estado'].forEach(g=>
+    document.querySelectorAll('#'+g+' .toggle-btn').forEach(b=>
+      b.classList.remove('selected','sel-blue','sel-green','sel-yellow','sel-red','sel-purple')));
+  document.getElementById('mod-crono-stop').classList.add('open');
+}
+function otCronoCancelStop(){
+  if(!otCronoInterval&&otCronoStartTime){
+    otCronoInterval=setInterval(()=>{
+      const e=Math.floor((Date.now()-otCronoStartTime)/1000);
+      document.getElementById('ot-crono-display').textContent=
+        String(Math.floor(e/3600)).padStart(2,'0')+':'+
+        String(Math.floor((e%3600)/60)).padStart(2,'0')+':'+
+        String(e%60).padStart(2,'0');
+    },1000);
+  }
+  otCloseModal('mod-crono-stop');
+}
+function otCronoSave(){
+  const motivo=document.getElementById('crono-motivo').value.trim();
+  const actividad=document.getElementById('crono-actividad').value.trim();
+  const estado=otGetTV('crono-tg-estado');
+  let err=false;
+  if(!motivo){document.getElementById('crono-motivo').style.borderColor='#c62828';setTimeout(()=>document.getElementById('crono-motivo').style.borderColor='',2000);err=true;}
+  if(!actividad){document.getElementById('crono-actividad').style.borderColor='#c62828';setTimeout(()=>document.getElementById('crono-actividad').style.borderColor='',2000);err=true;}
+  if(!estado){const g=document.getElementById('crono-tg-estado');g.style.outline='2px solid #c62828';setTimeout(()=>g.style.outline='',2000);err=true;}
+  if(err)return;
+  const end=new Date(),start=otCronoStartTime;
+  const today=start.toISOString().split('T')[0];
+  const endDay=end.toISOString().split('T')[0];
+  const fmt=d=>String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  const dur=Math.round((end-start)/60000);
+  const hlI=otParseT(document.getElementById('f-hl-i')?document.getElementById('f-hl-i').value:'08:00')||480;
+  const hlF=otParseT(document.getElementById('f-hl-f')?document.getElementById('f-hl-f').value:'17:00')||1020;
+  const tIm=start.getHours()*60+start.getMinutes();
+  const tFm=end.getHours()*60+end.getMinutes();
+  const crossDay=today!==endDay;
+  const isOT=crossDay||(tIm<hlI||tFm>hlF);
+  const r={
+    id:Date.now(),fecha:today,
+    canal:otCronoData.canal,horaContacto:fmt(start),
+    contacto:otCronoData.contacto,cargo:otCronoData.cargo,
+    ticket:document.getElementById('crono-ticket').value.trim(),
+    categoria:otCronoData.categoria,severidad:otGetTV('crono-tg-sev'),
+    motivo,actividad,
+    evitable:otGetTV('crono-tg-evitable'),documentacion:otGetTV('crono-tg-doc'),
+    estado,inicio:fmt(start),fin:fmt(end),
+    fechaInicio:today,fechaFin:endDay,durMin:dur,
+    horario:'08:00-17:00',isOT
+  };
+  const recs=otLoad();recs.unshift(r);otSave(recs);
+  otCronoStartTime=null;
+  document.getElementById('ot-crono-badge').style.display='none';
+  document.getElementById('ot-crono-start-btn').style.display='flex';
+  document.getElementById('ot-crono-display').textContent='00:00:00';
+  otCloseModal('mod-crono-stop');
+  otToast('Registro OT guardado ✓');
+  const rb=document.getElementById('otnav-registros');if(rb)otNav('registros',rb);
 }
 
 </script>
